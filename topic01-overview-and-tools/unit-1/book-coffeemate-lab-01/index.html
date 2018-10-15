@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/css/uikit.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"/>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <style>
+    
+
+body {
+  font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
+  font-size:90%;
+  color: black;
+}
+
+p {
+  margin: 0.5em;
+}
+
+pre code {
+  font-family: "Monaco";
+  font-size: 100%;
+}
+
+img {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin:10px;
+}
+
+h1, h2, h3 {
+  border-bottom:thin solid black;
+  margin-bottom: 0.5em;
+  margin-top: 1em;
+}
+
+h1 {
+  font-style:italic;
+  font-size:130%;
+}
+
+h2 {
+  font-size:110%;
+}
+
+h3 {
+  font-size:100%;
+}
+
+
+
+  </style>
+
+  <body class="lab">
+
+    
+  <div class="uk-offcanvas-content">
+    <div id="offcanvas-usage" uk-offcanvas>
+      <div class="uk-offcanvas-bar">
+        <button class="uk-offcanvas-close" type="button" uk-close></button>
+        <ul class="uk-nav">
+          
+            
+              <li>
+                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-01/index.html">
+  <i class="fas fa-flask " style="color:#00BCD4"> </i>
+Lab-01
+                </a>
+              </li>
+            
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+    <div uk-sticky>
+      <nav class="uk-navbar">
+        <div class="uk-navbar-left">
+          <ul class="uk-subnav uk-background-secondary uk-subnav-pill">
+            <li><a href="#offcanvas-usage" uk-icon="icon: menu" , uk-toggle title="Switch Lab" pos="bottom"
+                   uk-tooltip></a></li>
+             }}
+              <li class="uk-active"><a href="../../index.html" uk-icon="icon: chevron-up" uk-toggle title="Parent Topic"
+                                       pos="bottom" uk-tooltip>Overview & Tools </a></li>
+            
+          </ul>
+        </div>
+        <div class="uk-navbar-right">
+          <ul class="uk-subnav uk-background-secondary uk-subnav-pill"
+              uk-switcher="connect: .switcher-container">
+            
+              <li><a href="#">Lab-01</a></li>
+            
+              <li><a href="#">New Project</a></li>
+            
+              <li><a href="#">01</a></li>
+            
+              <li><a href="#">02</a></li>
+            
+              <li><a href="#">03</a></li>
+            
+              <li><a href="#">04</a></li>
+            
+              <li><a href="#">05</a></li>
+            
+              <li><a href="#">Exercises</a></li>
+            
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="uk-container uk-container-expand">
+      <ul class="uk-switcher switcher-container">
+        
+          <li> <h1>Objectives</h1>
+<p>This lab introduces our Case Study <b>CoffeeMate</b> with a look at some of the basic features we can implement in an Android App.</p>
+<p>In this Lab, you will be required to develop the first version of our Case Study, <b>CoffeeMate.1.0</b>. We&#39;ll build on this project over the coming weeks &amp; months. On completion of this lab you&#39;ll be able to</p>
+<ul>
+<li><p>add multiple activities &amp; associated layouts to an Android project</p>
+</li>
+<li><p>switch between &#39;screens&#39;</p>
+</li>
+<li><p>display a simple dialog window</p>
+</li>
+<li><p>display and add functionality to a custom menu</p>
+</li>
+</ul>
+</li>
+        
+          <li> <h1>Your Android Project - &quot;CoffeeMate.1.0&quot;</h1>
+<p>In Android Studio, select File-&gt;New-&gt;New Project, or if it&#39;s a first run, select &quot;Start a new Android Studio Project&quot;</p>
+<p><img src="img/firstrun.png" alt="Figure 1: Start a new Android Studio project"></p>
+<p>Press &quot;Next&quot; (or click the option) and then give the project a name: &#39;CoffeeMate.1.0&#39;</p>
+<p>It&#39;s recommended you change the default package name also and it&#39;s probably worth changing the Project Location too but you can take the default if you wish.</p>
+<p><img src="img/new01.png" alt="Figure 2: Change default project name to CoffeeMate.1.0, provide a company domain and project location"></p>
+<p>Select the Platform(s) you want your app to run on - we&#39;ll just stick with Phone &amp; Tablet and choose an appropriate SDK.</p>
+<p><img src="img/new02.png" alt="Figure 3: Set the form factors"></p>
+<p>You should choose an Empty Activity as your activity type on the next screen</p>
+<p><img src="img/new03.png" alt="Figure 4: Select Empty Acivity template"></p>
+<p>and name it as in the screenshot below</p>
+<p><img src="img/new04.png" alt="Figure 5: Change default settings to &#39;Home&#39;&#39; in Customize the Activity screen"></p>
+<p>After you press &quot;Finish&quot;, you should now have something similar to the following:</p>
+<p><img src="img/new05.png" alt="Figure 6: Project open in Layout View"></p>
+<p><img src="img/new06.png" alt="Figure 6a: Project open in Design View"></p>
+<p>Next, as an exercise, select File-&gt;Close Project, to close the project so we can import it again.</p>
+<p>If no other Projects are open you will be displayed with</p>
+<p><img src="img/new07.png" alt="Figure 7: Open Existing Project"></p>
+<p>So, you can either</p>
+<ol>
+<li>Select the project from the <strong>Recent Projects</strong> List (on the left) or, if the project you want isn&#39;t in the List</li>
+<li>Import the project, so, select &quot;Open an Existing Android Project&quot; and navigate to the Project folder where you android app is stored (like <b>&#39;CoffeeMate.1.0&#39;</b> below)</li>
+</ol>
+<p><img src="img/new08.png" alt="Figure 8: Select Project Folder to reopen"></p>
+<p>Once the project is open again, familiarise yourself with the project layout - the initial xml layout or &quot;screen&quot; is first displayed, this is one of the many resources you will be using and creating throughout this module. We will experiment later with modifying this layout, but first you should run the application.</p>
+<p>Select the Project (CoffeeMate.1.0) and then select the &#39;Play&#39; button.</p>
+<p>If you haven&#39;t done so already, you will be asked to select/create an AVD (Android Virtual Device), as follows:</p>
+<p><img src="img/avd01.png" alt="Figure 10: Select Hardware (Nexus 4 here)"></p>
+<p>and</p>
+<p><img src="img/avd02.png" alt="Figure 11: Select System Image"></p>
+<p>and</p>
+<p><img src="img/avd03.png" alt="Figure 12: Verify AVD Configuration"></p>
+<p>and</p>
+<p><img src="img/avd04.png" alt="Figure 13: List of AVDs currently available"></p>
+<p><b>The Virtual Device is very heavy on resources so you may need to choose settings below what is selected in the Screenshots.</b></p>
+<p>Otherwise, use the settings as above and your first Android App should launch, (Once you&#39;ve unlocked the device!):</p>
+</li>
+        
+          <li> <h1>Setup &amp; Starter Resources</h1>
+<p>To make things a bit easier, you can download some starter resources for this lab here - <a href="archives/drawable.zip">Resources</a>. It contains all of drawable (image) resources you&#39;ll need to complete this lab. So replace your existing drawable folder with this one once you&#39;ve extracted the archive somewhere on your hard disk.</p>
+<p>Once you have the drawable folder &#39;updated&#39;</p>
+<p>The initial App will look like this</p>
+<p><img src="img/starterapp1.png" alt=""></p>
+<p>and we already have the &#39;FloatingActionButton&#39; operational, like so</p>
+<p><img src="img/starterapp2.png" alt=""></p>
+<p>In this lab, you are required to do the following:</p>
+<ul>
+<li><p>&quot;Wire up&quot; the Coffee Check-In Button to our &#39;Add&#39; activity to display the Add screen.</p>
+</li>
+<li><p>Implement the &#39;Standard Menu&#39; so when a user selects the menu option on the device, they are presented with a list of options in a menu format.</p>
+</li>
+<li><p>Implement the &#39;Help&#39; activity, so that when a user selects &#39;Help&#39; from the &#39;Standard Menu&#39;, the Help Screen is displayed</p>
+</li>
+<li><p>Complete the &#39;Add&#39; activity to allow a user to &#39;add&#39; a new coffee to the current list of coffees.</p>
+</li>
+</ul>
+<p>The following steps will guide you through these requirements, so we&#39;ll start with the most straightforward requirement, getting our Coffee Check-In Button working.</p>
+</li>
+        
+          <li> <h1>Adding a Coffee - Switching to our &#39;Coffee Check In&#39; Screen</h1>
+<p>First of all, have a quick look at the resource layout (content_home.xml) we will be referring to, and familiarise yourself with the properties of the different buttons, especially the <b>onClick</b>, as you will have to refer to these in the following steps.</p>
+<p><img src="img/lab2s201.png" alt=""></p>
+<p>We <b>won&#39;t</b> need to implement specific Event Listeners for this step, instead we will use the simpler &#39;direct binding&#39; approach where we associate a method to be triggered when our button is pressed.</p>
+<p>So, navigate to the <b>onClick</b> property of the &#39;Coffee Check In&#39; button (as above) and enter <b>add</b> for the method name.</p>
+<p>Next, open your <b>Home.java</b> activity and add the following method</p>
+<pre><code class="lang-java">    public void add(View v)
+    {
+    goToActivity(this,add.class,null);
+    }</code></pre>
+<p>You should run your app at this stage just to see if it behaves like it should.</p>
+<p>You will, more than likely, get an error along the lines of</p>
+<pre><code>android.content.ActivityNotFoundException: Unable to find explicit activity class {ie.cm.models/ie.cm.activities.Add};</code></pre>
+<p>Can you work out why, and more importantly, how to fix it? (Hint : it involves the AndroidManifest.xml file and you can find the answer in the section on Intents already covered in the lectures).</p>
+<p>But before we modify the AndroidManifest File, there&#39;s a few other additions to the project we need to make, i.e.</p>
+<ul>
+<li>we need to add a new <i>style</i> so we can display our Add screen properly (as it&#39;s layout <b>is not</b> part of a template, like so</li>
+</ul>
+<pre><code class="lang-XML"> &lt;style name=&quot;AppTheme.ActionBar&quot;&gt;
+        &lt;item name=&quot;windowActionBar&quot;&gt;true&lt;/item&gt;
+        &lt;item name=&quot;windowNoTitle&quot;&gt;false&lt;/item&gt;
+    &lt;/style&gt;</code></pre>
+<p>and</p>
+<ul>
+<li>we need to modify our <i>RatingBar</i> so we get to see nice blue stars (and not grey ones!) so set the following property</li>
+</ul>
+<pre><code class="lang-XML">    android:progressTint=&quot;@color/bannerBGColor&quot;</code></pre>
+<ul>
+<li>Finally, add the following to your manifest file</li>
+</ul>
+<pre><code class="lang-xml"> &lt;activity
+    android:name=&quot;.activities.Add&quot;
+    android:label=&quot;@string/addACoffeeLbl&quot;
+    android:theme=&quot;@style/AppTheme.ActionBar&quot; &gt;
+&lt;/activity&gt;</code></pre>
+<p>and run the app again to confirm everything is ok so far.</p>
+<p><img src="img/starterapp1.png" alt=""></p>
+<p>and when you click &#39;Coffee Check In&#39; you should get</p>
+<p><img src="img/starterappadd.png" alt=""></p>
+<p>Next we&#39;ll start with implementing the menu.</p>
+</li>
+        
+          <li> <h1>Our Custom Menu</h1>
+<p>On completion of this step we&#39;ll have something like this:</p>
+<p><img src="img/starterappmenu.png" alt=""></p>
+<p>which we sort of already have, but we&#39;ll add functionality. So once again, have a quick look at the resource (below) we will use to create our menu, and familiarise yourself with the &quot;id&#39;s&quot; of the different options, you will have to refer to these later on in your code.</p>
+<p><img src="img/lab2s301.png" alt=""></p>
+<p>and the xml...</p>
+<p><img src="img/lab2s302.png" alt=""></p>
+<p>Maybe you noticed (or maybe you didn&#39;t!) that our &#39;Add&#39; screen has no menu - this is because we never &#39;inflated&#39; the menu in our activity.</p>
+<p>So, open up the <b>Base.java</b> Activity class, and add in or &quot;override&quot; the methods we need to implement our menu (as we want the same menu for all our screens) i.e. <b><i>onCreateOptionsMenu()</i></b>. We are overriding the method here so that the menu will be available to all classes that extend from our base class. You could also just move the method from <b>Home.java</b> to <b>Base.java</b> too.</p>
+<p>Run your app again just to confirm you can now see the menu on all screens.</p>
+<p>Now, to keep things as simple as possible, we&#39;re going to take the same approach with our Menu as we did with our &#39;Coffee Check In Button&#39; - we&#39;ll use the <b>onClick</b> property to bind a menu item to a particular method in our activity.</p>
+<p>So open up your <b>main_menu.xml</b> and add the following to each of the menu items (as in the screenshot below)</p>
+<p><img src="img/lab2s303.png" alt=""></p>
+<p>Then, open up your <b>Base.java</b> and add the following methods</p>
+<pre><code class="lang-java"> public void menuInfo(MenuItem m)
+    {
+        openInfoDialog(this);
+    }
+
+    public void menuHelp(MenuItem m)
+    {
+      //  goToActivity(this, Help.class, null);
+    }
+
+    public void menuHome(MenuItem m)
+    {
+        goToActivity(this, Home.class, null);
+    }</code></pre>
+<p>You&#39;ll notice we haven&#39;t implemented the <b>menuHelp</b> method - as we don&#39;t have our <b>Help</b> activity yet but you can still run your app and confirm that the other two methods function as expected.</p>
+<p>Once you have these two methods implemented, that&#39;s basically it, but as we really only have two activities at the moment (our &#39;Home&#39; &amp; Add Activities) the menu won&#39;t do much, but we&#39;ll add to this once we have our Help Screen completed - run your app again to test your menu and see if it displays the way it&#39;s supposed to. (something like below for the &#39;info&#39; option)</p>
+<p><img src="img/starterappinfo.png" alt=""></p>
+<p>Next we&#39;ll add in our new Help screen.</p>
+</li>
+        
+          <li> <h1>The Help Screen</h1>
+<p>To implement the Help feature of our App we need to :</p>
+<ul>
+<li>create a new Activity (<b>Help.java</b>) and associate it with our help layout.</li>
+<li>associate this activity with our menu.</li>
+</ul>
+<p>Using Android Studio, go to File-&gt;New-&gt;Activity and create a new <b>Empty Activity</b> in the <b><i>ie.cm.activities</i></b> package and <b>Deselect &#39;Generate layout file&#39;</b> (like below) as we already have one in our resources.</p>
+<p><img src="img/lab2s401.png" alt=""></p>
+<p>Make sure to DESELECT the option to create a menu for this screen - we will be using our own menu for all screens, so if one gets created for you, delete this menu resource and remove the associated method in the Activity class.</p>
+<p>Extend your <b>Help.java</b> Activity from &quot;Base&quot; as the parent class and set the correct layout, so your <b><i>onCreate()</i></b> method should look something like this</p>
+<pre><code>public void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.help);
+}</code></pre>
+<p>Your Help Screen layout is already completed but you can design it whatever way you want really, so take some time to customise this layout to your own liking.</p>
+<p>Once you&#39;re happy with your own Help Screen, you can now &#39;uncomment&#39; your <b>menuHelp</b> method in your Base class, so go ahead and do that and test again to confirm and you should have something like this</p>
+<p><img src="img/starterapphelp.png" alt=""></p>
+<p>Now we can move on to actually adding a Coffee to our App.</p>
+</li>
+        
+          <li> <h1>Adding a Coffee - Saving our data in &#39;Coffee Check In&#39;</h1>
+<p>Our Add screen looks as follows:</p>
+<p><img src="img/starterappadd1.png" alt=""></p>
+<p>So, first of all, we need to bind to each of the widgets to &#39;get at&#39; the new coffee details (possibly like this) - where would be the best place for this code?</p>
+<pre><code> name = (EditText) findViewById(R.id.nameEditText);
+ shop = (EditText) findViewById(R.id.shopEditText);</code></pre>
+<p>Specifically, the <b><i>add()</i></b> method needs to</p>
+<ul>
+<li><p>Grab all the values that the user has entered for the Coffee details, validate them &amp; create a Coffee object</p>
+</li>
+<li><p>Add the Coffee object to our list (coffeeList)</p>
+</li>
+<li><p>Launch the &quot;<b>Home</b>&quot; Activity to return to the home screen, to display the current list of Coffee objects (probably via a call to <b><i>goToActivity()</i></b>)</p>
+</li>
+</ul>
+<p>Without referring to the notes (too much!) try and get this working, but here&#39;s some extracts to get you started.</p>
+<pre><code>coffeeName = name.getText().toString();
+coffeeShop = shop.getText().toString();
+    try {
+    coffeePrice = Double.parseDouble(price.getText().toString());
+    }
+    catch(NumberFormatException e){
+    coffeePrice = 0.0;
+    }
+ratingValue = ratingBar.getRating();</code></pre>
+<p>and this</p>
+<pre><code>Coffee c = new Coffee(coffeeName, coffeeShop, ratingValue, coffeePrice,0);
+coffeeList.add(c);
+
+goToActivity(this,Home.class,null);</code></pre>
+<p><img src="img/lab209.png" alt="">  </p>
+<p><img src="img/lab210.png" alt=""></p>
+<p>Run the App once again to confirm the add feature is now implemented.</p>
+<p>However, if you&#39;re not seeing your list of coffees (albeit in a very rudimentary list!) you might need to take another look at your <b>Home</b> Activity and try and work out what&#39;s missing - but don&#39;t worry, it&#39;s in the solution.</p>
+</li>
+        
+          <li> <h1>Exercises</h1>
+<h2>Solution</h2>
+<p>This is a solution to the lab:</p>
+<ul>
+<li><a href="archives/CoffeeMate.1.0.Solution.zip">CoffeeMate.1.0.Solution.zip</a></li>
+</ul>
+<h2>Exercise</h2>
+<p>In this lab you have experimented with Activities and menus:</p>
+<ul>
+<li><p>Experiment with adding in an additional Activity and and extra menu option which switches to that Activity</p>
+</li>
+<li><p>Consider using some logos or icons not in the resources folder, but ones you have found yourself as the menu option?</p>
+</li>
+</ul>
+</li>
+        
+      </ul>
+    </div>
+
+    <script>
+      $(document).ready(function() {
+  const $images = $('.lab img');
+  jQuery.each($images, function(i) {
+    if ($images[i].alt.length > 0) {
+      const divImg = $(document.createElement('div')).addClass('');
+      $($images[i]).wrap(divImg);
+      const divLabel = $(document.createElement('div')).addClass('uk-label uk-text-lowercase');
+      divLabel.append($images[i].alt);
+      $(divLabel).insertAfter($images[i]);
+      $('<br>').insertAfter($images[i]);
+    }
+  });
+});
+
+    </script>
+  </body>
+</html>
