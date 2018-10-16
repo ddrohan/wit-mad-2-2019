@@ -118,7 +118,9 @@ Lab-01
             
               <li><a href="#">06</a></li>
             
-              <li><a href="#">.</a></li>
+              <li><a href="#">07</a></li>
+            
+              <li><a href="#">Exercises</a></li>
             
           </ul>
         </div>
@@ -372,9 +374,9 @@ Lab-01
 <p>The following steps will guide you through these requirements, so we&#39;ll start with the &#39;ADD&#39; feature and getting our Coffee Check-In Button working.</p>
 </li>
         
-          <li> <h1>Adding a Coffee - Switching to our &#39;Coffee Check In&#39; Screen</h1>
+          <li> <h1>Switching to our &#39;Coffee Check In&#39; Screen</h1>
 <p>First of all, have a quick look at the resource layout (content_home.xml) we will be referring to, and familiarise yourself with the properties of the different buttons as you will have to refer to these in the following steps.</p>
-<p>Th first thing we need to do is create a new &#39;Add&#39; Activity, so go ahead and add an <b>Empty Activity</b> with the following details</p>
+<p>Th first thing we need to do is create a new &#39;Add&#39; Activity, so using Android Studio, go to File-&gt;New-&gt;Activity and create a new <b>Empty Activity</b> in the <b><i>ie.cm</i></b> package with the following details</p>
 <p><img src="img/lab101.png" alt=""></p>
 <p>Next, replace the add layout with</p>
 <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
@@ -539,80 +541,193 @@ Lab-01
 <p>You&#39;ll be prompted to &#39;add&#39; the <b>Intent</b> class so go ahead and use the shortcut to do that.</p>
 <p>You should run your app at this stage just to see if it behaves like it should and when you click &#39;Coffee Check In&#39; you should get</p>
 <p><img src="img/starterappadd.png" alt=""></p>
-<p>Next we&#39;ll start with implementing the menu.</p>
+<p>Now we&#39;ll start with implementing the menu.</p>
+<p>Because we&#39;ll be using the same menu for all our screens we&#39;re going to centralise the functionality by storing it in a &#39;Base&#39; class.</p>
+<p>But first, we need to reorganise our package structure, so create a new package called</p>
+<pre><code class="lang-java">ie.cm.activities</code></pre>
+<p>and &#39;move&#39; (drag-n-drop) your existing Home and Add Activities into this package.</p>
+<p>Now go ahead and create a new java class, called <b>Base</b> in the &#39;activities&#39; package</p>
+<p><img src="img/newbase.png" alt=""></p>
+<p>and replace it with the following</p>
+<pre><code class="lang-java">package ie.cm.activities;
+
+import ie.cm.R;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+
+public class Base extends AppCompatActivity {
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    public void menuHome(MenuItem m) {
+        startActivity(new Intent(this, Home.class));
+    }
+}</code></pre>
+<p>Now, see if you can refactor both the Home and Add Activities to utilise this Base class?</p>
+<p>Note : A Menu Item has it&#39;s own <i>onClick</i> also, so you should be trying to leverage this with the &#39;menuHome&#39; method above.</p>
 </li>
         
           <li> <h1>Our Custom Menu</h1>
 <p>On completion of this step we&#39;ll have something like this:</p>
 <p><img src="img/starterappmenu.png" alt=""></p>
-<p>which we sort of already have, but we&#39;ll add functionality. So once again, have a quick look at the resource (below) we will use to create our menu, and familiarise yourself with the &quot;id&#39;s&quot; of the different options, you will have to refer to these later on in your code.</p>
-<p><img src="img/lab2s301.png" alt=""></p>
-<p>and the xml...</p>
-<p><img src="img/lab2s302.png" alt=""></p>
-<p>Maybe you noticed (or maybe you didn&#39;t!) that our &#39;Add&#39; screen has no menu - this is because we never &#39;inflated&#39; the menu in our activity.</p>
-<p>So, open up the <b>Base.java</b> Activity class, and add in or &quot;override&quot; the methods we need to implement our menu (as we want the same menu for all our screens) i.e. <b><i>onCreateOptionsMenu()</i></b>. We are overriding the method here so that the menu will be available to all classes that extend from our base class. You could also just move the method from <b>Home.java</b> to <b>Base.java</b> too.</p>
-<p>Run your app again just to confirm you can now see the menu on all screens.</p>
-<p>Now, to keep things as simple as possible, we&#39;re going to take the same approach with our Menu as we did with our &#39;Coffee Check In Button&#39; - we&#39;ll use the <b>onClick</b> property to bind a menu item to a particular method in our activity.</p>
-<p>So open up your <b>main_menu.xml</b> and add the following to each of the menu items (as in the screenshot below)</p>
-<p><img src="img/lab2s303.png" alt=""></p>
+<p>which we sort of already have, but we&#39;ll add functionality. So once again, have a quick look at the resource we will use to create our menu, and familiarise yourself with the &quot;id&#39;s&quot; of the different options, you will have to refer to these later on in your code.</p>
+<p>So open up your <b>menu_home.xml</b> and replace with the following</p>
+<pre><code class="lang-xml">&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    tools:context=&quot;ie.cm.activities.Home&quot;&gt;
+
+    &lt;item android:id=&quot;@+id/menu_help&quot;
+        android:title=&quot;Help&quot;
+        android:orderInCategory=&quot;100&quot;
+        android:onClick=&quot;menuHelp&quot;
+        app:showAsAction=&quot;never&quot; /&gt;
+
+    &lt;item android:id=&quot;@+id/menu_info&quot;
+        android:title=&quot;Info&quot;
+        android:orderInCategory=&quot;100&quot;
+        android:onClick=&quot;menuInfo&quot;
+        app:showAsAction=&quot;never&quot; /&gt;
+
+    &lt;item
+        android:id=&quot;@+id/menu_home&quot;
+        android:icon=&quot;@drawable/home&quot;
+        android:onClick=&quot;menuHome&quot;
+        android:orderInCategory=&quot;100&quot;
+        android:title=&quot;Home&quot;
+        app:showAsAction=&quot;ifRoom&quot; /&gt;
+&lt;/menu&gt;</code></pre>
 <p>Then, open up your <b>Base.java</b> and add the following methods</p>
-<pre><code class="lang-java"> public void menuInfo(MenuItem m)
+<pre><code class="lang-java">public void menuInfo(MenuItem m)
+  {
+      new AlertDialog.Builder(this)
+              .setTitle(getString(R.string.appAbout))
+              .setMessage(getString(R.string.appDesc)
+                      + &quot;\n\n&quot;
+                      + getString(R.string.appMoreInfo))
+              .setPositiveButton(&quot;OK&quot;, new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                     // we could put some code here too
+                  }
+              })
+              .show();
+  }
+
+ public void menuHelp(MenuItem m)
     {
-        openInfoDialog(this);
+
+    }</code></pre>
+<p>Fix the import errors and your Base Class should now look something like this</p>
+<pre><code class="lang-java">public class Base extends AppCompatActivity {
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return true;
     }
+
+    public void menuHome(MenuItem m) {
+        startActivity(new Intent(this, Home.class));
+    }
+
+    public void menuInfo(MenuItem m)
+      {
+          new AlertDialog.Builder(this)
+                  .setTitle(getString(R.string.appAbout))
+                  .setMessage(getString(R.string.appDesc)
+                          + &quot;\n\n&quot;
+                          + getString(R.string.appMoreInfo))
+                  .setPositiveButton(&quot;OK&quot;, new DialogInterface.OnClickListener() {
+                      @Override
+                      public void onClick(DialogInterface dialog, int which) {
+                         // we could put some code here too
+                      }
+                  })
+                  .show();
+      }
 
     public void menuHelp(MenuItem m)
     {
-      //  goToActivity(this, Help.class, null);
-    }
 
-    public void menuHome(MenuItem m)
-    {
-        goToActivity(this, Home.class, null);
-    }</code></pre>
-<p>You&#39;ll notice we haven&#39;t implemented the <b>menuHelp</b> method - as we don&#39;t have our <b>Help</b> activity yet but you can still run your app and confirm that the other two methods function as expected.</p>
-<p>Once you have these two methods implemented, that&#39;s basically it, but as we really only have two activities at the moment (our &#39;Home&#39; &amp; Add Activities) the menu won&#39;t do much, but we&#39;ll add to this once we have our Help Screen completed - run your app again to test your menu and see if it displays the way it&#39;s supposed to. (something like below for the &#39;info&#39; option)</p>
+    }
+}</code></pre>
+<p>You&#39;ll notice we haven&#39;t implemented the <b>menuHelp</b> method - as we don&#39;t have our <b>Help</b> activity yet but you can still run your app and confirm that the other method still functions as expected.</p>
+<p>We really only have two activities at the moment (our &#39;Home&#39; &amp; Add Activities) the menu won&#39;t do much, but we&#39;ll add to this once we have our Help Screen completed - run your app again to test your menu and see if it displays the way it&#39;s supposed to. (something like below for the &#39;info&#39; option)</p>
 <p><img src="img/starterappinfo.png" alt=""></p>
 <p>Next we&#39;ll add in our new Help screen.</p>
 </li>
         
           <li> <h1>The Help Screen</h1>
-<p>To implement the Help feature of our App we need to :</p>
+<p>To implement the Help feature of our App you need to :</p>
 <ul>
-<li>create a new Activity (<b>Help.java</b>) and associate it with our help layout.</li>
-<li>associate this activity with our menu.</li>
+<li>create a new Activity (<b>Help.java</b>) and associated layout.</li>
+<li>link this activity with our menu.</li>
 </ul>
-<p>Using Android Studio, go to File-&gt;New-&gt;Activity and create a new <b>Empty Activity</b> in the <b><i>ie.cm.activities</i></b> package and <b>Deselect &#39;Generate layout file&#39;</b> (like below) as we already have one in our resources.</p>
-<p><img src="img/lab2s401.png" alt=""></p>
-<p>Make sure to DESELECT the option to create a menu for this screen - we will be using our own menu for all screens, so if one gets created for you, delete this menu resource and remove the associated method in the Activity class.</p>
-<p>Extend your <b>Help.java</b> Activity from &quot;Base&quot; as the parent class and set the correct layout, so your <b><i>onCreate()</i></b> method should look something like this</p>
-<pre><code>public void onCreate(Bundle savedInstanceState) {
-  super.onCreate(savedInstanceState);
-  setContentView(R.layout.help);
-}</code></pre>
-<p>Your Help Screen layout is already completed but you can design it whatever way you want really, so take some time to customise this layout to your own liking.</p>
-<p>Once you&#39;re happy with your own Help Screen, you can now &#39;uncomment&#39; your <b>menuHelp</b> method in your Base class, so go ahead and do that and test again to confirm and you should have something like this</p>
+<p>So, using Android Studio, go to File-&gt;New-&gt;Activity and again create a new <b>Empty Activity</b> in the <b><i>ie.cm.activities</i></b> package.</p>
+<p><img src="img/newhelp.png" alt=""></p>
+<p>Next, extend your <b>Help.java</b> Activity from &quot;Base&quot; as the parent class. This will insure we have the same menu as the other activities.</p>
+<p>Mainly for practice, design your Help screen something like the following, but you can design it whatever way you want really, so take some time to customise this layout to your own liking.</p>
 <p><img src="img/starterapphelp.png" alt=""></p>
+<p>Once you&#39;re happy with your own Help Screen, go ahead and wire it up to your <b>menuHelp</b> method in your Base class, so when the user selects the &#39;Help&#39; option from the menu, they are taken to your help screen (very like what you did for the info dialog).</p>
 <p>Now we can move on to actually adding a Coffee to our App.</p>
 </li>
         
           <li> <h1>Adding a Coffee - Saving our data in &#39;Coffee Check In&#39;</h1>
 <p>Our Add screen looks as follows:</p>
-<p><img src="img/starterappadd1.png" alt=""></p>
-<p>So, first of all, we need to bind to each of the widgets to &#39;get at&#39; the new coffee details (possibly like this) - where would be the best place for this code?</p>
-<pre><code> name = (EditText) findViewById(R.id.nameEditText);
- shop = (EditText) findViewById(R.id.shopEditText);</code></pre>
-<p>Specifically, the <b><i>add()</i></b> method needs to</p>
+<p><img src="img/starterappadd.png" alt=""></p>
+<p>The first thing to do is add a click event to the &#39;Add&#39; Button on the layout, so do that now, as below</p>
+<p><img src="img/lab103.png" alt=""></p>
+<p>and add the corresponding method <b><i>addCoffee()</i></b> in Add.java.</p>
+<p>Specifically, the <b><i>addCoffee()</i></b> method needs to</p>
 <ul>
 <li><p>Grab all the values that the user has entered for the Coffee details, validate them &amp; create a Coffee object</p>
 </li>
-<li><p>Add the Coffee object to our list (coffeeList)</p>
+<li><p>Add the Coffee object to some kind of list</p>
 </li>
 <li><p>Launch the &quot;<b>Home</b>&quot; Activity to return to the home screen, to display the current list of Coffee objects (probably via a call to <b><i>goToActivity()</i></b>)</p>
 </li>
 </ul>
-<p>Without referring to the notes (too much!) try and get this working, but here&#39;s some extracts to get you started.</p>
-<pre><code>coffeeName = name.getText().toString();
+<p>Without referring to the notes (too much!) try and get this working, but here&#39;s some code to get you started.</p>
+<p>First of all, we need a coffee &#39;Model&#39; and somewhere to store those coffees so create a new <b>Coffee</b> class in a new package</p>
+<pre><code class="lang-java">ie.cm.models</code></pre>
+<p>and replace it with this</p>
+<pre><code class="lang-java">public class Coffee implements Serializable
+{
+    String coffeeName;
+    String shop;
+    double rating;
+    double price;
+    boolean favourite;
+
+
+    public Coffee() {}
+
+    public Coffee(String name, String shop, double rating, double price, boolean fav)
+    {
+        this.coffeeName = name;
+        this.shop = shop;
+        this.rating = rating;
+        this.price = price;
+        this.favourite = fav;
+    }
+
+    @Override
+    public String toString() {
+        return coffeeName + &quot;, &quot; + shop + &quot;, &quot; + rating
+                + &quot;, &quot; + price + &quot;, fav =&quot; + favourite;
+    }
+}</code></pre>
+<p>Then, in the Base class, add our &#39;coffeelist&#39; declaration like so</p>
+<pre><code class="lang-java">public static ArrayList&lt;Coffee&gt; coffeeList = new ArrayList&lt;Coffee&gt;();</code></pre>
+<p>Now, back in your Add.java, have a go at completing the <b><i>add()</i></b> method, using something along the lines of the following extracts</p>
+<pre><code class="lang-java">coffeeName = name.getText().toString();
 coffeeShop = shop.getText().toString();
     try {
     coffeePrice = Double.parseDouble(price.getText().toString());
@@ -622,14 +737,80 @@ coffeeShop = shop.getText().toString();
     }
 ratingValue = ratingBar.getRating();</code></pre>
 <p>and this</p>
-<pre><code>Coffee c = new Coffee(coffeeName, coffeeShop, ratingValue, coffeePrice,0);
-coffeeList.add(c);
-
-goToActivity(this,Home.class,null);</code></pre>
+<pre><code class="lang-java">Coffee c = new Coffee(coffeeName, coffeeShop, ratingValue, coffeePrice, false);
+coffeeList.add(c);</code></pre>
 <p><img src="img/lab209.png" alt="">  </p>
 <p><img src="img/lab210.png" alt=""></p>
 <p>Run the App once again to confirm the add feature is now implemented.</p>
-<p>However, if you&#39;re not seeing your list of coffees (albeit in a very rudimentary list!) you might need to take another look at your <b>Home</b> Activity and try and work out what&#39;s missing - but don&#39;t worry, it&#39;s in the solution.</p>
+<p>However, if you&#39;re not seeing your list of coffees  you might need to take another look at your <b>Home</b> Activity and try and work out what&#39;s missing - but don&#39;t worry, we&#39;ll cover that in the next step.</p>
+</li>
+        
+          <li> <h1>Displaying list of Coffees</h1>
+<p>The obvious (hopefully) reason that the list of coffees is not displaying, is because we haven&#39;t refactored Home to access the list and display it in our ListView.</p>
+<p>So the first thing to do is open Home.java and add and &#39;Override&#39; method, so we can confirm our coffees are being added to the list, every time we go &#39;Home&#39;.</p>
+<p>You can do this in Android Studio like so</p>
+<p>First, Right Mouse Click anywhere inside the class and choose &#39;Generate&#39;</p>
+<p><img src="img/lab104.png" alt=""></p>
+<p>and &#39;Override Methods&#39;</p>
+<p><img src="img/lab105.png" alt=""></p>
+<p>and &#39;onResume()&#39;</p>
+<p><img src="img/lab106.png" alt=""></p>
+<p>Then add the following to your newly added onResume()</p>
+<pre><code class="lang-java">Log.v(&quot;coffeemate&quot;, &quot;Home : &quot; + coffeeList);</code></pre>
+<p>Run your app again, add a few coffees and keep track of the logcat and filter out just the &#39;coffeemate&#39; messages - you should be seeing something like this</p>
+<p><img src="img/logcat.png" alt=""></p>
+<p>The last thing we need to do is display them as a list on the Home Screen. There&#39;s a very useful class called <b>ArrayAdapter</b> that can help us to do this.</p>
+<p>We will cover ArrayAdapters in detail later on in the module, and create our own Custom Adapters, but for the moment, replace your &#39;Home&#39; Activity with the following</p>
+<pre><code class="lang-java">public class Home extends Base {
+
+    TextView emptyList;
+    ListView coffeeListView;
+    ArrayAdapter&lt;Coffee&gt; coffeeAdapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.home);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        emptyList = findViewById(R.id.emptyList);
+        coffeeListView = findViewById(R.id.recentlyAddedList);
+        coffeeListView.setEmptyView(emptyList);
+        coffeeAdapter = new ArrayAdapter&lt;&gt;(this, android.R.layout.simple_list_item_1,coffeeList);
+        coffeeListView.setAdapter(coffeeAdapter);
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, &quot;Information&quot;, Snackbar.LENGTH_LONG)
+                        .setAction(&quot;More Info...&quot;, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        }).show();
+            }
+        });
+    }
+
+    public void add(View v) {
+        startActivity(new Intent(this, Add.class));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.v(&quot;coffeemate&quot;,&quot;Home : &quot; + coffeeList);
+
+        if(!coffeeList.isEmpty())
+            coffeeAdapter.notifyDataSetChanged();
+    }
+}</code></pre>
+<p>Run and test the app again, and you should see your coffees displayed like so</p>
+<p><img src="img/starterappfinal.png" alt=""></p>
+<p>Well Done :)</p>
 </li>
         
           <li> <h1>Exercises</h1>
