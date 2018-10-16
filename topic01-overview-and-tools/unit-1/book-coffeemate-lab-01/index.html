@@ -106,8 +106,6 @@ Lab-01
             
               <li><a href="#">Lab-01</a></li>
             
-              <li><a href="#">New Project</a></li>
-            
               <li><a href="#">01</a></li>
             
               <li><a href="#">02</a></li>
@@ -118,7 +116,9 @@ Lab-01
             
               <li><a href="#">05</a></li>
             
-              <li><a href="#">Exercises</a></li>
+              <li><a href="#">06</a></li>
+            
+              <li><a href="#">.</a></li>
             
           </ul>
         </div>
@@ -143,7 +143,7 @@ Lab-01
 </ul>
 </li>
         
-          <li> <h1>Your Android Project - &quot;CoffeeMate.1.0&quot;</h1>
+          <li> <h1>Project Setup- &quot;CoffeeMate.1.0&quot;</h1>
 <p>In Android Studio, select File-&gt;New-&gt;New Project, or if it&#39;s a first run, select &quot;Start a new Android Studio Project&quot;</p>
 <p><img src="img/firstrun.png" alt="Figure 1: Start a new Android Studio project"></p>
 <p>Press &quot;Next&quot; (or click the option) and then give the project a name: &#39;CoffeeMate.1.0&#39;</p>
@@ -181,13 +181,182 @@ Lab-01
 <p>Otherwise, use the settings as above and your first Android App should launch, (Once you&#39;ve unlocked the device!):</p>
 </li>
         
-          <li> <h1>Setup &amp; Starter Resources</h1>
+          <li> <h1>Starter Resources</h1>
 <p>To make things a bit easier, you can download some starter resources for this lab here - <a href="archives/drawable.zip">Resources</a>. It contains all of drawable (image) resources you&#39;ll need to complete this lab. So replace your existing drawable folder with this one once you&#39;ve extracted the archive somewhere on your hard disk.</p>
-<p>Once you have the drawable folder &#39;updated&#39;</p>
-<p>The initial App will look like this</p>
+<p>Once you have the drawable folder &#39;updated&#39; there&#39;s a few other resources to update, so first of all, replace your <b>color.xml</b> with the following:</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;color name=&quot;colorPrimary&quot;&gt;#4893e4&lt;/color&gt;
+    &lt;color name=&quot;colorPrimaryDark&quot;&gt;#346daf&lt;/color&gt;
+    &lt;color name=&quot;colorAccent&quot;&gt;#2460a6&lt;/color&gt;
+    &lt;color name=&quot;colorFontWhite&quot;&gt;#ffffff&lt;/color&gt;
+    &lt;color name=&quot;colorFontOffWhite&quot;&gt;#f7f7f7&lt;/color&gt;
+    &lt;color name=&quot;colorFontBlack&quot;&gt;#000000&lt;/color&gt;
+&lt;/resources&gt;</code></pre>
+<p>Replace your <b>strings.xml</b> with</p>
+<pre><code class="lang-xml">&lt;resources&gt;
+    &lt;string name=&quot;app_name&quot;&gt;CoffeeMate.1.0&lt;/string&gt;
+    &lt;string name=&quot;appHelp&quot;&gt;This is the help screen for CoffeeMate&lt;/string&gt;
+    &lt;string name=&quot;appHelpExtra&quot;&gt;Basically\, if you need help on using this app, you probably shouldn\&#39;t be using it&lt;/string&gt;
+    &lt;string name=&quot;appDisplayName&quot;&gt;CoffeeMate 1.0&lt;/string&gt;
+    &lt;string name=&quot;appDesc&quot;&gt;CoffeeMate provides the user with a quick and easy way to manage a list of coffees and your favourite coffees.&lt;/string&gt;
+    &lt;string name=&quot;appMoreInfo&quot;&gt;For more information about CoffeeMate or to provide feedback please visit our website.&lt;/string&gt;
+    &lt;string name=&quot;appAbout&quot;&gt;About CoffeeMate&lt;/string&gt;
+    &lt;string name=&quot;appWebsite&quot;&gt;ddrohan.github.io&lt;/string&gt;
+    &lt;string name=&quot;developer&quot;&gt;Developed by Davey Drohan&lt;/string&gt;
+
+    &lt;string name=&quot;searchCoffeesLbl&quot;&gt;Search Coffee\&#39;s&lt;/string&gt;
+    &lt;string name=&quot;favouritesCoffeeLbl&quot;&gt;Favourite Coffee\&#39;s&lt;/string&gt;
+    &lt;string name=&quot;addACoffeeLbl&quot;&gt;Coffee Check In&lt;/string&gt;
+    &lt;string name=&quot;addCoffeeBtnLbl&quot;&gt;Add Coffee&lt;/string&gt;
+    &lt;string name=&quot;saveCoffeeBtn&quot;&gt;Save Coffee&lt;/string&gt;
+    &lt;string name=&quot;recentlyViewedLbl&quot;&gt;Recently Added Coffee\&#39;s&lt;/string&gt;
+    &lt;string name=&quot;coffeeNameLbl&quot;&gt;Name :&lt;/string&gt;
+    &lt;string name=&quot;coffeeShopLbl&quot;&gt;Shop :&lt;/string&gt;
+    &lt;string name=&quot;coffeePriceLbl&quot;&gt;Price :&lt;/string&gt;
+    &lt;string name=&quot;coffeeRatingLbl&quot;&gt;Star Rating&lt;/string&gt;
+    &lt;string name=&quot;coffeeDetailsLbl&quot;&gt;Full Coffee Details&lt;/string&gt;
+    &lt;string name=&quot;informationLbl&quot;&gt;Information&lt;/string&gt;
+    &lt;string name=&quot;emptyMessageLbl&quot;&gt;You have no Coffee\&#39;s added, go have a coffee!&lt;/string&gt;
+&lt;/resources&gt;</code></pre>
+<p>Replace your <b>menu_home.xml</b> with</p>
+<pre><code class="lang-xml">&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    tools:context=&quot;ie.cm.home&quot;&gt;
+
+    &lt;item android:id=&quot;@+id/action_settings&quot;
+        android:title=&quot;Settings&quot;
+        android:orderInCategory=&quot;100&quot;
+        app:showAsAction=&quot;never&quot; /&gt;
+
+    &lt;item android:id=&quot;@+id/menu_info&quot;
+        android:title=&quot;Info&quot;
+        android:orderInCategory=&quot;100&quot;
+        app:showAsAction=&quot;never&quot; /&gt;
+
+    &lt;item android:id=&quot;@+id/menu_home&quot;
+        android:icon=&quot;@drawable/home&quot;
+        android:title=&quot;Home&quot;
+        android:orderInCategory=&quot;100&quot;
+        app:showAsAction=&quot;ifRoom&quot; /&gt;
+&lt;/menu&gt;</code></pre>
+<p>and finally, your <b>content_home.xml</b> with</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;
+    tools:context=&quot;.home&quot;
+    tools:showIn=&quot;@layout/home&quot;&gt;
+
+    &lt;Button
+        android:id=&quot;@+id/searchBtn&quot;
+        android:layout_width=&quot;93dp&quot;
+        android:layout_height=&quot;119dp&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.531&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.071&quot;
+        android:background=&quot;@color/colorFontOffWhite&quot;
+        android:drawableTop=&quot;@drawable/search_72&quot;
+        android:text=&quot;@string/searchCoffeesLbl&quot; /&gt;
+
+    &lt;Button
+        android:id=&quot;@+id/addBtn&quot;
+        android:layout_width=&quot;93dp&quot;
+        android:layout_height=&quot;119dp&quot;
+        android:background=&quot;@color/colorFontOffWhite&quot;
+        android:drawableTop=&quot;@drawable/add_72&quot;
+        android:text=&quot;@string/addCoffeeBtnLbl&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.116&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.07&quot; /&gt;
+
+    &lt;Button
+        android:id=&quot;@+id/favouritesBtn&quot;
+        android:layout_width=&quot;93dp&quot;
+        android:layout_height=&quot;119dp&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.946&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.071&quot;
+        android:text=&quot;@string/favouritesCoffeeLbl&quot;
+        android:drawableTop=&quot;@drawable/favourites_72&quot;
+        android:background=&quot;@color/colorFontOffWhite&quot;/&gt;
+
+    &lt;ListView
+        android:id=&quot;@+id/recentlyAddedList&quot;
+        android:layout_width=&quot;411dp&quot;
+        android:layout_height=&quot;375dp&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.48&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/textView3&quot;
+        app:layout_constraintVertical_bias=&quot;0.135&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/textView3&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;21dp&quot;
+        android:layout_marginBottom=&quot;408dp&quot;
+        android:background=&quot;@color/colorPrimary&quot;
+        android:text=&quot;@string/recentlyViewedLbl&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorFontWhite&quot;
+        android:textSize=&quot;16dp&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.0&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/imageAdd&quot;
+        app:layout_constraintVertical_bias=&quot;0.023&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/footer&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;36dp&quot;
+        android:background=&quot;@color/colorPrimary&quot;
+        android:paddingTop=&quot;5dp&quot;
+        android:text=&quot;@string/appWebsite&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorFontWhite&quot;
+        android:textSize=&quot;16sp&quot;
+        android:textStyle=&quot;bold&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.0&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/recentlyAddedList&quot;
+        app:layout_constraintVertical_bias=&quot;1.0&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/emptyList&quot;
+        android:layout_width=&quot;266dp&quot;
+        android:layout_height=&quot;31dp&quot;
+        android:layout_gravity=&quot;center&quot;
+        android:text=&quot;@string/emptyMessageLbl&quot;
+        android:textSize=&quot;12sp&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.584&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.662&quot; /&gt;
+
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+<p>After Launching, The initial App will look like this</p>
 <p><img src="img/starterapp1.png" alt=""></p>
-<p>and we already have the &#39;FloatingActionButton&#39; operational, like so</p>
-<p><img src="img/starterapp2.png" alt=""></p>
 <p>In this lab, you are required to do the following:</p>
 <ul>
 <li><p>&quot;Wire up&quot; the Coffee Check-In Button to our &#39;Add&#39; activity to display the Add screen.</p>
