@@ -183,7 +183,7 @@ Lab-01
         
           <li> <h1>Starter Resources</h1>
 <p>To make things a bit easier, you can download some starter resources for this lab here - <a href="archives/drawable.zip">Resources</a>. It contains all of drawable (image) resources you&#39;ll need to complete this lab. So replace your existing drawable folder with this one once you&#39;ve extracted the archive somewhere on your hard disk.</p>
-<p>Once you have the drawable folder &#39;updated&#39; there&#39;s a few other resources to update, so first of all, replace your <b>color.xml</b> with the following:</p>
+<p>Once you have the drawable folder &#39;updated&#39; there&#39;s a few other resources to update, so first of all, replace your <b>colors.xml</b> with the following:</p>
 <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;resources&gt;
     &lt;color name=&quot;colorPrimary&quot;&gt;#4893e4&lt;/color&gt;
@@ -249,22 +249,21 @@ Lab-01
     android:layout_width=&quot;match_parent&quot;
     android:layout_height=&quot;match_parent&quot;
     app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;
-    tools:context=&quot;.home&quot;
+    tools:context=&quot;.Home&quot;
     tools:showIn=&quot;@layout/home&quot;&gt;
 
     &lt;Button
         android:id=&quot;@+id/searchBtn&quot;
         android:layout_width=&quot;93dp&quot;
         android:layout_height=&quot;119dp&quot;
-        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
-        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
-        app:layout_constraintHorizontal_bias=&quot;0.531&quot;
-        app:layout_constraintStart_toStartOf=&quot;parent&quot;
-        app:layout_constraintTop_toTopOf=&quot;parent&quot;
-        app:layout_constraintVertical_bias=&quot;0.071&quot;
         android:background=&quot;@color/colorFontOffWhite&quot;
         android:drawableTop=&quot;@drawable/search_72&quot;
-        android:text=&quot;@string/searchCoffeesLbl&quot; /&gt;
+        android:text=&quot;@string/searchCoffeesLbl&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.033&quot; /&gt;
 
     &lt;Button
         android:id=&quot;@+id/addBtn&quot;
@@ -272,27 +271,27 @@ Lab-01
         android:layout_height=&quot;119dp&quot;
         android:background=&quot;@color/colorFontOffWhite&quot;
         android:drawableTop=&quot;@drawable/add_72&quot;
-        android:text=&quot;@string/addCoffeeBtnLbl&quot;
+        android:text=&quot;@string/addACoffeeLbl&quot;
         app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
         app:layout_constraintEnd_toEndOf=&quot;parent&quot;
-        app:layout_constraintHorizontal_bias=&quot;0.116&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.094&quot;
         app:layout_constraintStart_toStartOf=&quot;parent&quot;
         app:layout_constraintTop_toTopOf=&quot;parent&quot;
-        app:layout_constraintVertical_bias=&quot;0.07&quot; /&gt;
+        app:layout_constraintVertical_bias=&quot;0.033&quot; /&gt;
 
     &lt;Button
         android:id=&quot;@+id/favouritesBtn&quot;
         android:layout_width=&quot;93dp&quot;
         android:layout_height=&quot;119dp&quot;
+        android:background=&quot;@color/colorFontOffWhite&quot;
+        android:drawableTop=&quot;@drawable/favourites_72&quot;
+        android:text=&quot;@string/favouritesCoffeeLbl&quot;
         app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
         app:layout_constraintEnd_toEndOf=&quot;parent&quot;
-        app:layout_constraintHorizontal_bias=&quot;0.946&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.915&quot;
         app:layout_constraintStart_toStartOf=&quot;parent&quot;
         app:layout_constraintTop_toTopOf=&quot;parent&quot;
-        app:layout_constraintVertical_bias=&quot;0.071&quot;
-        android:text=&quot;@string/favouritesCoffeeLbl&quot;
-        android:drawableTop=&quot;@drawable/favourites_72&quot;
-        android:background=&quot;@color/colorFontOffWhite&quot;/&gt;
+        app:layout_constraintVertical_bias=&quot;0.033&quot; /&gt;
 
     &lt;ListView
         android:id=&quot;@+id/recentlyAddedList&quot;
@@ -319,8 +318,8 @@ Lab-01
         app:layout_constraintEnd_toEndOf=&quot;parent&quot;
         app:layout_constraintHorizontal_bias=&quot;0.0&quot;
         app:layout_constraintStart_toStartOf=&quot;parent&quot;
-        app:layout_constraintTop_toBottomOf=&quot;@+id/imageAdd&quot;
-        app:layout_constraintVertical_bias=&quot;0.023&quot; /&gt;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/addBtn&quot;
+        app:layout_constraintVertical_bias=&quot;0.461&quot; /&gt;
 
     &lt;TextView
         android:id=&quot;@+id/footer&quot;
@@ -355,11 +354,13 @@ Lab-01
         app:layout_constraintVertical_bias=&quot;0.662&quot; /&gt;
 
 &lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+<p><b>NOTE : if you have a layout rendering error you&#39;ll need to add the following to your &#39;styles&#39;</b></p>
+<pre><code class="lang-xml"> &lt;item name=&quot;coordinatorLayoutStyle&quot;&gt;@style/Widget.Design.CoordinatorLayout&lt;/item&gt;</code></pre>
 <p>After Launching, The initial App will look like this</p>
 <p><img src="img/starterapp1.png" alt=""></p>
 <p>In this lab, you are required to do the following:</p>
 <ul>
-<li><p>&quot;Wire up&quot; the Coffee Check-In Button to our &#39;Add&#39; activity to display the Add screen.</p>
+<li><p>Create a new Add Activity and &quot;Wire up&quot; the Coffee Check-In Button to our &#39;Add&#39; activity to display the Add screen.</p>
 </li>
 <li><p>Implement the &#39;Standard Menu&#39; so when a user selects the menu option on the device, they are presented with a list of options in a menu format.</p>
 </li>
@@ -368,47 +369,175 @@ Lab-01
 <li><p>Complete the &#39;Add&#39; activity to allow a user to &#39;add&#39; a new coffee to the current list of coffees.</p>
 </li>
 </ul>
-<p>The following steps will guide you through these requirements, so we&#39;ll start with the most straightforward requirement, getting our Coffee Check-In Button working.</p>
+<p>The following steps will guide you through these requirements, so we&#39;ll start with the &#39;ADD&#39; feature and getting our Coffee Check-In Button working.</p>
 </li>
         
           <li> <h1>Adding a Coffee - Switching to our &#39;Coffee Check In&#39; Screen</h1>
-<p>First of all, have a quick look at the resource layout (content_home.xml) we will be referring to, and familiarise yourself with the properties of the different buttons, especially the <b>onClick</b>, as you will have to refer to these in the following steps.</p>
-<p><img src="img/lab2s201.png" alt=""></p>
-<p>We <b>won&#39;t</b> need to implement specific Event Listeners for this step, instead we will use the simpler &#39;direct binding&#39; approach where we associate a method to be triggered when our button is pressed.</p>
-<p>So, navigate to the <b>onClick</b> property of the &#39;Coffee Check In&#39; button (as above) and enter <b>add</b> for the method name.</p>
+<p>First of all, have a quick look at the resource layout (content_home.xml) we will be referring to, and familiarise yourself with the properties of the different buttons as you will have to refer to these in the following steps.</p>
+<p>Th first thing we need to do is create a new &#39;Add&#39; Activity, so go ahead and add an <b>Empty Activity</b> with the following details</p>
+<p><img src="img/lab101.png" alt=""></p>
+<p>Next, replace the add layout with</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.Add&quot;&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/addfooter&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;36dp&quot;
+        android:background=&quot;@color/colorPrimary&quot;
+        android:paddingTop=&quot;5dp&quot;
+        android:text=&quot;@string/appWebsite&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorFontWhite&quot;
+        android:textSize=&quot;16sp&quot;
+        android:textStyle=&quot;bold&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.523&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;1.0&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/addPriceTV&quot;
+        android:layout_width=&quot;99dp&quot;
+        android:layout_height=&quot;43dp&quot;
+        android:paddingTop=&quot;10dp&quot;
+        android:text=&quot;@string/coffeePriceLbl&quot;
+        android:textAlignment=&quot;textEnd&quot;
+        android:textColor=&quot;@color/colorFontBlack&quot;
+        android:textSize=&quot;18sp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/addfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.056&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.324&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/addShopTV&quot;
+        android:layout_width=&quot;99dp&quot;
+        android:layout_height=&quot;43dp&quot;
+        android:paddingTop=&quot;10dp&quot;
+        android:text=&quot;@string/coffeeShopLbl&quot;
+        android:textAlignment=&quot;textEnd&quot;
+        android:textColor=&quot;@color/colorFontBlack&quot;
+        android:textSize=&quot;18sp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/addfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.056&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.179&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/addNameTV&quot;
+        android:layout_width=&quot;99dp&quot;
+        android:layout_height=&quot;43dp&quot;
+        android:paddingTop=&quot;10dp&quot;
+        android:text=&quot;@string/coffeeNameLbl&quot;
+        android:textAlignment=&quot;textEnd&quot;
+        android:textColor=&quot;@color/colorFontBlack&quot;
+        android:textSize=&quot;18sp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/addfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.056&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.036&quot; /&gt;
+
+    &lt;EditText
+        android:id=&quot;@+id/addNameET&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        android:ems=&quot;10&quot;
+        android:hint=&quot;Enter Coffee Name&quot;
+        android:inputType=&quot;textPersonName&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.447&quot;
+        app:layout_constraintStart_toEndOf=&quot;@+id/addNameTV&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.017&quot; /&gt;
+
+    &lt;EditText
+        android:id=&quot;@+id/addPriceET&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        android:ems=&quot;10&quot;
+        android:hint=&quot;Enter Price&quot;
+        android:inputType=&quot;numberDecimal&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.447&quot;
+        app:layout_constraintStart_toEndOf=&quot;@+id/addPriceTV&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.296&quot; /&gt;
+
+    &lt;EditText
+        android:id=&quot;@+id/addShopET&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:ems=&quot;10&quot;
+        android:hint=&quot;Enter Shop&quot;
+        android:inputType=&quot;textPersonName&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/addPriceET&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.37&quot;
+        app:layout_constraintStart_toEndOf=&quot;@+id/addShopTV&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/addNameET&quot;
+        app:layout_constraintVertical_bias=&quot;0.484&quot; /&gt;
+
+    &lt;RatingBar
+        android:id=&quot;@+id/addRatingBar&quot;
+        android:layout_width=&quot;242dp&quot;
+        android:layout_height=&quot;52dp&quot;
+        android:rating=&quot;1&quot;
+        android:stepSize=&quot;0.5&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/addfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/addPriceET&quot;
+        app:layout_constraintVertical_bias=&quot;0.213&quot; /&gt;
+
+    &lt;Button
+        android:id=&quot;@+id/addCoffeeBtn&quot;
+        android:layout_width=&quot;79dp&quot;
+        android:layout_height=&quot;84dp&quot;
+        android:background=&quot;@color/colorFontOffWhite&quot;
+        android:drawableTop=&quot;@drawable/blue_add_48&quot;
+        android:text=&quot;@string/addCoffeeBtnLbl&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/addfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/addRatingBar&quot;
+        app:layout_constraintVertical_bias=&quot;0.714&quot; /&gt;
+
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+<p>We <b>won&#39;t</b> need to implement specific Event Listeners for this step, instead we will use the simpler &#39;direct binding&#39; approach where we associate a method to be triggered when our buttons are pressed or <i><b>clicked</b></i>.</p>
+<p>So, navigate to the <b>onClick</b> property of the &#39;Coffee Check In&#39; button on your &#39;Home&#39; Screen (as below) and enter <b>add</b> for the method name.</p>
+<p><img src="img/lab102.png" alt=""></p>
 <p>Next, open your <b>Home.java</b> activity and add the following method</p>
 <pre><code class="lang-java">    public void add(View v)
     {
-    goToActivity(this,add.class,null);
+    startActivity(new Intent(this,Add.class));
     }</code></pre>
-<p>You should run your app at this stage just to see if it behaves like it should.</p>
-<p>You will, more than likely, get an error along the lines of</p>
-<pre><code>android.content.ActivityNotFoundException: Unable to find explicit activity class {ie.cm.models/ie.cm.activities.Add};</code></pre>
-<p>Can you work out why, and more importantly, how to fix it? (Hint : it involves the AndroidManifest.xml file and you can find the answer in the section on Intents already covered in the lectures).</p>
-<p>But before we modify the AndroidManifest File, there&#39;s a few other additions to the project we need to make, i.e.</p>
-<ul>
-<li>we need to add a new <i>style</i> so we can display our Add screen properly (as it&#39;s layout <b>is not</b> part of a template, like so</li>
-</ul>
-<pre><code class="lang-XML"> &lt;style name=&quot;AppTheme.ActionBar&quot;&gt;
-        &lt;item name=&quot;windowActionBar&quot;&gt;true&lt;/item&gt;
-        &lt;item name=&quot;windowNoTitle&quot;&gt;false&lt;/item&gt;
-    &lt;/style&gt;</code></pre>
-<p>and</p>
-<ul>
-<li>we need to modify our <i>RatingBar</i> so we get to see nice blue stars (and not grey ones!) so set the following property</li>
-</ul>
-<pre><code class="lang-XML">    android:progressTint=&quot;@color/bannerBGColor&quot;</code></pre>
-<ul>
-<li>Finally, add the following to your manifest file</li>
-</ul>
-<pre><code class="lang-xml"> &lt;activity
-    android:name=&quot;.activities.Add&quot;
-    android:label=&quot;@string/addACoffeeLbl&quot;
-    android:theme=&quot;@style/AppTheme.ActionBar&quot; &gt;
-&lt;/activity&gt;</code></pre>
-<p>and run the app again to confirm everything is ok so far.</p>
-<p><img src="img/starterapp1.png" alt=""></p>
-<p>and when you click &#39;Coffee Check In&#39; you should get</p>
+<p>You&#39;ll be prompted to &#39;add&#39; the <b>Intent</b> class so go ahead and use the shortcut to do that.</p>
+<p>You should run your app at this stage just to see if it behaves like it should and when you click &#39;Coffee Check In&#39; you should get</p>
 <p><img src="img/starterappadd.png" alt=""></p>
 <p>Next we&#39;ll start with implementing the menu.</p>
 </li>
