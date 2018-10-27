@@ -95,7 +95,25 @@ Lab-02
               <li>
                 <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-03/index.html">
   <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-04
+Lab-03
+                </a>
+              </li>
+            
+          
+            
+              <li>
+                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/book-coffeemate-lab-04/index.html">
+  <i class="fas fa-flask " style="color:#00BCD4"> </i>
+Lab-05-a
+                </a>
+              </li>
+            
+          
+            
+              <li>
+                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/book-coffeemate-realm/index.html">
+  <i class="fas fa-flask " style="color:#00BCD4"> </i>
+Lab-05-b
                 </a>
               </li>
             
@@ -122,7 +140,7 @@ Lab-04
           <ul class="uk-subnav uk-background-secondary uk-subnav-pill"
               uk-switcher="connect: .switcher-container">
             
-              <li><a href="#">Lab-04</a></li>
+              <li><a href="#">Lab-03</a></li>
             
               <li><a href="#">01</a></li>
             
@@ -149,54 +167,332 @@ Lab-04
       <ul class="uk-switcher switcher-container">
         
           <li> <h1>Objectives</h1>
-<p>In this Lab, you will continue to refactor our CoffeeMate Case Study, this version is called <b>CoffeeMate.3.0</b>. We will build on the previous lab and add in more new features and UI Design. In this version we will add in a few more activities and some extra layouts. On completion of this lab you&#39;ll be able to</p>
-<ul>
-<li><p>use multiple Fragments in different Activities</p>
-</li>
-<li><p>use Spinners (dropdown lists)</p>
-</li>
-<li><p>filter lists based on different criteria</p>
-</li>
-<li><p>use the <b>Application</b> Object</p>
-</li>
-</ul>
+<p>In this Lab, <b>CoffeeMate.3.0</b> we will again build on the previous lab and add in more new features and UI Design. On completion of this lab you&#39;ll be able to use multiple Fragments in different Activities, use Spinners (dropdown lists), filter lists and use the <b>Application</b> Object</p>
 </li>
         
           <li> <h1>Setup - Starter Code</h1>
-<p>As with the previous lab, you can download some starter code for this lab here - <a href="archives/CoffeeMate.3.0.Starter.zip">CoffeeMate.3.0.Starter</a>. It contains all the resources you&#39;ll need to complete this lab along with some of the code.</p>
-<p>Once you open the <b>CoffeeMate 3.0 Starter</b> Project in Android Studio it should looks as follows:</p>
+<p>To complete this lab you can either continue on with your solution from Lab 02 (CoffeeMate.2.0) or download the previous solution here <a href="archives/CoffeeMate.3.0.Starter.zip">CoffeeMate.3.0.Starter</a></p>
+<p>To open this in Android Studio, first extract the archive somewhere on your hard drive and select &#39;File-&gt;Open&#39; etc.</p>
+<p>Once you open/import the <b>CoffeeMate.3.0</b> Project you&#39;ll probably need to &#39;Clean &amp; Build&#39; the project to fix any residual errors.</p>
+<p>Next, go ahead and create 2 new Empty Activities
+- <b>Favourites</b> and
+- <b>Search</b></p>
+<p>and name the layouts appropriately (as we&#39;ve done previously). Don&#39;t forget to set their Base class as &#39;<b>Base</b>&#39;.</p>
+<p>Next, replace your &#39;favourites&#39; layout with this (you&#39;ll need to add a new &#39;red&#39; color resource yourself)</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.activities.Favourites&quot;&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/favouriteBarTV&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;21dp&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;108dp&quot;
+        android:background=&quot;@color/colorPrimary&quot;
+        android:text=&quot;@string/recentlyViewedLbl&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorFontWhite&quot;
+        android:textSize=&quot;16sp&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/footer&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;36dp&quot;
+        android:background=&quot;@color/colorPrimary&quot;
+        android:paddingTop=&quot;5dp&quot;
+        android:text=&quot;@string/appWebsite&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorFontWhite&quot;
+        android:textSize=&quot;16sp&quot;
+        android:textStyle=&quot;bold&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.0&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot; /&gt;
+
+    &lt;FrameLayout
+        android:id=&quot;@+id/fragment_container&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;0dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/footer&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.5&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/favouriteBarTV&quot;&gt;
+
+        &lt;TextView
+            android:id=&quot;@+id/emptyList&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_gravity=&quot;top|center_horizontal&quot;
+            android:layout_marginTop=&quot;30dp&quot;
+            android:text=&quot;@string/emptyMessageLbl&quot;
+            android:textSize=&quot;12sp&quot;
+            app:layout_constraintHorizontal_bias=&quot;0.576&quot;
+            app:layout_constraintVertical_bias=&quot;0.533&quot; /&gt;
+    &lt;/FrameLayout&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/favouriteCoffeeName&quot;
+        android:layout_width=&quot;174dp&quot;
+        android:layout_height=&quot;40dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        android:text=&quot;CoffeeName&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorFontBlack&quot;
+        android:textSize=&quot;30sp&quot;
+        android:textStyle=&quot;bold&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/favouriteCoffeeShop&quot;
+        android:layout_width=&quot;94dp&quot;
+        android:layout_height=&quot;25dp&quot;
+        android:layout_marginStart=&quot;48dp&quot;
+        android:layout_marginTop=&quot;20dp&quot;
+        android:text=&quot;shop&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorPrimaryDark&quot;
+        android:textSize=&quot;18sp&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/favouriteCoffeeName&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/favouriteCoffeePrice&quot;
+        android:layout_width=&quot;94dp&quot;
+        android:layout_height=&quot;25dp&quot;
+        android:layout_marginEnd=&quot;52dp&quot;
+        android:layout_marginTop=&quot;20dp&quot;
+        android:text=&quot;price&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorPrimaryDark&quot;
+        android:textSize=&quot;18sp&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/favouriteCoffeeRating&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/favouriteCoffeeRating&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginEnd=&quot;56dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        android:text=&quot;Rating&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorFontRed&quot;
+        android:textSize=&quot;30sp&quot;
+        android:textStyle=&quot;bold&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
+
+
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+<p>and your &#39;search&#39; layout with this</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.activities.Search&quot;&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/searchBarTV&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;21dp&quot;
+        android:background=&quot;@color/colorPrimary&quot;
+        android:text=&quot;@string/searchCoffeesLbl&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorFontWhite&quot;
+        android:textSize=&quot;16sp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/footer&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.0&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/searchSpinner&quot;
+        app:layout_constraintVertical_bias=&quot;0.0&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/footer&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;36dp&quot;
+        android:background=&quot;@color/colorPrimary&quot;
+        android:paddingTop=&quot;5dp&quot;
+        android:text=&quot;@string/appWebsite&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorFontWhite&quot;
+        android:textSize=&quot;16sp&quot;
+        android:textStyle=&quot;bold&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.0&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot; /&gt;
+
+    &lt;FrameLayout
+        android:id=&quot;@+id/fragment_container&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;0dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/footer&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.5&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/searchBarTV&quot;&gt;
+
+        &lt;TextView
+            android:id=&quot;@+id/emptyList&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_gravity=&quot;top|center_horizontal&quot;
+            android:layout_marginTop=&quot;30dp&quot;
+            android:text=&quot;@string/emptyMessageLbl&quot;
+            android:textSize=&quot;12sp&quot;
+            app:layout_constraintHorizontal_bias=&quot;0.576&quot;
+            app:layout_constraintVertical_bias=&quot;0.533&quot; /&gt;
+    &lt;/FrameLayout&gt;
+
+    &lt;Spinner
+        android:id=&quot;@+id/searchSpinner&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;50dp&quot;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/footer&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.112&quot; /&gt;
+
+    &lt;SearchView
+        android:id=&quot;@+id/searchView&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;46dp&quot;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        android:visibility=&quot;visible&quot;
+        android:background=&quot;#fff&quot;
+        android:elevation=&quot;2dp&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;@+id/searchSpinner&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.14&quot; /&gt;
+
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+<p>Run your app to confirm you can now load the &#39;search&#39; and &#39;favourites&#39; screens. If you can&#39;t, try and work out why. To point you in the right direction you may need to wire up the buttons on the layout to the relevant method in your <b>Home.java</b> which can be done like so</p>
+<p><img src="img/onclick.png" alt=""></p>
+<p>Notice how the method is already listed as it&#39;s being picked up from the associated Activity.</p>
+<p>Run the app again to confirm.</p>
+<p>Next, create a new java class called <b>CoffeeFilter</b> in the &#39;adapters&#39; package and replace it with the following</p>
+<pre><code class="lang-java">public class CoffeeFilter extends Filter {
+    public List&lt;Coffee&gt; originalCoffeeList;
+    public String filterText;
+    public CoffeeListAdapter adapter;
+
+    public CoffeeFilter(List&lt;Coffee&gt; originalCoffeeList, String filterText,
+                        CoffeeListAdapter adapter) {
+        super();
+        this.originalCoffeeList = originalCoffeeList;
+        this.filterText = filterText;
+        this.adapter = adapter;
+    }
+
+    public void setFilter(String filterText) {
+        this.filterText = filterText;
+    }
+
+    @Override
+    protected FilterResults performFiltering(CharSequence prefix) {
+        FilterResults results = new FilterResults();
+
+        List&lt;Coffee&gt; newCoffees;
+        String coffeeName;
+
+        if (prefix == null || prefix.length() == 0) {
+            newCoffees = new ArrayList&lt;&gt;();
+            if (filterText.equals(&quot;all&quot;)) {
+                results.values = originalCoffeeList;
+                results.count = originalCoffeeList.size();
+            } else {
+                if (filterText.equals(&quot;favourites&quot;)) {
+                    for (Coffee c : originalCoffeeList)
+                        if (c.favourite)
+                            newCoffees.add(c);
+                }
+                results.values = newCoffees;
+                results.count = newCoffees.size();
+            }
+        } else {
+            String prefixString = prefix.toString().toLowerCase();
+            newCoffees = new ArrayList&lt;&gt;();
+
+            for (Coffee c : originalCoffeeList) {
+                coffeeName = c.coffeeName.toLowerCase();
+                if (coffeeName.contains(prefixString)) {
+                    if (filterText.equals(&quot;all&quot;)) {
+                        newCoffees.add(c);
+                    } else if (c.favourite) {
+                        newCoffees.add(c);
+                    }}}
+            results.values = newCoffees;
+            results.count = newCoffees.size();
+        }
+        return results;
+    }
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+    @Override
+    protected void publishResults(CharSequence prefix, FilterResults results) {
+
+        adapter.coffeeList = (ArrayList&lt;Coffee&gt;) results.values;
+
+        if (results.count &gt;= 0)
+            adapter.notifyDataSetChanged();
+        else {
+            adapter.notifyDataSetInvalidated();
+            adapter.coffeeList = originalCoffeeList;
+        }
+    }
+}</code></pre>
+<p>and finally, create a new &#39;Blank&#39; Fragment called <b>SearchFragment</b> in the &#39;fragments&#39; package with the following settings :</p>
+<p><img src="img/blankfragment.png" alt=""></p>
+<p>Once the initial setup is complete your <b>CoffeeMate 3.0</b> Project in Android Studio should looks as follows:</p>
 <p><img src="img/starter.3.png" alt=""></p>
-<p>Take a few moments to familiarise yourself with the <b>new</b> classes in your project and explore the resources that you will be referring to throughout the lab, especially the new layouts in both &#39;Design&#39; view and &#39;Text&#39; view. It&#39;s also probably a good idea to run the App at this stage too, so you can set up your AVD (if you haven&#39;t done so already) and confirm that the starter app is configured properly and running (although &#39;Search&#39; and &#39;Favourites&#39; don&#39;t really do anything).</p>
+<p>Take a few moments to familiarise yourself with the <b>new</b> classes in your project and explore the resources and layouts that you will be referring to throughout the lab, especially the new layouts in both &#39;Design&#39; view and &#39;Text&#39; view. It&#39;s also probably a good idea to run the App at this stage too, so you can set up your AVD (if you haven&#39;t done so already) and confirm that the starter app is configured properly and running (although &#39;Search&#39; and &#39;Favourites&#39; don&#39;t really do anything).</p>
 <p>In this lab, you are required to do the following:</p>
 <ul>
-<li><p>Display a list of the users &#39;Favourite&#39; Coffees</p>
+<li><p>Display a list of the users &#39;Favourite&#39; Coffees, highlighting the best &#39;rated&#39; coffee</p>
 </li>
-<li><p>Allow Coffees in the list to be filtered on their type and name.</p>
+<li><p>Allow Coffees in the list to be filtered on their type and name and rating.</p>
 </li>
 </ul>
 <p>The following steps will guide you through these requirements, so we&#39;ll start with refactoring the necessary classes.</p>
 </li>
         
           <li> <h1>CoffeeMate 3.0 - A First Look</h1>
-<p>When we&#39;re finsihed this lab, we&#39;ll be able to display the users Favourite coffees and apply a filter to the list of coffees so the user can search on a coffee name or type, or both. If you&#39;ve run the starter code (and it&#39;s recommended you do) you&#39;ll see that the &#39;Search&#39; &amp; &#39;Favourites&#39; buttons are working, but not functioning properly - we&#39;re not seeing any refined list of coffees.</p>
-<p> <img src="img/lab0402a.png" alt=""> <img src="img/lab0403a.png" alt=""></p>
-<p>Furthermore, there&#39;s nothing to select from the Spinner (second screenshot above) so this lab is all about refactoring existing classes to get these features working.</p>
-<p>It&#39;s also worth taking a look at our <b>Home.java</b> below just to confirm you understand how we implemented the button functionality (see below).</p>
+<p>When we&#39;re finished this lab, we&#39;ll be able to display the users Favourite coffees and apply a filter to the list of coffees so the user can search on a coffee name or type, or both. If you&#39;ve followed step 1 correctly you&#39;ll see that the &#39;Search&#39; &amp; &#39;Favourites&#39; buttons are working, but not functioning properly - we&#39;re not seeing any refined list of coffees.</p>
+<p> <img src="img/searchstarter.png" alt=""> <img src="img/favouritesstarter.png" alt=""></p>
+<p>Furthermore, there&#39;s nothing to select from the Spinner (second screenshot above) so the rest of this lab is all about refactoring existing classes to get these features working.</p>
+<p>It&#39;s also worth confirming your <b>Home.java</b> looks something like below.</p>
 <p>The following steps will take you through completing <b><i>CoffeeMate 3.0</i></b>.</p>
-<pre><code class="lang-java">package ie.cm.activities;
+<pre><code class="lang-java">public class Home extends Base {
 
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.TextView;
-
-import ie.cm.R;
-import ie.cm.fragments.CoffeeFragment;
-import ie.cm.models.Coffee;
-
-public class Home extends Base {
+    TextView emptyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,9 +500,10 @@ public class Home extends Base {
         setContentView(R.layout.home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setLogo(R.drawable.ic_launcher1);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        emptyList = findViewById(R.id.emptyList);
+
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -214,38 +511,38 @@ public class Home extends Base {
                         .setAction(&quot;More Info...&quot;, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                openInfoDialog(Home.this);
+
                             }
                         }).show();
             }
         });
-    this.setupCoffees();
+        if(coffeeList.isEmpty()) setupCoffees();
     }
 
-    public void add(View v)
-    {
-        goToActivity(this,Add.class,null);
+    public void add(View v) {
+        startActivity(new Intent(this, Add.class));
     }
 
-    public void search(View v)
-    {
-        goToActivity(this,Search.class,null);
+    public void search(View v) {
+        startActivity(new Intent(this, Search.class));
     }
 
-    public void favourites(View v)
-    {
-        goToActivity(this,Favourites.class,null);
+    public void favourites(View v) { startActivity(new Intent(this, Favourites.class));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-            coffeeFragment = CoffeeFragment.newInstance(); //get a new Fragment instance
-            getFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_layout, coffeeFragment)
-                    .commit(); // add/replace in the current activity
+        if(coffeeList.isEmpty())
+            emptyList.setText(getString(R.string.emptyMessageLbl));
+        else
+            emptyList.setText(&quot;&quot;);
+
+        coffeeFragment = CoffeeFragment.newInstance(); //get a new Fragment instance
+        getFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, coffeeFragment)
+                .commit(); // add it to the current activity
     }
 
     public void setupCoffees(){
@@ -257,22 +554,23 @@ public class Home extends Base {
 </li>
         
           <li> <h1>Reusing Fragments - &#39;Search&#39; &amp; Favourites&#39;</h1>
-<p>If you recall in <b><i>CoffeeMate 2.0</i></b> we used a <b><i>Fragment</i></b> to display our list of coffees inside our Home Screen. A Fragments main purpose is to be <u><i>reused</i></u> so we can use our existing Fragment in both our Search &amp; Favourites Screens.</p>
+<p>If you recall in <b><i>CoffeeMate 2.0</i></b> we used a <b><i>Fragment</i></b> to display our list of coffees inside our Home Screen. A Fragments main purpose is to be <u><i>reused</i></u>, so we can use our existing Fragment in both our Search &amp; Favourites Screens.</p>
 <h1>Search &amp; Favourites Screens</h1>
-<p>The first thing we&#39;ll do is add the Fragment to our <b>Search.java</b> and <b>Favourites.java</b> Activity classes. This is pretty staright forward as we have already done this in our <b>Home.java</b> in <b><i>CoffeeMate 2.0</i></b>.</p>
+<p>The first thing we&#39;ll do is add the Fragment to our <b>Search.java</b> and <b>Favourites.java</b> Activity classes. This is pretty straightforward as we have already done this in our <b>Home.java</b> in <b><i>CoffeeMate 2.0</i></b>.</p>
 <pre><code class="lang-java">  coffeeFragment = CoffeeFragment.newInstance(); //get a new Fragment instance
             getFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_layout, coffeeFragment)
+                    .replace(R.id.fragment_container, coffeeFragment)
                     .commit(); // add/replace in the current activity</code></pre>
 <p>You can literally cut &amp; paste the above code into both activity classes <b>onResume()</b> method and run the app, so see what you get?</p>
-<p>And don&#39;t forget to use Android Studio&#39;s tools for overriding methods</p>
+<p>And don&#39;t forget you can use Android Studio&#39;s tools for overriding methods (Here&#39;s another way to do it)</p>
 <p><img src="img/lab0405a.png" alt=""></p>
 <p>and then</p>
 <p><img src="img/lab0405b.png" alt=""></p>
 <p>You should be seeing something like the following :</p>
-<p><img src="img/lab0404.png" alt=""> <img src="img/lab0405.png" alt=""></p>
-<p>Obviously, our Favourites isn&#39;t filtered to show just &#39;Favourite Coffees&#39; (we&#39;ll get to that later), but this does really illustrate the benefits of using Fragments when we can.</p>
+<p><img src="img/searchlist.png" alt=""> <img src="img/favouriteslist.png" alt=""></p>
+<p>If you&#39;re seeing the &quot;empty coffees&quot; message behind the list, have a look at your Home.java and see if you can fix that?</p>
+<p>Obviously, our Favourites isn&#39;t filtered to show just &#39;Favourite Coffees&#39; (we&#39;ll get to that later), but this does really illustrate the benefits of using Fragments when we can. See if you can edit and/or delete coffees?</p>
 <p>The next step is introducing the Filter so the user can view their Favourite Coffees (and eventually search).</p>
 </li>
         
@@ -297,46 +595,87 @@ public class Home extends Base {
       listAdapter.notifyDataSetChanged(); // Update the adapter
     }</code></pre>
 <p>If you run the app again, and select the Favourites Button, you should now see just the &#39;Favourite&#39; coffees, like so:</p>
-<p><img src="img/lab0406.png" alt=""></p>
+<p><img src="img/filterfavourites1.png" alt=""></p>
 <p>Note that we didn&#39;t have to modify a single line of code in our <b>Favourites.java</b> Activity class.</p>
 <p>There&#39;s still a few issues with our <b>Favourites</b> though, if you&#39;ve done some proper testing? And tried to delete multiple coffees via the context menu? Can you identify how to fix it?</p>
 <p>Hint : You&#39;ll be focusing on the &#39;deleteCoffees() method and having to &#39;filter&#39; again. (Or you can always check the notes!)</p>
+<p>The next thing to do is display a &quot;Random Suggestion&quot; Favourite coffee that the user could/should try, so using the following, have a go at that.</p>
+<pre><code class="lang-java">public void setRandomCoffee() {
+
+        ArrayList&lt;Coffee&gt; coffeeList = (ArrayList&lt;Coffee&gt;)activity.coffeeList.clone();
+        Iterator&lt;Coffee&gt; itr = coffeeList.iterator();
+
+        while(itr.hasNext()) {
+            Coffee c = itr.next();
+            if (!c.favourite)
+                itr.remove();
+        }
+        if (activity instanceof Favourites)
+            if( !coffeeList.isEmpty()) {
+                Coffee randomCoffee = coffeeList.get(new Random()
+                            .nextInt(coffeeList.size()));
+
+              // Set the details on the layout
+            }
+            else {
+                // Set default details
+            }
+    }</code></pre>
+<p>Now, whenever the user loads up the favourites screen, they&#39;ll see their favourite coffees and a suggestion, like so :)</p>
+<p><img src="img/random1.png" alt=""></p>
 <p>Next we&#39;ll look at searching our coffees by name and/or type.</p>
 </li>
         
           <li> <h1>Reusing Fragments - Searching Coffees</h1>
 <p>We now have a Fragment that has filtering capabilities so we use these to search our list of coffees and refine the list based on either the coffees name, it&#39;s type, or both. To achieve this, we&#39;ll subclass our existing <b><i>CoffeeFragment</i></b> and create new class called <b><i>SearchFragment</i></b> and associate this Fragment with our <b>Search.java</b> Activity class.</p>
 <h1>SearchFragment.java</h1>
-<p>Have a quick look at the existing <b><i>SearchFragment</i></b> class:</p>
-<pre><code class="lang-java">public class SearchFragment extends CoffeeFragment
-         {
-    @Override
-    public void onAttach(Context c) {
-        super.onAttach(c);
+<p>Have a quick look at the existing <b><i>SearchFragment</i></b> class (the one you created earlier in the lab):</p>
+<pre><code class="lang-java">public class SearchFragment extends CoffeeFragment {
+
+    public SearchFragment() {
+        // Required empty public constructor
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        TextView textView = new TextView(getActivity());
+        textView.setText(R.string.hello_blank_fragment);
+        return textView;
     }
 }</code></pre>
-<p>There&#39;s not much in there, so first add the following :</p>
-<pre><code class="lang-java">public SearchFragment() {
+<p>There&#39;s not much in there, so first replace it with the following :</p>
+<pre><code class="lang-java">public class SearchFragment extends Fragment {
+
+    public SearchFragment() {
         // Required empty public constructor
     }
 
     public static SearchFragment newInstance() {
         SearchFragment fragment = new SearchFragment();
         return fragment;
-    }</code></pre>
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);    
+    }
+
+    @Override
+    public void onAttach(Context c) { super.onAttach(c); }
+
+    @Override
+    public void onStart() { super.onStart(); }
+}</code></pre>
 <p>And the next thing we&#39;ll do is add some choices to the Spinner so the user can filter on a &#39;type&#39;.</p>
 <p>We&#39;ll use an Adapter to populate the Spinner data so have a go at completing the following:</p>
-<p>First, create the Adapter</p>
+<p>First, create the Resource Array</p>
+<pre><code class="lang-xml">&lt;string-array name=&quot;coffeeTypes&quot;&gt;
+        &lt;item&gt;All Types&lt;/item&gt;
+        &lt;item&gt;Favourites&lt;/item&gt;
+        &lt;item&gt;\&gt; 3\* Rating&lt;/item&gt;
+    &lt;/string-array&gt;</code></pre>
+<p>then the Adapter</p>
 <pre><code class="lang-java">    ArrayAdapter&lt;CharSequence&gt; spinnerAdapter = ArrayAdapter
                 .createFromResource(/*activity reference*/, /*the options to display*/,
                         android.R.layout.simple_spinner_item);
@@ -348,10 +687,10 @@ public class Home extends Base {
 <p>and finally, set the Spinners adapter to the adapter you&#39;ve set up (<i>spinnerAdapter</i>).</p>
 <p>If you run your app again, you would expect to see the Spinner showing data - but it does not. Can you work out what the issue is? (HINT: Have a look at the <b>Search.java</b> Activity class and the type of Fragment being loaded)</p>
 <p>If you&#39;ve spotted what needed to be changed, run the app one more time and you should now be seeing something like this when you click on the Spinner.</p>
-<p><img src="img/lab0407.png" alt=""></p>
+<p><img src="img/spinner1.png" alt=""></p>
 <p>and</p>
-<p><img src="img/lab0408.png" alt=""></p>
-<p>The last step is to add the listeners for the <b><i>Spinner</i></b> and <b><i>EditText</i></b> widgets to filter the list on the users selections.</p>
+<p><img src="img/spinner2.png" alt=""></p>
+<p>The last step is to add the listeners for the <b><i>Spinner</i></b> and <b><i>SearchView</i></b> widgets to filter the list on the users selections.</p>
 </li>
         
           <li> <h1>Reusing Fragments - Adding Event Handlers</h1>
@@ -384,9 +723,8 @@ public class Home extends Base {
                 coffeeFilter.setFilter(&quot;favourites&quot;);
             }
 
-            String filterText = ((EditText)activity
-                    .findViewById(R.id.searchCoffeeNameEditText))
-                    .getText().toString();
+            String filterText = ((SearchView)activity
+                    .findViewById(R.id.searchView)).getQuery().toString();
 
             if(filterText.length() &gt; 0)
                 coffeeFilter.filter(filterText);
@@ -395,7 +733,7 @@ public class Home extends Base {
         }
     }</code></pre>
 <p>and finally, inside &#39;onItemSelected&#39;</p>
-<pre><code class="lang-java">  String selected = parent.getItemAtPosition(position).toString();
+<pre><code class="lang-java">  selected = parent.getItemAtPosition(position).toString();
   checkSelected(selected);</code></pre>
 <p>Once again, be clear about what is going here.</p>
 <p>We also need to override our &#39;deleteCoffees()&#39; method in the super class to ensure our context menu continues to function as expected, so revisit &#39;CoffeeFragment&#39; and change the access modifier of the method to public and then introduce the following method into your &#39;SearchFragment&#39;</p>
@@ -406,28 +744,25 @@ public class Home extends Base {
     }</code></pre>
 <p>The last thing to do is set the spinners listener, so have a go at this method call.</p>
 <p>Run your app again to confirm everything is still working as expected.</p>
-<h1>Handling the EditText with the <u>TextWatcher</u> interface</h1>
-<p>Similar to handling the <b><i>Spinner</i></b> try and use the Android Studio features to implement the <b><i>TextWatcher</i></b> interface. If you&#39;ve done this correctly you&#39;ll have the following method stubs:</p>
+<h1>Handling the SearchView with <b><i>OnQueryTextListener</i></b></h1>
+<p>Similar to handling the <b><i>Spinner</i></b> try and use the Android Studio features to implement the <b><i>OnQueryTextListener</i></b> interface. If you&#39;ve done this correctly you&#39;ll have the following method stubs:</p>
 <pre><code class="lang-java">@Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public boolean onQueryTextSubmit(String query) {
 
-    }
+                return false;
+            }
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+            @Override
+            public boolean onQueryTextChange(String newText) {
 
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
-    }</code></pre>
-<p>There&#39;s actually very little code necessary to implement this feature, so see if you can complete this final step without referring to the lecture material.</p>
-<p>HINT: the <i>filter</i> method of our coffee filter takes a String to filter on and you need to add the relevant listener to the <b><i>EditText</i></b>.</p>
+                return false;
+            }</code></pre>
+<p>And there&#39;s actually very little code necessary to implement this feature, so see if you can complete this final step without referring to the lecture material.</p>
+<p>HINT: the <i>filter</i> method of our coffee filter takes a String to filter on and you need to add the relevant listener to the <b><i>SearchView</i></b>.</p>
 <p>Once you have that up and running you should be seeing something like this during filtering:</p>
-<p><img src="img/lab0407.png" alt=""></p>
-<p><img src="img/lab0410.png" alt=""></p>
-<p><img src="img/lab0411.png" alt=""></p>
+<p><img src="img/filter1.png" alt=""></p>
+<p><img src="img/filter2.png" alt=""></p>
+<p><img src="img/filter3.png" alt=""></p>
 </li>
         
           <li> <h1>The Application Object</h1>
@@ -489,7 +824,7 @@ app.coffeeList.add(c);</code></pre>
           <li> <h2>Solution</h2>
 <p>This is a solution to the lab:</p>
 <ul>
-<li><a href="archives/CoffeeMate.3.0.Solution.zip">CoffeeMate.3.0.Solution</a></li>
+<li><a href="archives/CoffeeMate.3.0.Solution.zip">CoffeeMate.3.0.Solution</a> including some bug fixes!</li>
 </ul>
 <p>In this lab you have experimented with Custom Adapters, Fragments and Filters, and the Application Object:</p>
 <ul>

@@ -95,7 +95,25 @@ Lab-02
               <li>
                 <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-03/index.html">
   <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-04
+Lab-03
+                </a>
+              </li>
+            
+          
+            
+              <li>
+                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/book-coffeemate-lab-04/index.html">
+  <i class="fas fa-flask " style="color:#00BCD4"> </i>
+Lab-05-a
+                </a>
+              </li>
+            
+          
+            
+              <li>
+                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/book-coffeemate-realm/index.html">
+  <i class="fas fa-flask " style="color:#00BCD4"> </i>
+Lab-05-b
                 </a>
               </li>
             
@@ -149,17 +167,7 @@ Lab-04
       <ul class="uk-switcher switcher-container">
         
           <li> <h1>Objectives</h1>
-<p>In this Lab, you will be required to refactor our CoffeeMate Case Study, called <b>CoffeeMate.2.0</b>. We will build on the previous lab and add in some new features and UI Design. In this version we will add in a few more activities and some extra layouts. On completion of this lab you&#39;ll be able to</p>
-<ul>
-<li><p>use &#39;Bundles&#39; to pass data between activities</p>
-</li>
-<li><p>use Custom Layouts</p>
-</li>
-<li><p>use Custom Adapters</p>
-</li>
-<li><p>use Fragments</p>
-</li>
-</ul>
+<p>In this Lab, <b>CoffeeMate.2.0</b> we will build on the previous lab and add in some new features and UI Design. On completion of this lab you&#39;ll be able to use Bundles, Custom Layouts, Custom Adapters and Fragments.</p>
 </li>
         
           <li> <h1>Setup - Starter Code</h1>
@@ -870,6 +878,11 @@ public CoffeeFragment    coffeeFragment; // How we&#39;ll &#39;share&#39; our Li
 }</code></pre>
 <p>Remember, the <b><i>getView()</i></b> method is automatically called for every object that exists in the underlying data (ie our coffeeList) so you should be returning a <b>CoffeeItem</b> reference here - try and have a go at this without referring to the notes.</p>
 <p>The remaining methods are all related to the coffeeList itself, so again, give it a go without the notes!</p>
+<p>You&#39;ll also need to Override <b><i>getItem()</i></b> like so, which we&#39;ll make use of in the next lab.</p>
+<pre><code>@Override
+   public Coffee getItem(int position) {
+       return coffeeList.get(position);
+   }</code></pre>
 <h1>CoffeeFragment</h1>
 <p>The main purpose of this class is to allow us to reuse a component (the Fragment) which contains our list of coffees:</p>
 <p><img src="img/coffeefragment.png" alt=""></p>
