@@ -673,245 +673,260 @@ coffeeFilter = new CoffeeFilter(activity.app.coffeeList,&quot;all&quot;,listAdap
 </li>
         
           <li> <h1>App Refactoring - Our &#39;Edit&#39; Option (Part 1)</h1>
-<p>This step is similar to our <code>Add</code> Fragment implementation but there&#39;s a bit more complexity involved as we need to</p>
+<p>This step is similar to our <code>AddFragment</code> implementation but there&#39;s a bit more complexity involved as we need to</p>
 <ul>
-<li>Create a new Fragment (<strong>EditFragment</strong>) (similar to Add)</li>
+<li>Create a new Fragment <code>EditFragment</code> (similar to Add)</li>
 <li>Recycle the &#39;Edit&#39; Layout for use with our new Fragment (similar to Add)</li>
-</ul>
-<p>and</p>
-<ul>
-<li>Pass the relevant Coffee Data from the &#39;Coffee List&#39; (managed within the <strong>CoffeeFragment</strong>) to the <strong>EditFragment</strong></li>
+<li>Pass the relevant/selected Coffee Data from the &#39;Coffee List&#39; (managed within the <code>CoffeeFragment</code>) to the <code>EditFragment</code></li>
 </ul>
 <p>AND</p>
 <ul>
 <li>Implement a callback interface from our Fragment to our Activity to handle the &#39;favourites star&#39; toggle and the update button.</li>
 </ul>
-<p><strong>Note:</strong> We could simply have our EditFragment implement an onClick Listener, but this is an opportunity to demonstrate how to communicate between a Fragment and an Activity.</p>
-<p>So first of all, go ahead and create the Fragment (and it&#39;s associated layout) but this time, make sure you choose to <strong>Include interface Callbacks</strong>, like so .</p>
-<p><img src="img/lab509.png" alt=""></p>
-<p>Then, modify the boilerplate code so that the <strong><em>newInstance()</em></strong> method takes a &#39;Bundle&#39; object (called <em>coffeeBundle</em>) as a parameter.</p>
-<p>Now, our current <em><strong>onItemClick()</strong></em> method inside our CoffeeFragment, looks like this</p>
-<pre><code>@Override  
-public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, long id)
-{    
-Bundle activityInfo = new Bundle();    
-activityInfo.putInt(&quot;coffeeID&quot;, view.getId());    
-
-Intent goEdit = new Intent(getActivity(), Edit.class);
-goEdit.putExtras(activityInfo);   
-getActivity().startActivity(goEdit);  
-}</code></pre>
-<p>so see if you can implement the necessary code to &#39;switch to&#39; the EditFragment instead of launching the Edit activity (We&#39;ll revist this code in Part 2 to complete the Edit feature).</p>
-<p><strong>Hint:</strong> have a look at your <strong>Home</strong> activity and how we manage our Fragments.</p>
+<p><strong>Note:</strong> We could simply have our <code>EditFragment</code> implement an onClick Listener, but this is an opportunity to demonstrate how to communicate between a Fragment and an Activity.</p>
+<p>So first of all, go ahead and create the Fragment (and it&#39;s associated layout\ but this time, make sure you choose to <strong>Include interface Callbacks</strong>, like so .</p>
+<p><img src="img/editsetup.png" alt=""></p>
+<p>Then, modify the boilerplate code so that the <strong><em>newInstance()</em></strong> method takes a <code>Bundle</code> object (called <strong><em>coffeeBundle</em></strong>) as a parameter.</p>
+<p>Now, our current <strong><em>onItemClick()</em></strong> method inside our CoffeeFragment, looks like this</p>
+<pre><code class="lang-java">@Override
+    public void onItemClick(AdapterView&lt;?&gt; adapterView, View view, int i, long l) {
+        Bundle activityInfo = new Bundle(); // Creates a new Bundle object
+        activityInfo.putString(&quot;coffeeId&quot;, (String) view.getTag());
+        Intent goEdit = new Intent(getActivity(), Edit.class); // Creates a new Intent
+        /* Add the bundle to the intent here */
+        goEdit.putExtras(activityInfo);
+        getActivity().startActivity(goEdit); // Launch the Intent
+    }</code></pre>
+<p>so see if you can implement the necessary code to &#39;switch to&#39; the EditFragment instead of launching the Edit activity (We&#39;ll revisit this code in Part 2 to complete the Edit feature).</p>
+<p><code>Hint: have a look at your Home activity and how we manage our Fragments</code></p>
 <hr>
-<p>Next, you need to update your layout, so again, have a go at that, but to help you along here&#39;s the layout I copied from our &#39;Add&#39; and refactored to suit our needs.</p>
-<pre><code class="lang-xml">&lt;FrameLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+<p>Next, you need to update your layout, so again, have a go at that, but to help you along here&#39;s the layout I copied from our &#39;edit.xml&#39; and refactored to suit our needs.</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
     xmlns:tools=&quot;http://schemas.android.com/tools&quot;
     android:layout_width=&quot;match_parent&quot;
     android:layout_height=&quot;match_parent&quot;
-    tools:context=&quot;ie.cm.fragments.EditFragment&quot;&gt;
+    tools:context=&quot;.fragments.EditFragment&quot;&gt;
 
-    &lt;RelativeLayout
-        android:layout_width=&quot;fill_parent&quot;
+    &lt;TextView
+        android:id=&quot;@+id/editBarTV&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;25dp&quot;
+        android:layout_marginTop=&quot;104dp&quot;
+        android:background=&quot;@color/colorPrimary&quot;
+        android:paddingBottom=&quot;2dp&quot;
+        android:text=&quot;@string/coffeeDetailsLbl&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorFontWhite&quot;
+        android:textSize=&quot;18sp&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.0&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/editfooter&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;36dp&quot;
+        android:background=&quot;@color/colorPrimary&quot;
+        android:paddingTop=&quot;5dp&quot;
+        android:text=&quot;@string/appWebsite&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorFontWhite&quot;
+        android:textSize=&quot;16sp&quot;
+        android:textStyle=&quot;bold&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.523&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;1.0&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/editPriceTV&quot;
+        android:layout_width=&quot;99dp&quot;
+        android:layout_height=&quot;43dp&quot;
+        android:paddingTop=&quot;10dp&quot;
+        android:text=&quot;@string/coffeePriceLbl&quot;
+        android:textAlignment=&quot;textEnd&quot;
+        android:textColor=&quot;@color/colorFontBlack&quot;
+        android:textSize=&quot;18sp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/editfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.056&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.613&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/editShopTV&quot;
+        android:layout_width=&quot;99dp&quot;
+        android:layout_height=&quot;43dp&quot;
+        android:paddingTop=&quot;10dp&quot;
+        android:text=&quot;@string/coffeeShopLbl&quot;
+        android:textAlignment=&quot;textEnd&quot;
+        android:textColor=&quot;@color/colorFontBlack&quot;
+        android:textSize=&quot;18sp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/editfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.056&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.472&quot; /&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/editNameTV&quot;
+        android:layout_width=&quot;99dp&quot;
+        android:layout_height=&quot;43dp&quot;
+        android:paddingTop=&quot;10dp&quot;
+        android:text=&quot;@string/coffeeNameLbl&quot;
+        android:textAlignment=&quot;textEnd&quot;
+        android:textColor=&quot;@color/colorFontBlack&quot;
+        android:textSize=&quot;18sp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/editfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.056&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.344&quot; /&gt;
+
+    &lt;EditText
+        android:id=&quot;@+id/editNameET&quot;
+        android:layout_width=&quot;wrap_content&quot;
         android:layout_height=&quot;wrap_content&quot;
-        android:gravity=&quot;center&quot;
-        android:layout_gravity=&quot;center_horizontal|bottom&quot;&gt;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        android:ems=&quot;10&quot;
+        android:hint=&quot;Coffee Name&quot;
+        android:inputType=&quot;textPersonName&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.447&quot;
+        app:layout_constraintStart_toEndOf=&quot;@+id/editNameTV&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.307&quot; /&gt;
 
-        &lt;LinearLayout
-            android:id=&quot;@+id/linearLayout1&quot;
-            android:layout_width=&quot;match_parent&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:orientation=&quot;vertical&quot;
-            android:paddingBottom=&quot;5dp&quot;
-            android:paddingLeft=&quot;10dp&quot;
-            android:paddingRight=&quot;10dp&quot;
-            android:paddingTop=&quot;5dp&quot; &gt;
+    &lt;EditText
+        android:id=&quot;@+id/editPriceET&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        android:ems=&quot;10&quot;
+        android:hint=&quot;Price&quot;
+        android:inputType=&quot;numberDecimal&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.447&quot;
+        app:layout_constraintStart_toEndOf=&quot;@+id/editPriceTV&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.572&quot; /&gt;
 
-            &lt;TableLayout
-                android:id=&quot;@+id/tableLayout1&quot;
-                android:layout_width=&quot;match_parent&quot;
-                android:layout_height=&quot;wrap_content&quot; &gt;
+    &lt;EditText
+        android:id=&quot;@+id/editShopET&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:ems=&quot;10&quot;
+        android:hint=&quot;Shop&quot;
+        android:inputType=&quot;textPersonName&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/editPriceET&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.369&quot;
+        app:layout_constraintStart_toEndOf=&quot;@+id/editShopTV&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/editNameET&quot;
+        app:layout_constraintVertical_bias=&quot;0.444&quot; /&gt;
 
-                &lt;TableRow
-                    android:id=&quot;@+id/tableRow1&quot;
-                    android:layout_width=&quot;wrap_content&quot;
-                    android:layout_height=&quot;0dp&quot;
-                    android:layout_weight=&quot;1&quot;
-                    tools:ignore=&quot;UselessParent&quot; &gt;
+    &lt;RatingBar
+        android:id=&quot;@+id/editRatingBar&quot;
+        android:layout_width=&quot;242dp&quot;
+        android:layout_height=&quot;52dp&quot;
+        android:rating=&quot;1&quot;
+        android:stepSize=&quot;0.5&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/editfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/editPriceET&quot;
+        app:layout_constraintVertical_bias=&quot;0.116&quot; /&gt;
 
-                    &lt;TextView
-                        android:id=&quot;@+id/coffeeNameTextView&quot;
-                        android:layout_width=&quot;300dp&quot;
-                        android:layout_marginStart=&quot;5dp&quot;
-                        android:text=&quot;The Title&quot;
-                        android:textColor=&quot;@color/colorPrimary&quot;
-                        android:textSize=&quot;24sp&quot;
-                        tools:ignore=&quot;HardcodedText&quot; /&gt;
+    &lt;Button
+        android:id=&quot;@+id/editCoffeeBtn&quot;
+        android:layout_width=&quot;79dp&quot;
+        android:layout_height=&quot;84dp&quot;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:background=&quot;@color/colorFontOffWhite&quot;
+        android:drawableTop=&quot;@drawable/blue_add_48&quot;
+        android:onClick=&quot;saveCoffee&quot;
+        android:text=&quot;@string/saveCoffeeBtn&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/editfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.501&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/addRatingBar&quot;
+        app:layout_constraintVertical_bias=&quot;0.466&quot; /&gt;
 
-                    &lt;ImageView
-                        android:id=&quot;@+id/favouriteImageView&quot;
-                        android:layout_width=&quot;40dp&quot;
-                        android:layout_height=&quot;40dp&quot;
-                        android:src=&quot;@drawable/ic_favourite_off&quot;
-                        tools:ignore=&quot;ContentDescription&quot;
-                        android:onClick=&quot;toggle&quot; /&gt;
+    &lt;TextView
+        android:id=&quot;@+id/editTitleTV&quot;
+        android:layout_width=&quot;254dp&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;16dp&quot;
+        android:text=&quot;Title&quot;
+        android:textSize=&quot;30sp&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.07&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
 
-                &lt;/TableRow&gt;
-            &lt;/TableLayout&gt;
-
-            &lt;TextView
-                android:id=&quot;@+id/coffeeShopTextView&quot;
-                android:layout_width=&quot;match_parent&quot;
-                android:layout_height=&quot;wrap_content&quot;
-                android:text=&quot;The Description...&quot;
-                android:textColor=&quot;@color/bannerBGColor&quot;
-                tools:ignore=&quot;HardcodedText&quot;
-                android:textSize=&quot;18sp&quot;
-                android:layout_marginStart=&quot;5dp&quot; /&gt;
-
-        &lt;/LinearLayout&gt;
-
-
-        &lt;TextView
-            android:id=&quot;@+id/barTextView&quot;
-            style=&quot;@style/banner&quot;
-            android:layout_width=&quot;match_parent&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:text=&quot;@string/coffeeDetailsLbl&quot;
-            android:layout_below=&quot;@+id/linearLayout1&quot;
-            android:layout_alignParentStart=&quot;true&quot; /&gt;
-
-        &lt;RatingBar
-            android:id=&quot;@+id/coffeeRatingBar&quot;
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:numStars=&quot;5&quot;
-            android:rating=&quot;2&quot;
-            android:stepSize=&quot;0.5&quot;
-            android:progressTint=&quot;@color/bannerBGColor&quot;
-            android:layout_above=&quot;@+id/updateCoffeeBtn&quot;
-            android:layout_centerHorizontal=&quot;true&quot; /&gt;
-
-        &lt;EditText
-            android:id=&quot;@+id/nameEditText&quot;
-            android:layout_width=&quot;200dp&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:ems=&quot;10&quot;
-            android:inputType=&quot;textShortMessage&quot;
-            android:layout_below=&quot;@+id/barTextView&quot;
-            android:layout_alignStart=&quot;@+id/shopEditText&quot;
-            tools:ignore=&quot;LabelFor&quot;&gt;
-
-            &lt;requestFocus /&gt;
-
-        &lt;/EditText&gt;
-
-        &lt;EditText
-            android:id=&quot;@+id/shopEditText&quot;
-            android:layout_width=&quot;200dp&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:ems=&quot;10&quot;
-            android:inputType=&quot;textShortMessage&quot;
-            android:layout_alignTop=&quot;@+id/shopTextView&quot;
-            android:layout_alignEnd=&quot;@+id/coffeeRatingBar&quot;
-            tools:ignore=&quot;LabelFor&quot;&gt;
-        &lt;/EditText&gt;
-
-        &lt;TextView
-            android:id=&quot;@+id/ratingTextView&quot;
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:text=&quot;@string/coffeeRatingLbl&quot;
-            android:textColor=&quot;@color/appFontColor&quot;
-            android:textSize=&quot;18sp&quot;
-            android:layout_above=&quot;@+id/coffeeRatingBar&quot;
-            android:layout_alignStart=&quot;@+id/priceTextView&quot; /&gt;
-
-        &lt;TextView
-            android:id=&quot;@+id/nameTextView&quot;
-            android:layout_width=&quot;60dp&quot;
-            android:layout_height=&quot;20dp&quot;
-            android:gravity=&quot;top&quot;
-            android:text=&quot;@string/coffeeNameLbl&quot;
-            android:textColor=&quot;@color/appFontColor&quot;
-            android:textSize=&quot;18sp&quot;
-            android:layout_below=&quot;@+id/barTextView&quot;
-            android:layout_toStartOf=&quot;@+id/nameEditText&quot;
-            android:layout_marginTop=&quot;2dp&quot; /&gt;
-
-        &lt;EditText
-            android:id=&quot;@+id/priceEditText&quot;
-            android:layout_width=&quot;100dp&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:ems=&quot;10&quot;
-            android:inputType=&quot;numberDecimal&quot;
-            android:layout_below=&quot;@+id/shopEditText&quot;
-            android:layout_alignStart=&quot;@+id/shopEditText&quot;
-            tools:ignore=&quot;LabelFor&quot; /&gt;
-
-        &lt;TextView
-            android:id=&quot;@+id/shopTextView&quot;
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:text=&quot;@string/coffeeShopLbl&quot;
-            android:textColor=&quot;@color/appFontColor&quot;
-            android:textSize=&quot;18sp&quot;
-            android:layout_below=&quot;@+id/nameEditText&quot;
-            android:layout_alignStart=&quot;@+id/nameTextView&quot; /&gt;
-
-        &lt;TextView
-            android:id=&quot;@+id/priceTextView&quot;
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:text=&quot;@string/coffeePriceLbl&quot;
-            android:textColor=&quot;@color/appFontColor&quot;
-            android:textSize=&quot;18sp&quot;
-            android:layout_alignTop=&quot;@+id/priceEditText&quot;
-            android:layout_alignStart=&quot;@+id/shopTextView&quot; /&gt;
-
-        &lt;Button
-            android:id=&quot;@+id/updateCoffeeBtn&quot;
-            style=&quot;@android:style/Holo.Light.ButtonBar&quot;
-            android:layout_width=&quot;match_parent&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:drawableTop=&quot;@drawable/ic_save_coffee&quot;
-            android:text=&quot;@string/updateCoffeeBtnLbl&quot;
-            android:layout_alignParentBottom=&quot;true&quot;
-            android:layout_centerHorizontal=&quot;true&quot;
-            android:layout_marginBottom=&quot;38dp&quot;
-            android:onClick=&quot;update&quot;/&gt;
-
-    &lt;/RelativeLayout&gt;
-
-&lt;/FrameLayout&gt;</code></pre>
+    &lt;ImageView
+        android:id=&quot;@+id/editFavourite&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;16dp&quot;
+        android:onClick=&quot;toggle&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.929&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:srcCompat=&quot;@drawable/favourites_72&quot; /&gt;
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
 <p>Run you app and confirm you get a blank Edit Screen when you select a row in the coffee list, like so:</p>
-<p><img src="img/lab508.png" alt=""></p>
+<p><img src="img/editscreen.png" alt=""></p>
 <p>But you get an error instead??</p>
 <p>Can you try a quick fix to get the app running?</p>
 </li>
         
           <li> <h1>App Refactoring - Our &#39;Edit&#39; Option (Part 2)</h1>
 <p>The problem with the previous step was the Main Activity (in out case &#39;Home&#39; must implement the <strong>OnFragmentInteractionListener</strong> interface (for the callbacks) so you can carry out a quick fix like so</p>
-<p><img src="img/lab510.png" alt=""></p>
-<p>choosing to Implement methods.</p>
-<p>Run your app again just to make sure everything is working as expected. <strong>OnFragmentInteractionListener </strong>isn&#39;t really of any use at the moment, but we&#39;ll come back to that later.</p>
-<hr>
+<p><img src="img/edit1.png" alt=""></p>
+<p><img src="img/edit2.png" alt=""></p>
+<p>choosing to Implement method</p>
+<p><img src="img/edit3.png" alt=""></p>
+<p>Run your app again just to make sure everything is working as expected. <strong>OnFragmentInteractionListener </strong>isn&#39;t really of any use at the moment, but we&#39;ll come back to that later**</p>
 <p>Now, This step involves recycling a lot of our existing code from our Add Activity but also implementing a callback interface, a lot of which is actually supplied for us via Android Studio when we create a Fragment.</p>
-<p>First of all, ensure your CoffeeFragment&#39;s onItemClick() looks something like this</p>
-<pre><code>@Override
-public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, long id)
-{  
-    Bundle activityInfo = new Bundle();  
-    activityInfo.putInt(&quot;coffeeID&quot;, view.getId());  
+<p>First of all, ensure your <code>CoffeeFragment</code>&#39;s <em>onItemClick()</em> looks something like this</p>
+<pre><code class="lang-java">@Override
+    public void onItemClick(AdapterView&lt;?&gt; adapterView, View view, int i, long l) {
+        Bundle activityInfo = new Bundle(); // Creates a new Bundle object
+        activityInfo.putString(&quot;coffeeId&quot;, (String) view.getTag());
 
-    FragmentTransaction ft = getFragmentManager().beginTransaction();  
-    Fragment fragment = EditFragment.newInstance(activityInfo);  
-    ft.replace(R.id.homeFrame, fragment);  
-    ft.addToBackStack(null);  
-    ft.commit();
-}</code></pre>
-<p>and your initial EditFragment looks something like this</p>
-<pre><code>public class EditFragment extends Fragment {
+        Fragment fragment = EditFragment.newInstance(activityInfo);
+        getActivity().setTitle(R.string.editCoffeeLbl);
+        getFragmentManager().beginTransaction()
+                .replace(R.id.homeFrame, fragment)
+                .addToBackStack(null)
+                .commit();
+    }</code></pre>
+<p>and your initial <code>EditFragment</code> looks something like this</p>
+<pre><code class="lang-java">public class EditFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = &quot;param1&quot;;
@@ -927,12 +942,9 @@ public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, lo
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static EditFragment newInstance(Bundle coffeeBundle) {
         EditFragment fragment = new EditFragment();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
+        fragment.setArguments(coffeeBundle);
         return fragment;
     }
 
@@ -981,7 +993,7 @@ public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, lo
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * &lt;p/&gt;
+     * &lt;p&gt;
      * See the Android Training lesson &lt;a href=
      * &quot;http://developer.android.com/training/basics/fragments/communicating.html&quot;
      * &gt;Communicating with Other Fragments&lt;/a&gt; for more information.
@@ -991,16 +1003,16 @@ public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, lo
         void onFragmentInteraction(Uri uri);
     }
 }</code></pre>
-<p>Now, we need to first of all, be able to display our coffee data on our Edit screen, so see can you reuse what you already have in your existing activity and incorporate it in your new EditFragment. What you&#39;re looking for is something like this (if we selected &#39;Regular Joe&#39; from our list)</p>
-<p><img src="img/coffeemate.7.png" alt=""></p>
-<p>So revisit how it&#39;s implemented in the Edit Activity and how you can leverage that to get it to work in the EditFragment.</p>
-<p><strong>Hint:</strong> You need to do something very similar to what you did with the <strong>AddFragment</strong> insofar as you need to refactor the <em><strong>onCreateView()</strong></em> method but also add the following to your <strong>onCreate() </strong>method, to retrieve the correct coffee data <strong><em>before</em></strong> you display it.</p>
-<pre><code>@Override
+<p>Now, we need to first of all, be able to display our coffee data on our Edit screen, so see can you reuse what you already have in your existing activity and incorporate it in your new EditFragment. What you&#39;re looking for is something like this screen (if we selected &#39;Regular Joe&#39; from our list)</p>
+<p><img src="img/editscreen2.png" alt=""></p>
+<p>So revisit how it&#39;s implemented in the <code>Edit</code> Activity and how you can leverage that to get it to work in the <code>EditFragment</code>.</p>
+<p><code>Hint: You need to do something very similar to what you did with the AddFragment insofar as you need to refactor the onCreateView() method but also add the following to your onCreate() method, to retrieve the correct coffee data before you display it</code></p>
+<pre><code class="lang-java">@Override
 public void onCreate(Bundle savedInstanceState)
 {    
     super.onCreate(savedInstanceState);    
         if(getArguments() != null)        
-            aCoffee = getCoffeeObject(getArguments().getInt(&quot;coffeeID&quot;));
+            aCoffee = getCoffeeObject(getArguments().getInt(&quot;coffeeId&quot;));
 }</code></pre>
 <p>The final step is to implement our listeners for the update button and the &#39;toggle&#39;.</p>
 </li>
