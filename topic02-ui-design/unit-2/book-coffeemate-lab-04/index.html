@@ -111,7 +111,7 @@ Lab-04
           
             
               <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/book-coffeemate-lab-05/index.html">
+                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/book-coffeemate-lab-05-a/index.html">
   <i class="fas fa-flask " style="color:#00BCD4"> </i>
 Lab-05-a
                 </a>
@@ -120,7 +120,7 @@ Lab-05-a
           
             
               <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/book-coffeemate-realm/index.html">
+                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/book-coffeemate-lab-05-b/index.html">
   <i class="fas fa-flask " style="color:#00BCD4"> </i>
 Lab-05-b
                 </a>
@@ -182,7 +182,7 @@ Lab-05-b
       <ul class="uk-switcher switcher-container">
         
           <li> <h1>Objectives</h1>
-<p>This lab continues our Case Study <b>CoffeeMate</b> but with a major refactoring of the UI (using a Navigation Drawer &amp; RecyclerView) and a more detailed look at the use of Fragments in an Android App.</p>
+<p>This lab continues our Case Study <b>CoffeeMate</b> but with a major refactoring of the UI (using a Navigation Drawer) and a more detailed look at the use of Fragments in an Android App.</p>
 </li>
         
           <li> <h1>Setup - Starter Code &amp; Initial Resources</h1>
@@ -1003,7 +1003,7 @@ coffeeFilter = new CoffeeFilter(activity.app.coffeeList,&quot;all&quot;,listAdap
         void onFragmentInteraction(Uri uri);
     }
 }</code></pre>
-<p>Now, we need to first of all, be able to display our coffee data on our Edit screen, so see can you reuse what you already have in your existing activity and incorporate it in your new EditFragment. What you&#39;re looking for is something like this screen (if we selected &#39;Regular Joe&#39; from our list)</p>
+<p>Now, we need to first of all, be able to display our coffee data on our Edit screen, so see can you reuse what you already have in your existing activity and incorporate it in your new <code>EditFragment</code>. What you&#39;re looking for is something like this screen (if we selected &#39;Regular Joe&#39; from our list)</p>
 <p><img src="img/editscreen2.png" alt=""></p>
 <p>So revisit how it&#39;s implemented in the <code>Edit</code> Activity and how you can leverage that to get it to work in the <code>EditFragment</code>.</p>
 <p><code>Hint: You need to do something very similar to what you did with the AddFragment insofar as you need to refactor the onCreateView() method but also add the following to your onCreate() method, to retrieve the correct coffee data before you display it</code></p>
@@ -1019,22 +1019,22 @@ public void onCreate(Bundle savedInstanceState)
         
           <li> <h1>App Refactoring - Our &#39;Edit&#39; Option (Part 3)</h1>
 <p>As we&#39;re using (and replacing) Fragments instead of switching between Activities, we have two options when trying to implement event handling.  We can</p>
-<ul>
+<ol>
 <li>Implement the event handling and listeners &#39;in house&#39; and manage everything inside the Fragment - but this can get a bit tricky when we want to handle more than one event (like our situation)</li>
-</ul>
+</ol>
 <p>or</p>
-<ul>
-<li>we implement a callback listener to the parent activity (in our case &#39;Home&#39;), which ties in with the particular navigation pattern we&#39;re trying to adhere to - so this is what we&#39;ll do.</li>
-</ul>
-<p>If you recall, Android Studio generated a lot of boilerplate code for us, including some template callback listeners - which we needed to implement, to get a version of our app running. We&#39;ll now revisit this code (and the whole EditFragment) and complete our &#39;Edit&#39; feature.</p>
+<ol>
+<li>we implement a callback listener to the parent activity (in our case <code>Home</code>), which ties in with the particular navigation pattern we&#39;re trying to adhere to - so this is what we&#39;ll do.</li>
+</ol>
+<p>If you recall, Android Studio generated a lot of boilerplate code for us, including some template callback listeners - which we needed to implement to get a version of our app running. We&#39;ll now revisit this code (and the whole <code>EditFragment</code>) and complete our <strong><em>Edit</em></strong> feature.</p>
 <p>First, familiarise yourself with the particular listener we need to implement</p>
-<pre><code>public interface OnFragmentInteractionListener
+<pre><code class="lang-java">public interface OnFragmentInteractionListener
 {    
 // TODO: Update argument type and name    
 void onFragmentInteraction(Uri uri);
 }</code></pre>
 <p>and the default methods to &#39;hook up&#39;, attach/detach to the UI event</p>
-<pre><code>// TODO: Rename method, update argument and hook method into UI event
+<pre><code class="lang-java">// TODO: Rename method, update argument and hook method into UI event
 
 public void onButtonPressed(Uri uri)
 {    
@@ -1062,32 +1062,38 @@ public void onDetach()
     super.onDetach();    
     mListener = null;
 }</code></pre>
-<p>Next, bring in the existing methods from the Edit activity (&#39;toggle&#39; and &#39;update&#39;) and fix any errors.</p>
-<p><strong>Note:</strong> Seeing as we need to bind to the widgets both for displaying and updating it&#39;s probably best to use class-wide widget variables (like we did for our &#39;Add&#39;) so before you proceed, make sure your <strong>onCreateView()</strong> and <strong>update()</strong> methods look something like this</p>
+<p>Next, bring in the existing methods from the <code>Edit</code> activity (&#39;toggle&#39; and &#39;update&#39;) and fix any errors.</p>
+<p><code>Note: Seeing as we need to bind to the widgets both for displaying and updating it&#39;s probably best to use class-wide widget variables (like we did for our &#39;Add&#39;) so before you proceed, make sure your onCreateView() and update() methods look something like this</code></p>
 <pre><code class="lang-java">@Override
-public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_edit, container, false);
 
-    View v = inflater.inflate(R.layout.fragment_edit, container, false);
+        ((TextView)v.findViewById(R.id.editTitleTV)).setText(aCoffee.coffeeName);
 
-    ((TextView)v.findViewById(R.id.coffeeNameTextView)).setText(aCoffee.name);
-    ((TextView)v.findViewById(R.id.coffeeShopTextView)).setText(aCoffee.shop);
+        name = v.findViewById(R.id.editNameET);
+        shop = v.findViewById(R.id.editShopET);
+        price = v.findViewById(R.id.editPriceET);
+        ratingBar = v.findViewById(R.id.editRatingBar);
+        editFavourite = v.findViewById(R.id.editFavourite);
 
-    name = (EditText)v.findViewById(R.id.nameEditText); name.setText(aCoffee.name);
-    shop = (EditText)v.findViewById(R.id.shopEditText); shop.setText(aCoffee.shop);
-    price = (EditText)v.findViewById(R.id.priceEditText); price.setText(&quot;&quot;+aCoffee.price);
-    ratingBar = (RatingBar) v.findViewById(R.id.coffeeRatingBar); ratingBar.setRating((float)aCoffee.rating);
+        name.setText(aCoffee.coffeeName);
+        shop.setText(aCoffee.shop);
+        price.setText(&quot;&quot;+aCoffee.price);
+        ratingBar.setRating((float)aCoffee.rating);
 
-    favouriteImage = (ImageView) v.findViewById(R.id.favouriteImageView);
         if (aCoffee.favourite == true) {
-            favouriteImage.setImageResource(R.drawable.ic_favourite_on);
+            editFavourite.setImageResource(R.drawable.favourites_72_on);
             isFavourite = true;
         } else {
-            favouriteImage.setImageResource(R.drawable.ic_favourite_off);
+            editFavourite.setImageResource(R.drawable.favourites_72);
             isFavourite = false;
         }
-    return v;
-}</code></pre>
-<pre><code>public void update(View v) {    
+        return v;
+    }</code></pre>
+<p>and</p>
+<pre><code class="lang-java">public void update(View v) {    
         if (mListener != null) {        
                 String coffeeName = name.getText().toString();        
                 String coffeeShop = shop.getText().toString();        
@@ -1111,301 +1117,347 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle sa
                 }
         }</code></pre>
 <p>The last thing we need to do is refactor our Listener interface to reflect the events we want to handle so replace the existing interface with this one</p>
-<pre><code>public interface OnFragmentInteractionListener {    
+<pre><code class="lang-java">public interface OnFragmentInteractionListener {    
     void toggle(View v);    
-    void update(View v);
+    void saveCoffee(View v);
 }</code></pre>
 <p>And use the Android Studio Tools to implement these new methods back in our &#39;Home&#39; activity (and fix any residual errors).</p>
-<p>Here&#39;s the implementation for the &#39;toggle&#39;</p>
-<pre><code>@Override
+<p>Here&#39;s the implementation for the &#39;toggle&#39; inside <code>Home</code></p>
+<pre><code class="lang-java">@Override
 public void toggle(View v) {    
-    EditFragment editFrag = (EditFragment) getFragmentManager().findFragmentById(R.id.homeFrame);    
+    EditFragment editFrag = (EditFragment) getSupportFragmentManager().findFragmentById(R.id.homeFrame);    
         if (editFrag != null) {        
                 editFrag.toggle(v);    
         }
     }</code></pre>
-<p>so have a go at implementing the &#39;update&#39;.</p>
+<p>so have a go at implementing/completing the &#39;toggle&#39; and the &#39;saveCoffee&#39; methods.</p>
+<p><code>Note : If you find that your Edit Layout doesn&#39;t render correctly, i.e. it gets &#39;pushed up&#39;, just add the following to the top of your &#39;Home.xml&#39;</code></p>
+<pre><code class="lang-xml">android:fitsSystemWindows=&quot;true&quot;</code></pre>
 </li>
         
           <li> <h1>App Refactoring - Our &#39;Edit&#39; Option (Part 4)</h1>
 <p>Now, once you&#39;ve tried to confirm that your update and toggle features are working as expected, you&#39;ve probably noticed you have to manually navigate back to the previous screen when you click the update button.</p>
-<p>To improve the user experience somewhat, we can ensure that the user is automatically returned to the previous screen after they&#39;ve selected the update button - no matter which screen they were on. This can be achieved with the following code, so add this to your Fragment and run your app again and see what happens.</p>
-<pre><code>if (getFragmentManager().getBackStackEntryCount() &gt; 0) {    
+<p>To improve the user experience somewhat, we can ensure that the user is automatically returned to the previous screen after they&#39;ve selected the update button - no matter which screen they were on. This can be achieved with the following code, so add this to your Fragment in the relevant place and run your app again and see what happens.</p>
+<pre><code class="lang-java">if (getSupportFragmentManager().getBackStackEntryCount() &gt; 0) {    
                 getFragmentManager().popBackStack();    
                 return;
          }</code></pre>
 <p>Also, to avoid the soft keyboard overlapping or obscuring our edittexts, place the following in the manifest file in the &#39;Home&#39; activity tag</p>
 <pre><code class="lang-xml">android:windowSoftInputMode=&quot;adjustPan|adjustResize&quot;</code></pre>
-<p>Note : there were a few issues with the layout initially, so if your fragment_edit layout isn&#39;t as expected you can replace it with the following (which now has a ConstraintLayout layout)</p>
-<pre><code class="lang-xml">&lt;FrameLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+<p>`Note : there were a few issues with the layout initially, so if your fragment_edit layout isn&#39;t as expected you can replace it with the following (which has a ConstraintLayout layout)``</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
     xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
     xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/addLayout&quot;
     android:layout_width=&quot;match_parent&quot;
     android:layout_height=&quot;match_parent&quot;
-    tools:context=&quot;ie.cm.fragments.EditFragment&quot;&gt;
+    tools:context=&quot;.fragments.EditFragment&quot;&gt;
 
-    &lt;android.support.constraint.ConstraintLayout
-        android:layout_width=&quot;fill_parent&quot;
-        android:layout_height=&quot;fill_parent&quot;
-        android:layout_marginTop=&quot;10dp&quot;
-        android:gravity=&quot;center&quot;&gt;
+    &lt;TextView
+        android:id=&quot;@+id/editBarTV&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;25dp&quot;
+        android:layout_marginTop=&quot;104dp&quot;
+        android:background=&quot;@color/colorPrimary&quot;
+        android:paddingBottom=&quot;2dp&quot;
+        android:text=&quot;@string/coffeeDetailsLbl&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorFontWhite&quot;
+        android:textSize=&quot;18sp&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.0&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
 
-        &lt;TextView
-            android:id=&quot;@+id/coffeeShopTextView&quot;
-            android:layout_width=&quot;344dp&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:layout_marginTop=&quot;43dp&quot;
-            android:text=&quot;The Description...&quot;
-            android:textColor=&quot;@color/bannerBGColor&quot;
-            android:textSize=&quot;18sp&quot;
-            app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
-            app:layout_constraintTop_toTopOf=&quot;parent&quot;
-            tools:ignore=&quot;HardcodedText&quot;
-            tools:layout_constraintLeft_creator=&quot;1&quot;
-            tools:layout_constraintTop_creator=&quot;1&quot; /&gt;
+    &lt;TextView
+        android:id=&quot;@+id/editfooter&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;36dp&quot;
+        android:background=&quot;@color/colorPrimary&quot;
+        android:paddingTop=&quot;5dp&quot;
+        android:text=&quot;@string/appWebsite&quot;
+        android:textAlignment=&quot;center&quot;
+        android:textColor=&quot;@color/colorFontWhite&quot;
+        android:textSize=&quot;16sp&quot;
+        android:textStyle=&quot;bold&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.523&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;1.0&quot; /&gt;
 
-        &lt;Button
-            android:id=&quot;@+id/saveCoffeeBtn&quot;
-            style=&quot;@android:style/Holo.Light.ButtonBar&quot;
-            android:layout_width=&quot;369dp&quot;
-            android:layout_height=&quot;68dp&quot;
-            android:layout_marginBottom=&quot;1dp&quot;
-            android:layout_marginTop=&quot;8dp&quot;
-            android:drawableTop=&quot;@drawable/ic_save_coffee&quot;
-            android:onClick=&quot;update&quot;
-            android:text=&quot;@string/updateCoffeeBtnLbl&quot;
-            app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
-            app:layout_constraintHorizontal_bias=&quot;0.0&quot;
-            app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
-            app:layout_constraintRight_toLeftOf=&quot;@+id/coffeeRatingBar&quot;
-            app:layout_constraintTop_toBottomOf=&quot;@+id/coffeeRatingBar&quot;
-            tools:layout_constraintBottom_creator=&quot;1&quot;
-            tools:layout_constraintLeft_creator=&quot;1&quot;
-            app:layout_constraintVertical_bias=&quot;0.054&quot; /&gt;
+    &lt;TextView
+        android:id=&quot;@+id/editPriceTV&quot;
+        android:layout_width=&quot;99dp&quot;
+        android:layout_height=&quot;43dp&quot;
+        android:paddingTop=&quot;10dp&quot;
+        android:text=&quot;@string/coffeePriceLbl&quot;
+        android:textAlignment=&quot;textEnd&quot;
+        android:textColor=&quot;@color/colorFontBlack&quot;
+        android:textSize=&quot;18sp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/editfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.056&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.613&quot; /&gt;
 
-        &lt;RatingBar
-            android:id=&quot;@+id/coffeeRatingBar&quot;
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:layout_marginStart=&quot;20dp&quot;
-            android:numStars=&quot;5&quot;
-            android:progressTint=&quot;@color/bannerBGColor&quot;
-            android:rating=&quot;2&quot;
-            android:stepSize=&quot;0.5&quot;
-            app:layout_constraintLeft_toLeftOf=&quot;@+id/ratingTextView&quot;
-            app:layout_constraintTop_toBottomOf=&quot;@+id/ratingTextView&quot;
-            tools:layout_constraintLeft_creator=&quot;1&quot;
-            tools:layout_constraintTop_creator=&quot;1&quot; /&gt;
+    &lt;TextView
+        android:id=&quot;@+id/editShopTV&quot;
+        android:layout_width=&quot;99dp&quot;
+        android:layout_height=&quot;43dp&quot;
+        android:paddingTop=&quot;10dp&quot;
+        android:text=&quot;@string/coffeeShopLbl&quot;
+        android:textAlignment=&quot;textEnd&quot;
+        android:textColor=&quot;@color/colorFontBlack&quot;
+        android:textSize=&quot;18sp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/editfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.056&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.472&quot; /&gt;
 
-        &lt;EditText
-            android:id=&quot;@+id/nameEditText&quot;
-            android:layout_width=&quot;0dp&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:ems=&quot;10&quot;
-            android:inputType=&quot;textShortMessage&quot;
-            app:layout_constraintLeft_toLeftOf=&quot;@+id/shopEditText&quot;
-            app:layout_constraintRight_toRightOf=&quot;@+id/shopEditText&quot;
-            app:layout_constraintTop_toBottomOf=&quot;@+id/barTextView&quot;
-            tools:layout_constraintLeft_creator=&quot;1&quot;
-            tools:layout_constraintRight_creator=&quot;1&quot;
-            tools:layout_constraintTop_creator=&quot;1&quot;
-            android:layout_marginTop=&quot;10dp&quot;
-            app:layout_constraintHorizontal_bias=&quot;0.0&quot;
-            tools:ignore=&quot;LabelFor&quot;&gt;
+    &lt;TextView
+        android:id=&quot;@+id/editNameTV&quot;
+        android:layout_width=&quot;99dp&quot;
+        android:layout_height=&quot;43dp&quot;
+        android:paddingTop=&quot;10dp&quot;
+        android:text=&quot;@string/coffeeNameLbl&quot;
+        android:textAlignment=&quot;textEnd&quot;
+        android:textColor=&quot;@color/colorFontBlack&quot;
+        android:textSize=&quot;18sp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/editfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.056&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.344&quot; /&gt;
 
-            &lt;requestFocus /&gt;
+    &lt;EditText
+        android:id=&quot;@+id/editNameET&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        android:ems=&quot;10&quot;
+        android:hint=&quot;Coffee Name&quot;
+        android:inputType=&quot;textPersonName&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.447&quot;
+        app:layout_constraintStart_toEndOf=&quot;@+id/editNameTV&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.307&quot; /&gt;
 
-        &lt;/EditText&gt;
+    &lt;EditText
+        android:id=&quot;@+id/editPriceET&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        android:ems=&quot;10&quot;
+        android:hint=&quot;Price&quot;
+        android:inputType=&quot;numberDecimal&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.447&quot;
+        app:layout_constraintStart_toEndOf=&quot;@+id/editPriceTV&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.572&quot; /&gt;
 
-        &lt;TextView
-            android:id=&quot;@+id/coffeeNameTextView&quot;
-            android:layout_width=&quot;0dp&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:text=&quot;The Title&quot;
-            android:textColor=&quot;@color/colorPrimary&quot;
-            android:textSize=&quot;24sp&quot;
-            app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
-            app:layout_constraintRight_toLeftOf=&quot;@+id/favouriteImageView&quot;
-            app:layout_constraintTop_toTopOf=&quot;parent&quot;
-            tools:ignore=&quot;HardcodedText&quot;
-            tools:layout_constraintLeft_creator=&quot;1&quot;
-            tools:layout_constraintRight_creator=&quot;1&quot;
-            tools:layout_constraintTop_creator=&quot;1&quot; /&gt;
+    &lt;EditText
+        android:id=&quot;@+id/editShopET&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:ems=&quot;10&quot;
+        android:hint=&quot;Shop&quot;
+        android:inputType=&quot;textPersonName&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/editPriceET&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.369&quot;
+        app:layout_constraintStart_toEndOf=&quot;@+id/editShopTV&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/editNameET&quot;
+        app:layout_constraintVertical_bias=&quot;0.444&quot; /&gt;
 
-        &lt;ImageView
-            android:id=&quot;@+id/favouriteImageView&quot;
-            android:layout_width=&quot;53dp&quot;
-            android:layout_height=&quot;36dp&quot;
-            android:layout_marginEnd=&quot;19dp&quot;
-            android:onClick=&quot;toggle&quot;
-            android:src=&quot;@drawable/ic_favourite_off&quot;
-            app:layout_constraintBottom_toBottomOf=&quot;@+id/coffeeNameTextView&quot;
-            app:layout_constraintRight_toRightOf=&quot;@+id/coffeeShopTextView&quot;
-            app:layout_constraintTop_toTopOf=&quot;parent&quot;
-            app:layout_constraintVertical_bias=&quot;0.0&quot;
-            tools:ignore=&quot;ContentDescription&quot;
-            tools:layout_constraintBottom_creator=&quot;1&quot;
-            tools:layout_constraintRight_creator=&quot;1&quot;
-            tools:layout_constraintTop_creator=&quot;1&quot; /&gt;
+    &lt;RatingBar
+        android:id=&quot;@+id/editRatingBar&quot;
+        android:layout_width=&quot;242dp&quot;
+        android:layout_height=&quot;52dp&quot;
+        android:rating=&quot;1&quot;
+        android:stepSize=&quot;0.5&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/editfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/editPriceET&quot;
+        app:layout_constraintVertical_bias=&quot;0.116&quot; /&gt;
 
-        &lt;EditText
-            android:id=&quot;@+id/shopEditText&quot;
-            android:layout_width=&quot;200dp&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:layout_marginTop=&quot;5dp&quot;
-            android:ems=&quot;10&quot;
-            android:inputType=&quot;textShortMessage&quot;
-            app:layout_constraintHorizontal_bias=&quot;0.505&quot;
-            app:layout_constraintLeft_toRightOf=&quot;@+id/priceEditText&quot;
-            app:layout_constraintRight_toRightOf=&quot;@+id/priceEditText&quot;
-            app:layout_constraintTop_toBottomOf=&quot;@+id/nameEditText&quot;
-            tools:layout_constraintLeft_creator=&quot;1&quot;
-            tools:layout_constraintRight_creator=&quot;1&quot;
-            tools:layout_constraintTop_creator=&quot;1&quot;
-            tools:ignore=&quot;LabelFor&quot;&gt;&lt;/EditText&gt;
+    &lt;Button
+        android:id=&quot;@+id/editCoffeeBtn&quot;
+        android:layout_width=&quot;79dp&quot;
+        android:layout_height=&quot;84dp&quot;
+        android:layout_marginBottom=&quot;8dp&quot;
+        android:background=&quot;@color/colorFontOffWhite&quot;
+        android:drawableTop=&quot;@drawable/blue_add_48&quot;
+        android:onClick=&quot;saveCoffee&quot;
+        android:text=&quot;@string/saveCoffeeBtn&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/editfooter&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.501&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toBottomOf=&quot;@+id/addRatingBar&quot;
+        app:layout_constraintVertical_bias=&quot;0.466&quot; /&gt;
 
-        &lt;TextView
-            android:id=&quot;@+id/ratingTextView&quot;
-            android:layout_width=&quot;120dp&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:layout_marginStart=&quot;52dp&quot;
-            android:layout_marginTop=&quot;13dp&quot;
-            android:text=&quot;@string/coffeeRatingLbl&quot;
-            android:textColor=&quot;@color/appFontColor&quot;
-            android:textSize=&quot;18sp&quot;
-            app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
-            app:layout_constraintTop_toBottomOf=&quot;@+id/priceEditText&quot;
-            tools:layout_constraintLeft_creator=&quot;1&quot;
-            tools:layout_constraintTop_creator=&quot;1&quot; /&gt;
+    &lt;TextView
+        android:id=&quot;@+id/editTitleTV&quot;
+        android:layout_width=&quot;254dp&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;16dp&quot;
+        android:text=&quot;Title&quot;
+        android:textSize=&quot;30sp&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.07&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
 
-        &lt;TextView
-            android:id=&quot;@+id/nameTextView&quot;
-            android:layout_width=&quot;0dp&quot;
-            android:layout_height=&quot;20dp&quot;
-            android:gravity=&quot;top&quot;
-            android:text=&quot;@string/coffeeNameLbl&quot;
-            android:textColor=&quot;@color/appFontColor&quot;
-            android:textSize=&quot;18sp&quot;
-            app:layout_constraintBaseline_toBaselineOf=&quot;@+id/nameEditText&quot;
-            app:layout_constraintLeft_toLeftOf=&quot;@+id/shopTextView&quot;
-            app:layout_constraintRight_toLeftOf=&quot;@+id/nameEditText&quot;
-            tools:layout_constraintBaseline_creator=&quot;1&quot;
-            tools:layout_constraintLeft_creator=&quot;1&quot;
-            tools:layout_constraintRight_creator=&quot;1&quot; /&gt;
-
-        &lt;EditText
-            android:id=&quot;@+id/priceEditText&quot;
-            android:layout_width=&quot;100dp&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:layout_marginEnd=&quot;113dp&quot;
-            android:layout_marginStart=&quot;112dp&quot;
-            android:layout_marginTop=&quot;10dp&quot;
-            android:ems=&quot;10&quot;
-            android:inputType=&quot;numberDecimal&quot;
-            app:layout_constraintLeft_toLeftOf=&quot;@+id/barTextView&quot;
-            app:layout_constraintRight_toRightOf=&quot;@+id/favouriteImageView&quot;
-            app:layout_constraintTop_toBottomOf=&quot;@+id/shopEditText&quot;
-            tools:layout_constraintLeft_creator=&quot;1&quot;
-            tools:layout_constraintRight_creator=&quot;1&quot;
-            tools:layout_constraintTop_creator=&quot;1&quot;
-            tools:ignore=&quot;LabelFor&quot; /&gt;
-
-        &lt;TextView
-            android:id=&quot;@+id/shopTextView&quot;
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:layout_marginEnd=&quot;11dp&quot;
-            android:text=&quot;@string/coffeeShopLbl&quot;
-            android:textColor=&quot;@color/appFontColor&quot;
-            android:textSize=&quot;18sp&quot;
-            app:layout_constraintBaseline_toBaselineOf=&quot;@+id/shopEditText&quot;
-            app:layout_constraintRight_toLeftOf=&quot;@+id/shopEditText&quot;
-            tools:layout_constraintBaseline_creator=&quot;1&quot;
-            tools:layout_constraintRight_creator=&quot;1&quot; /&gt;
-
-        &lt;TextView
-            android:id=&quot;@+id/priceTextView&quot;
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:layout_marginTop=&quot;21dp&quot;
-            android:text=&quot;@string/coffeePriceLbl&quot;
-            android:textColor=&quot;@color/appFontColor&quot;
-            android:textSize=&quot;18sp&quot;
-            app:layout_constraintLeft_toLeftOf=&quot;@+id/shopTextView&quot;
-            app:layout_constraintRight_toRightOf=&quot;@+id/shopTextView&quot;
-            app:layout_constraintTop_toBottomOf=&quot;@+id/shopTextView&quot;
-            tools:layout_constraintLeft_creator=&quot;1&quot;
-            tools:layout_constraintRight_creator=&quot;1&quot;
-            tools:layout_constraintTop_creator=&quot;1&quot; /&gt;
-
-        &lt;TextView
-            android:id=&quot;@+id/barTextView&quot;
-            style=&quot;@style/banner&quot;
-            android:layout_width=&quot;383dp&quot;
-            android:layout_height=&quot;24dp&quot;
-            android:layout_marginTop=&quot;7dp&quot;
-            android:text=&quot;@string/coffeeDetailsLbl&quot;
-            app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
-            app:layout_constraintTop_toBottomOf=&quot;@+id/coffeeShopTextView&quot;
-            tools:layout_constraintLeft_creator=&quot;1&quot;
-            tools:layout_constraintTop_creator=&quot;1&quot;
-            android:layout_marginStart=&quot;1dp&quot; /&gt;
-
-    &lt;/android.support.constraint.ConstraintLayout&gt;
-&lt;/FrameLayout&gt;</code></pre>
-<p>The final step in this lab is to add database support, which we&#39;ll do next.</p>
+    &lt;ImageView
+        android:id=&quot;@+id/editFavourite&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_marginEnd=&quot;8dp&quot;
+        android:layout_marginStart=&quot;8dp&quot;
+        android:layout_marginTop=&quot;16dp&quot;
+        android:onClick=&quot;toggle&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintHorizontal_bias=&quot;0.929&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:srcCompat=&quot;@drawable/favourites_72&quot; /&gt;
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+<p>The final step in this lab is optional really, but does make our list look a little bit nicer :) </p>
 </li>
         
-          <li> <h1>App Refactoring - Adding Database Support</h1>
-<p>Before we complete this step, there&#39;s a few classes you need to import to help you along. Once you import the necessary Database classes, this step is relatively straight forward - all you have to do is replace the method calls that manages the <strong>coffeeList</strong> with the respective <strong>dbManager</strong> calls.</p>
-<p>First thing to do is download the necessary database classes in the <a href="archives/database.zip">database</a> archive and add them to a new <em><strong>ie.cm.db</strong></em> package in your project.</p>
-<p>Take a few moments to investigate the classes and familiarise yourself with the methods you&#39;ll be using. There are a number of classes you&#39;ll need to modify to add database support to your project, but initially, you need to create an instance of <em><strong>DBManager</strong></em> in <strong>CofeeMateApp.java</strong> and both open/close the database when necessary.</p>
-<p>Our DBManager instance inside our Application Object</p>
-<pre><code>public class CoffeeMateApp extends Application {    
-    //public List &lt;Coffee&gt;  coffeeList = new ArrayList&lt;Coffee&gt;();    
-    public DBManager  dbManager = new DBManager(this);    
+          <li> <h1>App Refactoring - Replacing our Custom coffee_row with a &#39;Card&#39;</h1>
+<p>If you complete this step your final version of CoffeeMate.4.0 will look something like this</p>
+<p><img src="img/customcardview.png" alt=""></p>
+<p>Notice the slight curves at the corners, and a bit of a shadow, all achieved by using a <code>CardView</code> Layout for displaying our coffees.</p>
+<p>There&#39;s not too much involved in this, unless you want to try it all yourself (not using the xml supplied).</p>
+<p>First, add a new color</p>
+<pre><code class="lang-xml">&lt;color name=&quot;colorCardShadow&quot;&gt;#1616c8&lt;/color&gt;</code></pre>
+<p>Next, create a new layout called <code>coffeecard.xml</code> and replace it with the following</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.v7.widget.CardView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    android:id=&quot;@+id/coffeecardview&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:elevation=&quot;50dp&quot;
+    android:outlineSpotShadowColor=&quot;@color/colorCardShadow&quot;
+    app:cardCornerRadius=&quot;5dp&quot;
+    app:cardElevation=&quot;24dp&quot;&gt;
 
-    @Override    
-    public void onCreate()    
-    {        
-        super.onCreate();        
-        Log.v(&quot;coffeemate&quot;, &quot;CoffeeMate App Started&quot;);        
-        dbManager.open();    
-    }    
+    &lt;RelativeLayout
+        android:id=&quot;@+id/cardviewlayout&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:background=&quot;@drawable/background_activated&quot;&gt;
 
-    @Override    
-    public void onTerminate()
-    {        
-    super.onTerminate();        
-    dbManager.close();    
-    }
-}</code></pre>
-<p>Once you make this change (and save the file) you&#39;ll get a number of errors, which actually indicates which classes you need to now update and add the database calls (and remove the coffeeList calls). Each error requires only one line of code to be fixed, so have a go and updating each of the classes (and we&#39;ll have a look at the solution near the end of the Practical Lab).</p>
-<p>Once you fix all the errors, and run the app again, you should see your coffee list - but this time those coffees are stored in a database.</p>
-<p>And as a final check, if you call the <em><strong>setupList()</strong></em> method of the <em><strong>DBManager</strong></em> reference in your <strong>CoffeeMateApp</strong> reference &#39;app&#39; (replacing the existing setup method in &#39;Home&#39;) you should see the following list:</p>
-<p><img src="img/coffeemate.8.png" alt=""></p>
-<p>After some testing you may find that your adapter isn&#39;t functioning as expected in certain circumstances when deleting multiple coffees. This is due to the fact that our data is now persistent, so depending on &#39;where you are&#39;, so to speak, some slight refactoring of our <b>deleteCoffees()</b> is required, like so</p>
-<pre><code class="lang-java">public void deleteCoffees(ActionMode actionMode)
-  {
-    Coffee c = null;
-    for (int i = listAdapter.getCount() - 1; i &gt;= 0; i--) {
-      if (listView.isItemChecked(i)) {
-        activity.app.dbManager.delete(listAdapter.getItem(i).coffeeId); //delete from DB
-        listAdapter.coffeeList.remove(listAdapter.getItem(i)); // update adapters data
-      }
-    }
+        &lt;ImageView
+            android:id=&quot;@+id/rowFavouriteImg&quot;
+            android:layout_width=&quot;48dp&quot;
+            android:layout_height=&quot;48dp&quot;
+            android:layout_alignParentLeft=&quot;true&quot;
+            android:layout_marginStart=&quot;8dp&quot;
+            android:layout_marginLeft=&quot;8dp&quot;
+            android:layout_marginTop=&quot;8dp&quot;
+            android:layout_marginEnd=&quot;8dp&quot;
+            android:layout_marginBottom=&quot;8dp&quot;
+            android:contentDescription=&quot;fav&quot;
+            android:gravity=&quot;center_vertical&quot;
+            android:src=&quot;@drawable/favourites_72&quot; /&gt;
 
-    actionMode.finish();
+        &lt;ImageView
+            android:id=&quot;@+id/rowDeleteImg&quot;
+            android:layout_width=&quot;48dp&quot;
+            android:layout_height=&quot;49dp&quot;
+            android:layout_alignParentTop=&quot;true&quot;
+            android:layout_alignParentRight=&quot;true&quot;
+            android:layout_marginStart=&quot;8dp&quot;
+            android:layout_marginTop=&quot;8dp&quot;
+            android:layout_marginEnd=&quot;8dp&quot;
+            android:layout_marginRight=&quot;5dp&quot;
+            android:contentDescription=&quot;fav&quot;
+            android:src=&quot;@android:drawable/ic_delete&quot; /&gt;
 
-    if (favourites) {
-      //Update the filters data
-      coffeeFilter = new CoffeeFilter(Base.app.dbManager.getAll(),&quot;favourites&quot;,listAdapter);
-      coffeeFilter.filter(null);
-    }
-    listAdapter.notifyDataSetChanged();
-  }</code></pre>
-<p>Test again to confirm and go have a coffee!</p>
+        &lt;TextView
+            android:id=&quot;@+id/rowCoffeeName&quot;
+            android:layout_width=&quot;130dp&quot;
+            android:layout_height=&quot;20dp&quot;
+            android:layout_alignTop=&quot;@+id/rowFavouriteImg&quot;
+            android:layout_alignParentStart=&quot;true&quot;
+            android:layout_marginStart=&quot;68dp&quot;
+            android:gravity=&quot;center_vertical&quot;
+            android:text=&quot;Coffee Name&quot;
+            android:textColor=&quot;@color/colorPrimary&quot;
+            android:textSize=&quot;14sp&quot;
+            android:textStyle=&quot;bold&quot; /&gt;
+
+        &lt;TextView
+            android:id=&quot;@+id/rowCoffeeShop&quot;
+            android:layout_width=&quot;130dp&quot;
+            android:layout_height=&quot;16dp&quot;
+            android:layout_alignStart=&quot;@+id/rowCoffeeName&quot;
+            android:layout_alignBottom=&quot;@+id/rowFavouriteImg&quot;
+            android:gravity=&quot;center_vertical&quot;
+            android:text=&quot;Coffee Shop&quot;
+            android:textColor=&quot;@color/colorFontBlack&quot;
+            android:textSize=&quot;11sp&quot;
+            android:textStyle=&quot;bold&quot; /&gt;
+
+        &lt;TextView
+            android:id=&quot;@+id/rowRating&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_alignBottom=&quot;@+id/rowFavouriteImg&quot;
+            android:layout_alignParentEnd=&quot;true&quot;
+            android:layout_marginEnd=&quot;71dp&quot;
+            android:gravity=&quot;center_vertical&quot;
+            android:text=&quot;5.0 *&quot;
+            android:textColor=&quot;@color/colorFontBlack&quot;
+            android:textSize=&quot;11sp&quot;
+            android:textStyle=&quot;bold&quot; /&gt;
+
+        &lt;TextView
+            android:id=&quot;@+id/rowPrice&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_alignStart=&quot;@+id/rowRating&quot;
+            android:layout_alignTop=&quot;@+id/rowCoffeeName&quot;
+            android:gravity=&quot;center_vertical&quot;
+            android:text=&quot;€3.99&quot;
+            android:textColor=&quot;@color/colorPrimary&quot;
+            android:textSize=&quot;14sp&quot;
+            android:textStyle=&quot;bold&quot; /&gt;
+    &lt;/RelativeLayout&gt;
+
+&lt;/android.support.v7.widget.CardView&gt;</code></pre>
+<p>Then, update your <code>CoffeeItem</code> to use this layout instead of the current &#39;coffee_row.xml&#39;.</p>
+<p>And that&#39;s it :)</p>
 <p>Well Done!</p>
+<p>NOTE : The <code>Help</code> Screen and &#39;Random Coffee&#39; feature have been removed because</p>
+<ul>
+<li>The <code>Help</code>, actually wasn&#39;t much, help that is.... and</li>
+<li>The <code>Random Coffee</code> feature would require a whole new Fragment and Layout and it was decided that this wouldn&#39;t a huge amount extra to the lab, for the time it would take to implement it.</li>
+</ul>
 </li>
         
           <li> <h1>Solution</h1>
