@@ -127,6 +127,15 @@ Lab-05-b
               </li>
             
           
+            
+              <li>
+                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/book-coffeemate-lab-05-c/index.html">
+  <i class="fas fa-flask " style="color:#00BCD4"> </i>
+Lab-05-c
+                </a>
+              </li>
+            
+          
         </ul>
       </div>
     </div>
@@ -159,16 +168,6 @@ Lab-05-b
             
               <li><a href="#">04</a></li>
             
-              <li><a href="#">05</a></li>
-            
-              <li><a href="#">06</a></li>
-            
-              <li><a href="#">07</a></li>
-            
-              <li><a href="#">08</a></li>
-            
-              <li><a href="#">09</a></li>
-            
               <li><a href="#">Solution</a></li>
             
           </ul>
@@ -180,232 +179,54 @@ Lab-05-b
       <ul class="uk-switcher switcher-container">
         
           <li> <h1>Objectives</h1>
-<p>In <b>Donation.4.0.Realm</b> you will again build on the previous lab and add in some new features and Database Support, and an Application Object. It&#39;s actually very similar to <b>Donation.4.0</b>, but with Realm support, the code base is reduced substantially.</p>
+<p>This lab continues our Case Study <b>CoffeeMate</b> and implements persistence (through a Realm Database) in an Android App.</p>
 </li>
         
           <li> <h1>Setup - Starter Code</h1>
-<p>As with the previous labs, you can download the solution/starter code for <a href="archives/Donation.4.0.Starter.zip">Donation.4.0.starter</a>, or continue on with your own version.</p>
-<p>Your current project (after renaming/copying) should looks something like this:</p>
-<p><img src="img/lab5s101.png" alt=""></p>
+<p>We&#39;ll use similar starter code as we did for the SQLite Lab, which you can download here <a href="archives/CoffeeMate.5b.0.Starter.zip">CoffeeMate.5b.0.Starter</a>.</p>
 <p>In this lab, you are required to do the following:</p>
 <ul>
-<li>Add a new Menu Option - &#39;Reset&#39; - to clear out any donations after the target is reached</li>
-<li>Add Realm Database Support to Donation to manage the donations made</li>
-<li>Refactor existing Classes to accommodate the new database classes</li>
+<li>Add Database Support to CoffeeMate to manage our coffees which will allow them to be persisted in a Realm database</li>
 </ul>
-<p>The following steps will guide you through these requirements, so we&#39;ll start with the Menu Option.</p>
-</li>
-        
-          <li> <h1>Adding a new Menu Option</h1>
-<p>First of all, confirm that the current Menu looks like this:</p>
-<p><img src="img/lab5s201.png" alt=""></p>
-<p>but we want something like this:</p>
-<p><img src="img/lab5s202.png" alt=""></p>
-<p>The first thing to do is add in a new resource in strings.xml (or use Android Studio (Alt + Return) to fix the string resource error if you paste in the menu item directly)</p>
-<pre><code class="lang-xml">     &lt;string name=&quot;menuReset&quot;&gt;Reset&lt;/string&gt;</code></pre>
-<p>and then the corresponding menu item in donate.xml</p>
-<pre><code class="lang-xml">     &lt;item
-        android:id=&quot;@+id/menuReset&quot;
-        android:orderInCategory=&quot;100&quot;
-        app:showAsAction=&quot;never&quot;
-        android:title=&quot;@string/menuReset&quot;
-        android:onClick=&quot;reset&quot;/&gt;</code></pre>
-<p>It&#39;s probably worth removing the &#39;Settings&#39; menu item at this stage too, and its related method in the Base class. Next, edit <b>Base.java</b> and add in the following method stub</p>
-<pre><code class="lang-java">public void reset(MenuItem item) {}</code></pre>
-<p>to ensure our app won&#39;t crash when the menu loads (and looks for a method &#39;reset&#39;)</p>
-<p>Run the app again and confirm you get the following Menu :</p>
-<p><img src="img/lab5s202.png" alt=""></p>
-<p>We can&#39;t implement this menu option fully yet, so for the moment, we&#39;ll just &#39;reset&#39; the target amount back to zero (0) - Step 03.</p>
-</li>
-        
-          <li> <h1>Resetting the Target Amount</h1>
-<p>This is more of an interim step but is necessary to ensure the menu event handler for the &#39;Reset&#39; option is working correctly.</p>
-<p>First, edit <b>Donate.java</b> and introduce an implementation of the &#39;reset&#39; method</p>
-<pre><code class="lang-java"> @Override
-  public void reset(MenuItem item)
-  {
-        // Your implementation goes here
-  }</code></pre>
-<p>the</p>
-<pre><code class="lang-java">@Override</code></pre>
-<p>annotation is important - can you explain why?</p>
-<p>So add in the code necessary to deal with the Reset Menu option being selected, and reset the <i>totalDonated</i> back to zero (0). You also need to update the Donate UI to reflect this reset, so try and have a go at that too.</p>
-<p>Run the app again to confirm that the &#39;Reset&#39; Menu option is now functioning.</p>
-</li>
-        
-          <li> <h1>Application Object</h1>
-<p>Before we complete this step, here&#39;s the code you need for the previous step.</p>
-<pre><code class="lang-java"> @Override
-  public void reset(MenuItem item)
-  {
-    totalDonated = 0;
-    amountTotal.setText(&quot;$&quot; + totalDonated);
-    donations.clear();
-  }</code></pre>
-<p>In order to keep out application design coherent, we now bring in an &#39;Application&#39; object.</p>
-<p>Create a new package called &#39;ie.app.main&#39; and incorporate this class here:</p>
-<pre><code class="lang-java">package ie.app.main;
-
-import android.app.Application;
-import android.util.Log;
-
-public class DonationApp extends Application
+<p>The following steps will guide you through these requirements, but first you&#39;ll need to add a helper class to make this lab a bit easier.</p>
+<p>Go ahead and add the following dependency to your <code>project/build.gradle</code></p>
+<pre><code class="lang-xml">classpath &quot;io.realm:realm-gradle-plugin:5.8.0&quot;</code></pre>
+<p>and this to your <code>app/build.gradle</code> (at the top)</p>
+<pre><code class="lang-xml">apply plugin: &#39;realm-android&#39;</code></pre>
+<p>and then this in the dependencies (which we&#39;ll be using later)</p>
+<pre><code class="lang-xml">implementation &#39;io.realm:android-adapters:2.1.1&#39;</code></pre>
+<p>Next, update your <code>Coffee</code> class with the following</p>
+<pre><code class="lang-java">public class Coffee extends RealmObject
 {
-  @Override
-  public void onCreate()
-  {
-    super.onCreate();
-    Log.v(&quot;Donate&quot;, &quot;Donation App Started&quot;);
-  }
-}</code></pre>
-<p>Application objects need to be references in the AndroidManifest.xml - at the very top as &#39;andorid:name&#39;</p>
-<pre><code class="lang-xml">    &lt;application
-        android:allowBackup=&quot;true&quot;
-        android:icon=&quot;@mipmap/ic_launcher&quot;
-        android:label=&quot;@string/app_name&quot;
-        android:supportsRtl=&quot;true&quot;
-        android:theme=&quot;@style/AppTheme&quot;
-        android:name=&quot;ie.app.main.DonationApp&quot;&gt;</code></pre>
-<p>Make sure the &#39;Donation App Started&#39; appears in the logs to verify that it has actually been engaged correctly, when you launch the app.</p>
-<p><img src="img/lab5s401.png" alt=""></p>
-</li>
-        
-          <li> <h1>Donation Model</h1>
-<p>We now need to refactor the Base class (next Step) and move the donation related attributes and method (i.e. the variables target, totalDonated and the donations list, and the newDonation() method) into our DonationApp class.</p>
-<p>This is a revised version of DonationApp - which now manages a list of donations. It also centralises the &#39;makeDonation&#39; event implementing it as a method. We will also &#39;open&#39; and  &#39;close&#39; our database here eventually. Replace your DonationApp class with this one:</p>
-<pre><code class="lang-java">package ie.app.main;
+    @PrimaryKey
+    public String coffeeId;
+    public String name;
+    public String shop;
+    public double rating;
+    public double price;
+    public boolean favourite;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import android.app.Application;
-import android.util.Log;
-import android.widget.Toast;
+    public Coffee() {}
 
-import ie.app.models.Donation;
-
-public class DonationApp extends Application
-{
-    public final int       target       = 10000;
-    public int             totalDonated = 0;
-    public List &lt;Donation&gt; donations    = new ArrayList&lt;Donation&gt;();
-
-    public boolean newDonation(Donation donation)
+    public Coffee(String name, String shop, double rating, double price, boolean fav)
     {
-        boolean targetAchieved = totalDonated &gt; target;
-        if (!targetAchieved) {
-            donations.add(donation);
-            totalDonated += donation.amount;
-        }
-        else
-            Toast.makeText(this, &quot;Target Exceeded!&quot;, Toast.LENGTH_SHORT).show();
-
-        return targetAchieved;
+        this.coffeeId = UUID.randomUUID().toString();
+        this.name = name;
+        this.shop = shop;
+        this.rating = rating;
+        this.price = price;
+        this.favourite = fav;
     }
 
     @Override
-    public void onCreate()
-    {
-        super.onCreate();
-        Log.v(&quot;Donate&quot;, &quot;Donation App Started&quot;);
+    public String toString() {
+        return &quot;Coffee [name=&quot; + name
+                + &quot;, shop =&quot; + shop + &quot;, rating=&quot; + rating + &quot;, price=&quot; + price
+                + &quot;, fav =&quot; + favourite + &quot;]&quot;;
     }
 }</code></pre>
-</li>
-        
-          <li> <h1>Base Class Refactoring</h1>
-<p>The Base activity can now be completely refactored to make use of the DonationApp object. You <b>WILL</b> have errors at the end of this step, due to referencing our (as yet missing) database classes - but we&#39;ll fix those in the next few steps.</p>
-<p>This is our new Base class</p>
-<pre><code class="lang-java">public class Base extends AppCompatActivity {
-
-    public DonationApp app;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        app = (DonationApp) getApplication();
-
-        app.dbManager.open();
-        app.dbManager.setTotalDonated(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        app.dbManager.close();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menu_donate, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu (Menu menu){
-        super.onPrepareOptionsMenu(menu);
-        MenuItem report = menu.findItem(R.id.menuReport);
-        MenuItem donate = menu.findItem(R.id.menuDonate);
-        MenuItem reset = menu.findItem(R.id.menuReset);
-
-        if(app.dbManager.getAll().isEmpty())
-        {
-            report.setEnabled(false);
-            reset.setEnabled(false);
-        }
-        else {
-            report.setEnabled(true);
-            reset.setEnabled(true);
-        }
-        if(this instanceof Donate){
-            donate.setVisible(false);
-            if(!app.dbManager.getAll().isEmpty())
-            {
-                report.setVisible(true);
-                reset.setEnabled(true);
-            }
-        }
-        else {
-            report.setVisible(false);
-            donate.setVisible(true);
-            reset.setVisible(false);
-        }
-        return true;
-    }
-
-    public void report(MenuItem item)
-    {
-        startActivity (new Intent(this, Report.class));
-    }
-
-    public void donate(MenuItem item)
-    {
-        startActivity (new Intent(this, Donate.class));
-    }
-
-    public void reset(MenuItem item) { }
-}</code></pre>
-</li>
-        
-          <li> <h1>Adding Realm Database Support</h1>
-<p>Once you configure the project and add the necessary Database class, (to fix the errors from the previous step) this step is relatively straight forward - all you have to do is replace the method calls that manages the <b><i>donationList</i></b> with the respective <b><i>dbManager</i></b> calls.</p>
-<p>First add this to your <b>PROJECT</b> level build.gradle</p>
-<pre><code class="lang-XML">classpath &quot;io.realm:realm-gradle-plugin:2.2.1&quot;</code></pre>
-<p>under &#39;dependencies&#39; so it looks like</p>
-<pre><code class="lang-XML">dependencies {
-        classpath &#39;com.android.tools.build:gradle:3.0.1&#39;
-        classpath &quot;io.realm:realm-gradle-plugin:2.2.1&quot;
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }</code></pre>
-<p>and add this to your <b>APP</b> level build.gradle</p>
-<pre><code class="lang-XML">apply plugin: &#39;realm-android&#39;</code></pre>
-<p>at the top of the file so it looks like</p>
-<pre><code class="lang-XML">apply plugin: &#39;com.android.application&#39;
-apply plugin: &#39;realm-android&#39;</code></pre>
-<p>Next thing to do is create is a new <i>ie.app.database</i> package in your project and add the following class to it, and fix any import errors.</p>
+<p>and finally add the following class to a new <code>ie.cm.db</code> package (like you did in the previous lab)</p>
 <pre><code class="lang-java">public class DBManager {
 
     public Realm realmDatabase;
@@ -414,7 +235,7 @@ apply plugin: &#39;realm-android&#39;</code></pre>
         Realm.init(context);
 
         RealmConfiguration config = new RealmConfiguration.Builder()
-                .name(&quot;donation.realm&quot;)
+                .name(&quot;coffees.realm&quot;)
                 .schemaVersion(1)
                 .build();
 
@@ -429,164 +250,202 @@ apply plugin: &#39;realm-android&#39;</code></pre>
         realmDatabase.close();
     }
 
-    public void add(Donation d) {
+    public void add(Coffee c) {
         realmDatabase.beginTransaction();
-        realmDatabase.copyToRealm(d);
+        realmDatabase.copyToRealm(c);
         realmDatabase.commitTransaction();
     }
 
-    public List&lt;Donation&gt; getAll() {
-        RealmResults&lt;Donation&gt; result = realmDatabase.where(Donation.class)
-                                                     .findAll();
-        return result.subList(0,result.size());
+    public void update(Coffee c, String name ,String shop, double price , double rating)
+    {
+        realmDatabase.beginTransaction();
+        c.name = name;
+        c.shop = shop;
+        c.price = price;
+        c.rating = rating;
+        realmDatabase.commitTransaction();
     }
 
-    public Donation get(String id) {
-        return realmDatabase.where(Donation.class)
-                .equalTo(&quot;id&quot;,id)
+    public void setFavourite(Coffee c, boolean value)
+    {
+        realmDatabase.beginTransaction();
+        c.favourite = value;
+        realmDatabase.commitTransaction();
+    }
+
+    // If we wanted to update individual fields we could
+    // do something like this, for example
+    public void updateName(String name, String coffeeId)
+    {
+        Coffee c = realmDatabase.where(Coffee.class)
+                .equalTo(&quot;coffeeId&quot;,coffeeId)
+                .findFirst();
+        realmDatabase.beginTransaction();
+        c.name = name;
+        realmDatabase.commitTransaction();
+    }
+
+    public void delete(String coffeeId) {
+        realmDatabase.beginTransaction();
+        realmDatabase.where(Coffee.class)
+                .equalTo(&quot;coffeeId&quot;,coffeeId)
+                .findAll()
+                .deleteAllFromRealm();
+        realmDatabase.commitTransaction();
+    }
+
+    public RealmResults&lt;Coffee&gt; getAll() {
+        RealmResults&lt;Coffee&gt; result = realmDatabase.where(Coffee.class)
+                .findAll();
+        return result;
+    }
+
+    public RealmResults&lt;Coffee&gt; getFavourites() {
+       return realmDatabase.where(Coffee.class)
+               .equalTo(&quot;favourite&quot;,true)
+               .findAll();
+    }
+
+    public Coffee get(String coffeeId) {
+        return realmDatabase.where(Coffee.class)
+                .equalTo(&quot;coffeeId&quot;,coffeeId)
                 .findAll()
                 .first();
     }
 
-    public void setTotalDonated(Base base) {
-        base.app.totalDonated = realmDatabase.where(Donation.class)
-                                             .findAll()
-                                             .sum(&quot;amount&quot;)
-                                             .intValue();
-    }
-
     public void reset() {
         realmDatabase.beginTransaction();
-        realmDatabase.where(Donation.class)
-                     .findAll()
-                     .deleteAllFromRealm();
+        realmDatabase.where(Coffee.class)
+                .findAll()
+                .deleteAllFromRealm();
         realmDatabase.commitTransaction();
     }
 }</code></pre>
-<p>This is our Realm Database Helper Class, which we covered in the lectures, but take a few moments to investigate the class and familiarise yourself with the methods you&#39;ll be using.</p>
-<p>There are a few classes you&#39;ll need to modify to add database support to your project so refer to the Lecture Material to complete this.</p>
-<p>Next, update your <b>DonationApp</b> class with the following:</p>
-<pre><code class="lang-java">public class DonationApp extends Application
-{
-    public final int       target       = 10000;
-    public int             totalDonated = 0;
-    public DBManager       dbManager;
+<p>There&#39;ll be a few import errors to fix, but that&#39;s about it for the setup.</p>
+<p>Take a few moments to investigate the class and familiarise yourself with the methods you&#39;ll be using. There are a number of classes you&#39;ll need to modify to add database support to your project.</p>
+</li>
+        
+          <li> <h1>App Refactoring - Adding Realm Database Support</h1>
+<p>Once you&#39;ve completed the setup, similar to the previous step, this step is also relatively straight forward - all you have to do is replace the method calls that manages the <strong>coffeeList</strong> with the respective <strong>dbManager</strong> Realm calls.</p>
+<p> The first thing you need to do is create an instance of <strong><em>DBManager</em></strong> in <strong>CofeeMateApp.java</strong> and both open/close the database when necessary.</p>
+<p>Our DBManager instance inside our Application Object should now look like this :</p>
+<pre><code class="lang-java">public class CoffeeMateApp extends Application {    
+    //public List &lt;Coffee&gt;  coffeeList = new ArrayList&lt;Coffee&gt;();    
+    public DBManager dbManager = new DBManager(this);    
 
-    public boolean newDonation(Donation donation)
-    {
-        boolean targetAchieved = totalDonated &gt; target;
-        if (!targetAchieved)
-        {
-            dbManager.add(donation);
-            totalDonated += donation.amount;
-        }
-        else
-        {
-            Toast.makeText(this, &quot;Target Exceeded!&quot;, Toast.LENGTH_SHORT).show();
-        }
-        return targetAchieved;
+    @Override    
+    public void onCreate()    
+    {        
+        super.onCreate();        
+        Log.v(&quot;coffeemate&quot;, &quot;CoffeeMate App Started&quot;);        
+        dbManager.open();    
+    }    
+
+    @Override    
+    public void onTerminate()
+    {        
+    super.onTerminate();        
+    dbManager.close();    
+    }
+}</code></pre>
+<p>Once you make this change (and build the project) you&#39;ll get a number of errors, which actually indicates which classes you need to now update and add the database calls (and remove the coffeeList calls). Each error requires only one line of code to be fixed, so have a go and updating each of the classes (and we&#39;ll have a look at the solution at the end of the Practical Lab).</p>
+<p>Once you fix all the errors, and run the app again, you should see your coffee list - but this time those coffees are stored in a Realm database.</p>
+<p>And as a final check, if you call the <strong><em>setupCoffees()</em></strong> method of the <strong><em>DBManager</em></strong> reference in your <strong>CoffeeMateApp</strong> reference &#39;app&#39; (replacing the existing setup method in &#39;Home&#39;) you should see the something like the following list:</p>
+<p><img src="img/realmscreen1.png" alt=""></p>
+<p>and if you choose the menu (assuming you&#39;ve downloaded the starter code)</p>
+<p><img src="img/realmscreen2.png" alt=""></p>
+</li>
+        
+          <li> <h1>App Refactoring - View Favourites &amp; Filtering</h1>
+<p>If you&#39;ve carried out any kind of testing at all, you&#39;ll see that the app crashes on &#39;View Favourites&#39;, this is due to the fact that we are now using <code>Realm</code> objects and our <code>CoffeeFilter</code> expects to filter on <code>List</code> objects.</p>
+<p>To rectify this, replace your existing <code>CoffeeFilter</code> with the following (fix any import errors) and test again.</p>
+<pre><code class="lang-java">public class CoffeeFilter extends Filter {
+    private OrderedRealmCollection&lt;Coffee&gt;         originalCoffeeList;
+    private RealmResults&lt;Coffee&gt; realmCoffeResults;
+    private CoffeeListAdapter     adapter;
+    private boolean favourites = false;
+    private DBManager dbManager;
+
+    public CoffeeFilter(DBManager dbManager, CoffeeListAdapter adapter) {
+        super();
+        this.dbManager = dbManager;
+        this.originalCoffeeList = dbManager.getAll();
+        this.adapter = adapter;
+    }
+
+    public void setFilter(String filterText) {
+        //favourites = filterText.equals(&quot;all&quot;) ? false : true;
+        favourites = !filterText.equals(&quot;all&quot;);
     }
 
     @Override
-    public void onCreate()
-    {
-        super.onCreate();
-        Log.v(&quot;Donate&quot;, &quot;Donation App Started&quot;);
-        dbManager = new DBManager(this);
-        dbManager.open();
-        Log.v(&quot;Donate&quot;, &quot;Realm Database Created &amp; Opened&quot;);
-    }
-}</code></pre>
-<p><b>Note the references to a new <i>dbManager</i> object.</b></p>
-<p>Also, our Donation class needs a slight refactoring, so replace the current class with this one.</p>
-<pre><code class="lang-java">public class Donation extends RealmObject
-{
-    public String id;
-    public int    amount;
-    public String method;
-
-    public Donation() {}
-
-    public Donation (int amount, String method)
-    {
-        this.id = UUID.randomUUID().toString();
-        this.amount = amount;
-        this.method = method;
+    protected FilterResults performFiltering(CharSequence prefix) {
+        return new FilterResults();
     }
 
     @Override
-    public String toString() {
-        return &quot;Donation{&quot; +
-                &quot;id = &quot; + id +
-                &quot;amount=$&quot; + amount +
-                &quot;, method=&#39;&quot; + method + &#39;\&#39;&#39; +
-                &#39;}&#39;;
+    protected void publishResults(CharSequence prefix, FilterResults results) {
+
+        if ((prefix == null || prefix.length() == 0))
+                if(!favourites)
+                    realmCoffeResults = dbManager.getAll();
+                else
+                    realmCoffeResults = dbManager.getFavourites();
+        else {
+            realmCoffeResults = dbManager.realmDatabase
+                    .where(Coffee.class)
+                    .equalTo(&quot;favourite&quot;, favourites)
+                    .contains(&quot;name&quot;, prefix.toString(), Case.INSENSITIVE)
+                    .or()
+                    .contains(&quot;shop&quot;, prefix.toString(), Case.INSENSITIVE)
+                    .findAll();
+        }
+
+        adapter.coffeeList = realmCoffeResults;
+
+        if (adapter.coffeeList.size() &gt; 0)
+            adapter.notifyDataSetChanged();
+        else {
+            adapter.notifyDataSetInvalidated();
+            adapter.coffeeList = originalCoffeeList;
+        }
     }
 }</code></pre>
-<p>Note the &#39;extends RealmObject&#39;, this is an important part of implementing Realm Database Support so be sure you understand this.</p>
-<p>Once you make these changes, commenting out/removing the donations List you&#39;ll get a number of errors, which actually indicates which classes you need to now update and add the database calls (and remove the donations List calls).</p>
-<p>Each error requires only one line of code to be fixed, so have a go and updating each of the classes (and we&#39;ll have a look at the solution near the end of the Practical Lab).</p>
-<p>Once you fix all the errors, and run the app again, you should still be able to make donations - but this time those donations are stored in our Realm database.</p>
-<p>And as a final check, if you shut down the app and restart it again, you should still be able to see the donations made in the Report.</p>
 </li>
         
-          <li> <h1>Resetting the Donations</h1>
-<p>The last step in this lab involves deleting all the donations in the database when the user wishes to &#39;Reset&#39;.</p>
-<p>There&#39;s actually not a lot required in this step - all you need to do is call <b>reset()</b> on your database object when the user selects the Menu option, so modify your reset method (in your Donate.java) as follows:</p>
-<pre><code class="lang-java">  @Override
-  public void reset(MenuItem item)
-  {
-      app.dbManager.reset();
-        app.totalDonated = 0;
-        amountTotal.setText(&quot;$&quot; + app.totalDonated);
-  }</code></pre>
-<p>You also need to update your <i>onPrepareOptionsMenu()</i> method in your <b>Base</b> class to handle the &#39;Reset&#39; menu option being disabled/displayed properly, so refer to the lecture material for this.</p>
-<p>That&#39;s about it really - with one exception. There&#39;s a small bug in the app related to when the app restarts and the target <b>HAS NOT</b> been reached.</p>
-<p>Can you find it, and more importantly, fix it?</p>
-</li>
-        
-          <li> <h1>Deleting a Donation</h1>
-<p>As an extra feature, we&#39;ll take a look at how to possibly delete a single Donation from the database, as opposed to resetting (or deleting ) all the donations, like we did in the last step.</p>
-<p>First thing to do is add a new &#39;delete button&#39; to our custom Layout <b>row_donate.xml</b> so it looks like this:</p>
-<p><img src="img/lab5s901.png" alt=""></p>
-<p>Everything you need is in the screenshot, so pay particular attention to the properties and type of the &#39;button&#39;.</p>
-<p>Next, open your <b>Report.java</b> and have a go at &#39;attaching a click event&#39; to the &#39;delete button&#39; on your custom row.</p>
-<p>You&#39;ll need to something along the lines of:</p>
-<ul>
-<li>bind to your new <i>imageDelete</i> widget in your <b>DonationAdapter</b> using &#39;findViewById()&#39;</li>
-</ul>
-<p>something like</p>
-<pre><code class="lang-java">       ImageView deleteView = view.findViewById(R.id.imageDelete);</code></pre>
-<ul>
-<li>&#39;Tag&#39; the row with the donation id</li>
-</ul>
-<p>something like</p>
-<pre><code class="lang-java">       view.setTag(donation.id);</code></pre>
-<ul>
-<li>attach an OnClickListener to be triggered on the click of the &#39;button&#39;</li>
-</ul>
-<p>something like</p>
-<pre><code class="lang-java">
-       deleteView.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Toast.makeText(context, &quot;You Want to Delete Donation &quot; +
-                       &quot;[ &quot; + app.dbManager.get(view.getTag().toString()) + &quot;]&quot;,Toast.LENGTH_LONG).show();
+          <li> <h1>App Refactoring - Editing / Deleting Multiple Coffees</h1>
+<p>After some more testing you may also find that your adapter isn&#39;t functioning as expected in certain circumstances when deleting multiple coffees. This is due to the fact that our data is now persistent, so depending on &#39;where you are&#39;, so to speak, some slight refactoring of our <b>deleteCoffees()</b> is required, like so</p>
+<pre><code class="lang-java">public void deleteCoffees(ActionMode actionMode)
+    {
+        Coffee c = null;
+        for (int i = listAdapter.getCount() - 1; i &gt;= 0; i--)
+            if (listView.isItemChecked(i))
+                activity.app.dbManager.delete(listAdapter.getItem(i).coffeeId); //delete from DB
 
-           }
-       });</code></pre>
-<p>if all goes to plan you should get something OnClickListener</p>
-<p><img src="img/lab5s902.png" alt=""></p>
-<p>Where&#39;s the actual deleting you may ask? Well, that&#39;ll be up to you....</p>
+        actionMode.finish();
+
+        if (favourites) {
+            //Update the filters data
+            coffeeFilter = new CoffeeFilter(activity.app.dbManager,listAdapter);
+            coffeeFilter.setFilter(&quot;favourites&quot;);
+            coffeeFilter.filter(null);
+        }
+        listAdapter.notifyDataSetChanged();
+    }</code></pre>
+<p>Just for completeness, and to keep thing in sync with the previous lab, if you experience any rendering issues with your fragment, move</p>
+<pre><code class="lang-java">listAdapter = new CoffeeListAdapter(activity, this, activity.app.dbManager.getAll());
+ coffeeFilter = new CoffeeFilter(activity.app.dbManager.getAll(),&quot;all&quot;,listAdapter);</code></pre>
+<p>from the <code>onCreate()</code> method to the <code>onCreateView()</code> method and make sure you call</p>
+<pre><code class="lang-java"> super.onCreateView(inflater,container,savedInstanceState);</code></pre>
+<p>in the subclass <code>SearchFragment</code> method, to avoid a NullPointerException on setting the filter.</p>
+<p>Test again to confirm and go have a coffee!</p>
+<p>Well Done!</p>
 </li>
         
           <li> <h1>Solution</h1>
-<p>This is a solution to the lab:</p>
+<p>This is the solution to the lab:</p>
 <ul>
-<li><p><a href="archives/Donation.4.0.Realm.zip">Donation.4.0.Realm</a></p>
-</li>
-<li><p><a href="archives/CoffeeMate.4.0.Realm.zip">CoffeeMate.4.0.Realm</a></p>
-</li>
+<li><a href="archives/CoffeeMate.5b.0.Solution.zip">CoffeeMate.5b.0.Solution.Realm</a></li>
 </ul>
 </li>
         
