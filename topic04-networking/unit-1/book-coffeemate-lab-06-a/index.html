@@ -1077,6 +1077,10 @@ public class CoffeeApi {
 <p>and finally, add the following to your <code>CoffeeFragment</code>&#39;s <strong>onAttach</strong></p>
 <pre><code class="lang-java">CoffeeApi.attachDialog(activity.loader);</code></pre>
 <p>Run your app to confirm you get a loading message (even if it&#39;s very brief!) and see if you can refactor your app to display the message wherever it&#39;s required.</p>
+<p>Also, see if you can make the minor changes to get something like this</p>
+<p><img src="img/progressscreen1.png" alt=""></p>
+<p>and if the user deletes some coffees</p>
+<p><img src="img/progressscreen2.png" alt=""></p>
 <p>because we introduced a <strong>SwipeRefreshLayout</strong>, we need to make some modifications to our &#39;Search&#39; option so you need to ensure that your <strong>fragment_search</strong> layout now has the following (around the ListView)</p>
 <pre><code>&lt;android.support.v4.widget.SwipeRefreshLayout     
     android:id=&quot;@+id/coffee_swipe_refresh_layout&quot;
