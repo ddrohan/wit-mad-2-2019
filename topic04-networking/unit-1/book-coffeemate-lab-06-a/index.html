@@ -179,6 +179,8 @@ Lab-06-b
             
               <li><a href="#">05</a></li>
             
+              <li><a href="#">06</a></li>
+            
               <li><a href="#">Solution</a></li>
             
           </ul>
@@ -824,12 +826,12 @@ public class CoffeeFragment  extends Fragment implements
 <p>We can use the same method call to delete multiple coffees so try and have a go at implementing this feature (which we covered in the lectures).</p>
 </li>
         
-          <li> <h1>Adding a &#39;Waiting&#39; Dialog &amp; &#39;Swipe to Refresh&#39;</h1>
+          <li> <h1>Adding a &#39;Waiting&#39; Dialog</h1>
 <p>At this Stage your CoffeeMate App should be able to View/Add/Delete &amp; Update coffees, and view your favourite coffees (like before), all on the server.</p>
-<p>Now, you&#39;ve probably noticed that there&#39;s no real indication to the user that the app is downloading data from a Server when it launches - this isn&#39;t ideal as the user may think the app has crashed, so here, we&#39;ll add a &#39;Waiting&#39; Dialog to give some basic feedback to the user about what&#39;s going on. We&#39;ll also add a &#39;SwipeRefreshLayout&#39; so the user can refresh the list at any stage to check for changes on the server.</p>
+<p>Now, you&#39;ve probably noticed that there&#39;s no real indication to the user that the app is downloading data from a Server when it launches - this isn&#39;t ideal as the user may think the app has crashed, so here, we&#39;ll add a &#39;Waiting&#39; Dialog to give some basic feedback to the user about what&#39;s going on. We&#39;ll also add a &#39;SwipeRefreshLayout&#39; in the final step, so the user can refresh the list at any stage to check for changes on the server.</p>
 <p>we want to create a simple layout to display the progress of the download so that we have something like this</p>
 <p><img src="img/progressscreen.png" alt=""></p>
-<p>so firat of all, create a new layout called <strong>loading.xml</strong> and replace it with this (you&#39;ll need to create a new string resource &#39;messageLoading&#39; too)</p>
+<p>so first of all, create a new layout called <strong>loading.xml</strong> and replace it with this (you&#39;ll need to create a new string resource &#39;messageLoading&#39; too)</p>
 <pre><code class="lang-xml">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
     android:layout_width=&quot;match_parent&quot;
     android:layout_height=&quot;wrap_content&quot;
@@ -861,7 +863,7 @@ public class CoffeeFragment  extends Fragment implements
        loader.setIcon(R.drawable.favourites_72);
    }</code></pre>
 <p>and call the above in your <code>Home</code> activity&#39;s <strong>onCreate()</strong>.</p>
-<p>Then, for simplicity, replace your current <code>CoffeeApi</code> with this (and have a quick look at how the updated <strong>get</strong> works)</p>
+<p>Then, for simplicity, replace your current <code>CoffeeApi</code> with this (and have a quick look at how the refactored <strong>get</strong> works)</p>
 <pre><code class="lang-java">package ie.cm.api;
 
 import android.app.AlertDialog;
@@ -892,7 +894,7 @@ import ie.cm.models.Coffee;
 
 public class CoffeeApi {
 
-    private static final String hostURL = &quot;http://coffeemate-nodeserver1.herokuapp.com&quot;;
+    private static final String hostURL = &quot;http://coffeemate-nodeserver.herokuapp.com&quot;;
     private static final String LocalhostURL = &quot;http://192.168.0.13:3000&quot;;
     //private static List&lt;Coffee&gt; result = null;
     private static VolleyListener vListener;
@@ -1074,39 +1076,73 @@ public class CoffeeApi {
             loader.dismiss();
     }
 }</code></pre>
-<p>and finally, add the following to your <code>CoffeeFragment</code>&#39;s <strong>onAttach</strong></p>
+<p>and finally, add the following to your <code>CoffeeFragment</code>&#39;s <strong>onAttach()</strong></p>
 <pre><code class="lang-java">CoffeeApi.attachDialog(activity.loader);</code></pre>
 <p>Run your app to confirm you get a loading message (even if it&#39;s very brief!) and see if you can refactor your app to display the message wherever it&#39;s required.</p>
 <p>Also, see if you can make the minor changes to get something like this</p>
-<p><img src="img/progressscreen1.png" alt=""></p>
+<p><img src="img/prog1.png" alt=""></p>
 <p>and if the user deletes some coffees</p>
-<p><img src="img/progressscreen2.png" alt=""></p>
-<p>because we introduced a <strong>SwipeRefreshLayout</strong>, we need to make some modifications to our &#39;Search&#39; option so you need to ensure that your <strong>fragment_search</strong> layout now has the following (around the ListView)</p>
-<pre><code>&lt;android.support.v4.widget.SwipeRefreshLayout     
-    android:id=&quot;@+id/coffee_swipe_refresh_layout&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;107dp&quot;
-    android:layout_alignParentStart=&quot;true&quot;
-    android:layout_below=&quot;@+id/recentAddedBarTextView&quot;     
-    android:layout_alignParentBottom=&quot;true&quot;&gt;
+<p><img src="img/prog2.png" alt=""></p>
+</li>
+        
+          <li> <h1>Adding a &#39;Swipe to Refresh&#39;</h1>
+<p>There may be situations that the Server data changes while the user is viewing their list, so we&#39;ll give them the option of &#39;refreshing&#39; the list by swiping instead of having to &#39;Go Home&#39; to reload the list.</p>
+<p>First of all, wrap your <strong>ListView</strong> in a <strong>SwipeRefreshLayout</strong> in both your <code>fragment_home</code> and <code>fragment_search</code> layouts like so - you may need to fix/adjust the layouts after this update.</p>
+<pre><code class="lang-xml">&lt;android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+        android:id=&quot;@+id/swiperefresh&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;&gt;
+    &lt;ListView
+        android:id=&quot;@+id/homeList&quot;
+        android:layout_width=&quot;0dp&quot;
+        android:layout_height=&quot;0dp&quot;
+        android:layout_marginTop=&quot;8dp&quot;
+        app:layout_constraintBottom_toTopOf=&quot;@+id/footer&quot;
+        app:layout_constraintEnd_toEndOf=&quot;parent&quot;
+        app:layout_constraintStart_toStartOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot;
+        app:layout_constraintVertical_bias=&quot;0.06999999&quot; /&gt;
+    &lt;/android.support.v4.widget.SwipeRefreshLayout&gt;</code></pre>
+<p>Next, add the following to your <code>Base</code> class</p>
+<pre><code class="lang-java"> public static AlertDialog loader;</code></pre>
+<p>and</p>
+<pre><code class="lang-java">public void createLoader() {
+       AlertDialog.Builder loaderBuilder = new AlertDialog.Builder(this);
+       loaderBuilder.setCancelable(true); // &#39;false&#39; if you want user to wait
+       loaderBuilder.setView(R.layout.loading);
+       loader = loaderBuilder.create();
+       loader.setTitle(R.string.appDisplayName);
+       loader.setIcon(R.drawable.favourites_72);
+   }</code></pre>
+<p>Then, in your <code>CoffeeFragment</code> class add</p>
+<pre><code class="lang-java">public void setSwipeRefresh(View v)
+  {
+      SwipeRefreshLayout swipeRefresh = v.findViewById(R.id.swiperefresh);
+      swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+          @Override
+          public void onRefresh() {
+              CoffeeApi.get(&quot;/coffees&quot;);
+          }
+      });
+  }
 
-&lt;ListView android:id=&quot;@+id/coffeeList&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;match_parent&quot;
-    android:layout_gravity=&quot;right|bottom&quot;&gt;
-&lt;/ListView&gt;
-
-&lt;/android.support.v4.widget.SwipeRefreshLayout&gt;</code></pre>
-<p>and in your Fragment you bind to the <strong>SwipeRefreshLayout</strong> and set it like so</p>
-<pre><code>mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.coffee_swipe_refresh_layout);
-setSwipeRefreshLayout();</code></pre>
-<p>Run your app once again and make a few changes on the server and test out the swipe refresh to confirm you&#39;ve completed this lab successfully - Well Done!</p>
+  public void checkSwipeRefresh(View v)
+  {
+      SwipeRefreshLayout swipeRefresh = v.findViewById(R.id.swiperefresh);
+      if (swipeRefresh.isRefreshing()) swipeRefresh.setRefreshing(false);
+  }</code></pre>
+<p>Now, see if you can add in the necessary calls to implement this &#39;Swipe to Refresh&#39; feature.</p>
+<p>Don&#39;t forget to test your <code>SearchFragment</code> too!</p>
+<p>When you&#39;re finished, you should be seeing something like this (again, possibly all but briefly)</p>
+<p><img src="img/swipe.png" alt=""></p>
+<p>Run your app once again and ask a classmate to add/change/delete coffees on the server and test out the swipe refresh to confirm you&#39;ve completed this lab successfully - Well Done!</p>
 </li>
         
           <li> <h1>Solution</h1>
-<p>This is a solution which uses a Web Service and <b>Volley</b> with <b>Google Sign-in</b> to manage the Coffees in the app:</p>
+<p>This is a solution which uses a Web Service and <strong>Volley</strong> to manage the Coffees in the app:</p>
 <ul>
-<li><a href="archives/CoffeeMate.5.0.Solution.zip">CoffeeMate.5.0</a></li>
+<li><a href="archives/CoffeeMate.6a.0.Solution.zip">CoffeeMate.6a.0</a></li>
 </ul>
 </li>
         
