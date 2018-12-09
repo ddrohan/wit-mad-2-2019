@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,19 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/css/uikit.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+          type="text/css">
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"/>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+          rel="stylesheet"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-  </head>
-  <style>
-    
+    <style>
+      
 
 body {
   font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
@@ -62,140 +66,168 @@ h3 {
 
 
 
-  </style>
+      
 
-  <body class="lab">
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.footer {
+  background: white;
+  text-align: right;
+}
+.content {
+  flex: 1;
+  overflow: auto;
+}
 
-    
-  <div class="uk-offcanvas-content">
-    <div id="offcanvas-usage" uk-offcanvas>
-      <div class="uk-offcanvas-bar">
-        <button class="uk-offcanvas-close" type="button" uk-close></button>
-        <ul class="uk-nav">
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-01/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-01
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-02/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-02
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-03/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-03
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-2/book-coffeemate-lab-04/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-04
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-05-a/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-05-a
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-05-b/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-05-b
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-06-a/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-06-a
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-06-b/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-06-b
-                </a>
-              </li>
-            
-          
-        </ul>
-      </div>
+
+
+    </style>
+  </head>
+
+  
+  
+
+  <div class="ui fixed top pointing inverted stackable menu labmenu">
+    <header class="header item">
+      <i id="toc" class="sitemap icon"></i>
+      
+        <a href="../../index.html"> Networking with Volley & Retrofit  </a>
+      
+    </header>
+    <div class="right tab-menu menu">
+      
+        <a class="item" data-tab="Lab-06-a">
+          Lab-06-a
+        </a>
+      
+        <a class="item" data-tab="01">
+          01
+        </a>
+      
+        <a class="item" data-tab="02">
+          02
+        </a>
+      
+        <a class="item" data-tab="03">
+          03
+        </a>
+      
+        <a class="item" data-tab="04">
+          04
+        </a>
+      
+        <a class="item" data-tab="05">
+          05
+        </a>
+      
+        <a class="item" data-tab="06">
+          06
+        </a>
+      
+        <a class="item" data-tab="Solution">
+          Solution
+        </a>
+      
     </div>
   </div>
 
 
-    <div uk-sticky>
-      <nav class="uk-navbar">
-        <div class="uk-navbar-left">
-          <ul class="uk-subnav uk-background-secondary uk-subnav-pill">
-            <li><a href="#offcanvas-usage" uk-icon="icon: menu" , uk-toggle title="Switch Lab" pos="bottom"
-                   uk-tooltip></a></li>
-             }}
-              <li class="uk-active"><a href="../../index.html" uk-icon="icon: chevron-up" uk-toggle title="Parent Topic"
-                                       pos="bottom" uk-tooltip>Networking with Volley & Retrofit </a></li>
-            
-          </ul>
-        </div>
-        <div class="uk-navbar-right">
-          <ul class="uk-subnav uk-background-secondary uk-subnav-pill"
-              uk-switcher="connect: .switcher-container">
-            
-              <li><a href="#">Lab-06-a</a></li>
-            
-              <li><a href="#">01</a></li>
-            
-              <li><a href="#">02</a></li>
-            
-              <li><a href="#">03</a></li>
-            
-              <li><a href="#">04</a></li>
-            
-              <li><a href="#">05</a></li>
-            
-              <li><a href="#">06</a></li>
-            
-              <li><a href="#">Solution</a></li>
-            
-          </ul>
-        </div>
-      </nav>
-    </div>
+  
 
-    <div class="uk-container uk-container-expand">
-      <ul class="uk-switcher switcher-container">
+  <div class="ui pushable">
+    <div class="ui inverted labeled icon left inline vertical sidebar menu">
+      <br><br>
+      
         
-          <li> <h1>Objectives</h1>
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic01-overview-and-tools/unit-1/book-coffeemate-lab-01/index.html">Lab-01 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic02-ui-design/unit-1/book-coffeemate-lab-02/index.html">Lab-02 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic02-ui-design/unit-1/book-coffeemate-lab-03/index.html">Lab-03 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic02-ui-design/unit-2/book-coffeemate-lab-04/index.html">Lab-04 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/unit-1/book-coffeemate-lab-05-a/index.html">Lab-05-a </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/unit-1/book-coffeemate-lab-05-b/index.html">Lab-05-b </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic04-networking/unit-1/book-coffeemate-lab-06-a/index.html">Lab-06-a </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic04-networking/unit-1/book-coffeemate-lab-06-b/index.html">Lab-06-b </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic05-google-services/unit-1/book-coffeemate-lab-07/index.html">Lab-07 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic05-google-services/unit-1/book-coffeemate-lab-08/index.html">Lab-08 </a>
+          
+        
+      
+    </div>
+    <div class="pusher" tabindex="-1">
+      <div class="ui basic segment">
+        <br>
+        
+          <div class="ui tab segment lab" data-tab="Lab-06-a">
+            <h1>Objectives</h1>
 <p>This lab continues our Case Study <b>CoffeeMate</b> with the introduction of a <strong>VOLLEY API</strong> to interact with a Node Web Server.</p>
-</li>
+
+          </div>
         
-          <li> <h1>Setup - Starter Code, Configuring Volley &amp; Getting All Coffees</h1>
+          <div class="ui tab segment lab" data-tab="01">
+            <h1>Setup - Starter Code, Configuring Volley &amp; Getting All Coffees</h1>
 <p>This is the CoffeeMate Android app as we left it in Lab 04 : <a href="archives/CoffeeMate.6a.0.zip">CoffeeMate.6a.0</a></p>
 <p>If you have completed that lab, then you can use your own project. If not, use the above archive.</p>
 <p>In this lab, you are required to do the following:</p>
@@ -626,9 +658,11 @@ public class CoffeeFragment  extends Fragment implements
         fragment.onResume();
     }
 }</code></pre>
-</li>
+
+          </div>
         
-          <li> <h1>Adding a Coffee to our Server</h1>
+          <div class="ui tab segment lab" data-tab="02">
+            <h1>Adding a Coffee to our Server</h1>
 <p>At this stage, we&#39;ve made a simple <strong>GET</strong> request on the Server - now let&#39;s make some <strong>POST</strong> Requests and add a coffee to the list maintained on the server.</p>
 <p>First though, we need to slightly refactor our <code>Coffee</code> class to match our JSON object (as it&#39;s coming from a mongo db) so replace the <code>coffeeId</code> field with <code>_id</code> (to match the mongo autogenerated field) and don&#39;t forget to update your <code>CoffeeItem</code> with</p>
 <pre><code class="lang-java">view.setTag(coffee._id);</code></pre>
@@ -684,9 +718,11 @@ public class CoffeeFragment  extends Fragment implements
 <p>The next thing we need to do is refactor our <code>AddFragment</code> and integrate our API class so open up your <strong>AddFragment.java</strong> and have a go at implementing what we need.</p>
 <p>There&#39;s actually very little to this so if you&#39;ve added the necessary code correctly, you should be able to add a coffee in the same way as in <strong>CoffeeMate.4.0</strong> but this time, the coffee is added to the list of coffees on the server <strong>NOT</strong> on the device (via a list or a database).</p>
 <p>And don&#39;t worry, the solution is next :)</p>
-</li>
+
+          </div>
         
-          <li> <h1>Updating a Coffee on the Server</h1>
+          <div class="ui tab segment lab" data-tab="03">
+            <h1>Updating a Coffee on the Server</h1>
 <p>Before we make a start at updating a coffee, here is the line of code necessary for adding a coffee (replacing our &#39;add&#39; call)</p>
 <pre><code class="lang-java">CoffeeApi.post(&quot;/coffees&quot;,c);</code></pre>
 <p>Unfortunately, updating a coffee isn&#39;t as simple and straightforward as the last step, in that we need to</p>
@@ -816,17 +852,21 @@ public class CoffeeFragment  extends Fragment implements
 <p>and back on the home page...</p>
 <p><img src="img/editscreen3.png" alt=""></p>
 <p>We&#39;ll move on to Deleting Coffees next.</p>
-</li>
+
+          </div>
         
-          <li> <h1>Deleting Coffees from the Server</h1>
+          <div class="ui tab segment lab" data-tab="04">
+            <h1>Deleting Coffees from the Server</h1>
 <p>As we already have all the necessary code in place from previous versions of CoffeeMate, we have a full APi class available to us, this step is very simple - we just need to change our delete method(s) to delete the specific coffee (or multiple coffees) from the server, and not the database, as is currently the case.</p>
 <p>we achieve deleting a single coffee by calling our <strong>CoffeeApi</strong> &#39;delete&#39; method like so</p>
 <pre><code class="lang-java">CoffeeApi.delete(&quot;/coffees/&quot; + coffee._id);</code></pre>
 <p>so see if you can work out where this call should go, and what code it should replace?</p>
 <p>We can use the same method call to delete multiple coffees so try and have a go at implementing this feature (which we covered in the lectures).</p>
-</li>
+
+          </div>
         
-          <li> <h1>Adding a &#39;Waiting&#39; Dialog</h1>
+          <div class="ui tab segment lab" data-tab="05">
+            <h1>Adding a &#39;Waiting&#39; Dialog</h1>
 <p>At this Stage your CoffeeMate App should be able to View/Add/Delete &amp; Update coffees, and view your favourite coffees (like before), all on the server.</p>
 <p>Now, you&#39;ve probably noticed that there&#39;s no real indication to the user that the app is downloading data from a Server when it launches - this isn&#39;t ideal as the user may think the app has crashed, so here, we&#39;ll add a &#39;Waiting&#39; Dialog to give some basic feedback to the user about what&#39;s going on. We&#39;ll also add a &#39;SwipeRefreshLayout&#39; in the final step, so the user can refresh the list at any stage to check for changes on the server.</p>
 <p>we want to create a simple layout to display the progress of the download so that we have something like this</p>
@@ -1083,9 +1123,11 @@ public class CoffeeApi {
 <p><img src="img/prog1.png" alt=""></p>
 <p>and if the user deletes some coffees</p>
 <p><img src="img/prog2.png" alt=""></p>
-</li>
+
+          </div>
         
-          <li> <h1>Adding a &#39;Swipe to Refresh&#39;</h1>
+          <div class="ui tab segment lab" data-tab="06">
+            <h1>Adding a &#39;Swipe to Refresh&#39;</h1>
 <p>There may be situations that the Server data changes while the user is viewing their list, so we&#39;ll give them the option of &#39;refreshing&#39; the list by swiping instead of having to &#39;Go Home&#39; to reload the list.</p>
 <p>First of all, wrap your <strong>ListView</strong> in a <strong>SwipeRefreshLayout</strong> in both your <code>fragment_home</code> and <code>fragment_search</code> layouts like so - you may need to fix/adjust the layouts after this update.</p>
 <pre><code class="lang-xml">&lt;android.support.v4.widget.SwipeRefreshLayout
@@ -1137,33 +1179,90 @@ public class CoffeeApi {
 <p>When you&#39;re finished, you should be seeing something like this (again, possibly all but briefly)</p>
 <p><img src="img/swipe.png" alt=""></p>
 <p>Run your app once again and ask a classmate to add/change/delete coffees on the server and test out the swipe refresh to confirm you&#39;ve completed this lab successfully - Well Done!</p>
-</li>
+
+          </div>
         
-          <li> <h1>Solution</h1>
+          <div class="ui tab segment lab" data-tab="Solution">
+            <h1>Solution</h1>
 <p>This is a solution which uses a Web Service and <strong>Volley</strong> to manage the Coffees in the app:</p>
 <ul>
 <li><a href="archives/CoffeeMate.6a.0.Solution.zip">CoffeeMate.6a.0</a></li>
 </ul>
-</li>
-        
-      </ul>
-    </div>
 
-    <script>
-      $(document).ready(function() {
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    $(document).on('keydown', function(e) {
+  e = e || window.event;
+  var nextTab;
+  switch (e.which || e.keyCode) {
+    case 37: // left
+      nextTab = $('.tab-menu a[data-tab].active').prev('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').last();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+
+    case 39: // right
+      nextTab = $('.tab-menu a[data-tab].active').next('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').first();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+  }
+});
+
+    $(document).ready(function() {
+  $('img').addClass('ui image');
+
+  $('.ui.embed').embed();
+
   const $images = $('.lab img');
   jQuery.each($images, function(i) {
     if ($images[i].alt.length > 0) {
-      const divImg = $(document.createElement('div')).addClass('');
+      const divImg = $(document.createElement('div')).addClass(
+        'ui basic segment',
+      );
       $($images[i]).wrap(divImg);
-      const divLabel = $(document.createElement('div')).addClass('uk-label uk-text-lowercase');
+      const divLabel = $(document.createElement('div')).addClass(
+        'ui blue ribbon label',
+      );
       divLabel.append($images[i].alt);
-      $(divLabel).insertAfter($images[i]);
-      $('<br>').insertAfter($images[i]);
+      $(divLabel).insertBefore($images[i]);
     }
   });
+
+  $('.ui.menu .item').tab({
+    history: true,
+    historyType: 'hash',
+  });
+
+  $('.popup').popup();
+
+  $('.ui.sidebar')
+    .sidebar({ context: $('.pushable') })
+    .sidebar('setting', 'transition', 'slide out')
+    .sidebar('attach events', '#toc');
 });
 
-    </script>
+  </script>
+
+
+
+  <div class="ui bottom fixed borderless right menu">
+    <div class="ui right small menu">
+      <div class="ui tiny basic message segment">
+         Powered by <a href="https://github.com/edeleastar/tutors-ts">tutors-ts.</a> 
+      </div>
+    </div>
+  </div>
+
   </body>
+
 </html>

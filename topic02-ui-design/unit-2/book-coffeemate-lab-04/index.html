@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,19 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/css/uikit.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+          type="text/css">
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"/>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+          rel="stylesheet"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-  </head>
-  <style>
-    
+    <style>
+      
 
 body {
   font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
@@ -62,148 +66,184 @@ h3 {
 
 
 
-  </style>
+      
 
-  <body class="lab">
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.footer {
+  background: white;
+  text-align: right;
+}
+.content {
+  flex: 1;
+  overflow: auto;
+}
 
-    
-  <div class="uk-offcanvas-content">
-    <div id="offcanvas-usage" uk-offcanvas>
-      <div class="uk-offcanvas-bar">
-        <button class="uk-offcanvas-close" type="button" uk-close></button>
-        <ul class="uk-nav">
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-01/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-01
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-02/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-02
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-03/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-03
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-2/book-coffeemate-lab-04/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-04
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-05-a/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-05-a
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-05-b/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-05-b
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-06-a/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-06-a
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-06-b/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-06-b
-                </a>
-              </li>
-            
-          
-        </ul>
-      </div>
+
+
+    </style>
+  </head>
+
+  
+  
+
+  <div class="ui fixed top pointing inverted stackable menu labmenu">
+    <header class="header item">
+      <i id="toc" class="sitemap icon"></i>
+      
+        <a href="../../index.html"> UI Navigation  </a>
+      
+    </header>
+    <div class="right tab-menu menu">
+      
+        <a class="item" data-tab="Lab-04">
+          Lab-04
+        </a>
+      
+        <a class="item" data-tab="01">
+          01
+        </a>
+      
+        <a class="item" data-tab="02">
+          02
+        </a>
+      
+        <a class="item" data-tab="03">
+          03
+        </a>
+      
+        <a class="item" data-tab="04">
+          04
+        </a>
+      
+        <a class="item" data-tab="05">
+          05
+        </a>
+      
+        <a class="item" data-tab="06">
+          06
+        </a>
+      
+        <a class="item" data-tab="07">
+          07
+        </a>
+      
+        <a class="item" data-tab="08">
+          08
+        </a>
+      
+        <a class="item" data-tab="09">
+          09
+        </a>
+      
+        <a class="item" data-tab="10">
+          10
+        </a>
+      
+        <a class="item" data-tab="Solution">
+          Solution
+        </a>
+      
     </div>
   </div>
 
 
-    <div uk-sticky>
-      <nav class="uk-navbar">
-        <div class="uk-navbar-left">
-          <ul class="uk-subnav uk-background-secondary uk-subnav-pill">
-            <li><a href="#offcanvas-usage" uk-icon="icon: menu" , uk-toggle title="Switch Lab" pos="bottom"
-                   uk-tooltip></a></li>
-             }}
-              <li class="uk-active"><a href="../../index.html" uk-icon="icon: chevron-up" uk-toggle title="Parent Topic"
-                                       pos="bottom" uk-tooltip>UI Navigation </a></li>
-            
-          </ul>
-        </div>
-        <div class="uk-navbar-right">
-          <ul class="uk-subnav uk-background-secondary uk-subnav-pill"
-              uk-switcher="connect: .switcher-container">
-            
-              <li><a href="#">Lab-04</a></li>
-            
-              <li><a href="#">01</a></li>
-            
-              <li><a href="#">02</a></li>
-            
-              <li><a href="#">03</a></li>
-            
-              <li><a href="#">04</a></li>
-            
-              <li><a href="#">05</a></li>
-            
-              <li><a href="#">06</a></li>
-            
-              <li><a href="#">07</a></li>
-            
-              <li><a href="#">08</a></li>
-            
-              <li><a href="#">09</a></li>
-            
-              <li><a href="#">10</a></li>
-            
-              <li><a href="#">Solution</a></li>
-            
-          </ul>
-        </div>
-      </nav>
-    </div>
+  
 
-    <div class="uk-container uk-container-expand">
-      <ul class="uk-switcher switcher-container">
+  <div class="ui pushable">
+    <div class="ui inverted labeled icon left inline vertical sidebar menu">
+      <br><br>
+      
         
-          <li> <h1>Objectives</h1>
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic01-overview-and-tools/unit-1/book-coffeemate-lab-01/index.html">Lab-01 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic02-ui-design/unit-1/book-coffeemate-lab-02/index.html">Lab-02 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic02-ui-design/unit-1/book-coffeemate-lab-03/index.html">Lab-03 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic02-ui-design/unit-2/book-coffeemate-lab-04/index.html">Lab-04 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/unit-1/book-coffeemate-lab-05-a/index.html">Lab-05-a </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/unit-1/book-coffeemate-lab-05-b/index.html">Lab-05-b </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic04-networking/unit-1/book-coffeemate-lab-06-a/index.html">Lab-06-a </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic04-networking/unit-1/book-coffeemate-lab-06-b/index.html">Lab-06-b </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic05-google-services/unit-1/book-coffeemate-lab-07/index.html">Lab-07 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic05-google-services/unit-1/book-coffeemate-lab-08/index.html">Lab-08 </a>
+          
+        
+      
+    </div>
+    <div class="pusher" tabindex="-1">
+      <div class="ui basic segment">
+        <br>
+        
+          <div class="ui tab segment lab" data-tab="Lab-04">
+            <h1>Objectives</h1>
 <p>This lab continues our Case Study <b>CoffeeMate</b> but with a major refactoring of the UI (using a Navigation Drawer) and a more detailed look at the use of Fragments in an Android App.</p>
-</li>
+
+          </div>
         
-          <li> <h1>Setup - Starter Code &amp; Initial Resources</h1>
+          <div class="ui tab segment lab" data-tab="01">
+            <h1>Setup - Starter Code &amp; Initial Resources</h1>
 <p>As this version of our case study will involve a major refactoring of the UI, we&#39;ll first create a new project <strong>CoffeeMate.4.0</strong> and choose the <strong>Navigation Drawer</strong> as the initial Activity type, like so:</p>
 <p><img src="img/setup.1.png" alt="Figure 1 : New Project - Step 1"></p>
 <p><img src="img/setup.2.png" alt="Figure 2 : New Project - Step 2"></p>
@@ -228,9 +268,11 @@ Lab-06-b
 </li>
 </ul>
 <p>The following steps will guide you through these requirements, so we&#39;ll start with Splash Screen.</p>
-</li>
+
+          </div>
         
-          <li> <h1>Adding a Splash Screen</h1>
+          <div class="ui tab segment lab" data-tab="02">
+            <h1>Adding a Splash Screen</h1>
 <p>First of all, confirm that when you run the starter code you get the following:</p>
 <p><img src="img/startscreen1.png" alt=""></p>
 <p>and, selecting the menu, this</p>
@@ -279,9 +321,11 @@ Lab-06-b
 <p>You can also remove any references to <strong>checkEmptyList()</strong> for completeness.</p>
 <p>If you&#39;ve extensively tested (which you should) you may find that multiple deleting your <strong><em>Favourite Coffees</em></strong> doesn&#39;t work as expected - you still see you coffees in the favourites list, even though they&#39;ve been deleted. Revisit your code to see if you can fix this?</p>
 <p>HINT : check where you look for &#39;favourites&#39; and you&#39;ve already made a similar change for loading your favourites (as above).</p>
-</li>
+
+          </div>
         
-          <li> <h1>App Refactoring - Our &#39;Add&#39; Option (Part 1)</h1>
+          <div class="ui tab segment lab" data-tab="03">
+            <h1>App Refactoring - Our &#39;Add&#39; Option (Part 1)</h1>
 <p>Once you&#39;ve properly tested your latest version of CoffeeMate, you&#39;ll see that we only have The &#39;Home&#39; &amp; &#39;View Favourites&#39; implemented. The next few steps will take you through building a new Fragment <b>AddFragment</b> and reusing a lot of the &#39;Add&#39; activity code and resources.</p>
 <p>First, go ahead and create a new <strong>(Blank)</strong> Fragment called <b>AddFragment</b> in the <i>fragments</i> package with the following options :</p>
 <p> <img src="img/addfragment.png" alt=""></p>
@@ -484,9 +528,11 @@ Lab-06-b
 <p>instead of</p>
 <pre><code class="lang-java">import android.app.Fragment;</code></pre>
 <p> in your import statements (as this may throw up another error later on).</p>
-</li>
+
+          </div>
         
-          <li> <h1>App Refactoring - Our &#39;Add&#39; Option (Part 2)</h1>
+          <div class="ui tab segment lab" data-tab="04">
+            <h1>App Refactoring - Our &#39;Add&#39; Option (Part 2)</h1>
 <p>Here&#39;s the code you should have implemented (or something similar) to get the &#39;Add&#39; screen loading</p>
 <pre><code class="lang-java">    this.setTitle(R.string.addACoffeeLbl);
     fragment = AddFragment.newInstance();
@@ -501,9 +547,11 @@ Lab-06-b
 <p><img src="img/error1.png" alt=""></p>
 <p>and it&#39;s related to the fact that our button is now part of a fragment and not an activity. A simple fix is to add an anonymous listener to our button (like we covered in the lectures) so try and have a go at that now.</p>
 <p>Also, don&#39;t forget to remove the &#39;Add&#39; activity (and associated layout) from the project once it&#39;s working, as we don&#39;t need them anymore.</p>
-</li>
+
+          </div>
         
-          <li> <h1>App Refactoring - Our &#39;Search&#39; Option (Part 1)</h1>
+          <div class="ui tab segment lab" data-tab="05">
+            <h1>App Refactoring - Our &#39;Search&#39; Option (Part 1)</h1>
 <p>We&#39;ll take a similar approach with this feature as we did with the add feature - we&#39;ll get the navigation and screen up and running first, and then implement the logic.</p>
 <p>In the previous version of CoffeeMate (Version 3.0) our &#39;Search&#39; feature was implemented via a separate layout in a Search activity and we extended our <b>CoffeeFragment</b> to customise our Search (in a <b>SearchFragment</b>). To maintain our current <b><i>navigation design pattern</i></b> we should really remove our existing &#39;Search&#39; activity and manage everything in our SearchFragment - so that&#39;s what we&#39;ll do.</p>
 <p>First, we need a new layout for our Search, so either copy/paste one of the existing fragment layouts, or go ahead and create a new one (I actually just renamed the <i>search</i> layout and went from there).</p>
@@ -688,9 +736,11 @@ coffeeFilter = new CoffeeFilter(activity.app.coffeeList,&quot;all&quot;,listAdap
 <p><img src="img/search2.png" alt=""></p>
 <p>and</p>
 <p><img src="img/search3.png" alt=""></p>
-</li>
+
+          </div>
         
-          <li> <h1>App Refactoring - Our &#39;Edit&#39; Option (Part 1)</h1>
+          <div class="ui tab segment lab" data-tab="06">
+            <h1>App Refactoring - Our &#39;Edit&#39; Option (Part 1)</h1>
 <p>This step is similar to our <code>AddFragment</code> implementation but there&#39;s a bit more complexity involved as we need to</p>
 <ul>
 <li>Create a new Fragment <code>EditFragment</code> (similar to Add)</li>
@@ -920,9 +970,11 @@ coffeeFilter = new CoffeeFilter(activity.app.coffeeList,&quot;all&quot;,listAdap
 <p><img src="img/editscreen.png" alt=""></p>
 <p>But you get an error instead??</p>
 <p>Can you try a quick fix to get the app running?</p>
-</li>
+
+          </div>
         
-          <li> <h1>App Refactoring - Our &#39;Edit&#39; Option (Part 2)</h1>
+          <div class="ui tab segment lab" data-tab="07">
+            <h1>App Refactoring - Our &#39;Edit&#39; Option (Part 2)</h1>
 <p>The problem with the previous step was the Main Activity (in out case &#39;Home&#39; must implement the <strong>OnFragmentInteractionListener</strong> interface (for the callbacks) so you can carry out a quick fix like so</p>
 <p><img src="img/edit1.png" alt=""></p>
 <p><img src="img/edit2.png" alt=""></p>
@@ -1033,9 +1085,11 @@ public void onCreate(Bundle savedInstanceState)
             aCoffee = getCoffeeObject(getArguments().getInt(&quot;coffeeId&quot;));
 }</code></pre>
 <p>The final step is to implement our listeners for the update button and the &#39;toggle&#39;.</p>
-</li>
+
+          </div>
         
-          <li> <h1>App Refactoring - Our &#39;Edit&#39; Option (Part 3)</h1>
+          <div class="ui tab segment lab" data-tab="08">
+            <h1>App Refactoring - Our &#39;Edit&#39; Option (Part 3)</h1>
 <p>As we&#39;re using (and replacing) Fragments instead of switching between Activities, we have two options when trying to implement event handling.  We can</p>
 <ol>
 <li>Implement the event handling and listeners &#39;in house&#39; and manage everything inside the Fragment - but this can get a bit tricky when we want to handle more than one event (like our situation)</li>
@@ -1151,9 +1205,11 @@ public void toggle(View v) {
 <p>so have a go at implementing/completing the &#39;toggle&#39; and the &#39;saveCoffee&#39; methods.</p>
 <p><code>Note : If you find that your Edit Layout doesn&#39;t render correctly, i.e. it gets &#39;pushed up&#39;, just add the following to the top of your &#39;Home.xml&#39;</code></p>
 <pre><code class="lang-xml">android:fitsSystemWindows=&quot;true&quot;</code></pre>
-</li>
+
+          </div>
         
-          <li> <h1>App Refactoring - Our &#39;Edit&#39; Option (Part 4)</h1>
+          <div class="ui tab segment lab" data-tab="09">
+            <h1>App Refactoring - Our &#39;Edit&#39; Option (Part 4)</h1>
 <p>Now, once you&#39;ve tried to confirm that your update and toggle features are working as expected, you&#39;ve probably noticed you have to manually navigate back to the previous screen when you click the update button.</p>
 <p>To improve the user experience somewhat, we can ensure that the user is automatically returned to the previous screen after they&#39;ve selected the update button - no matter which screen they were on. This can be achieved with the following code, so add this to your Fragment in the relevant place and run your app again and see what happens.</p>
 <pre><code class="lang-java">if (getSupportFragmentManager().getBackStackEntryCount() &gt; 0) {    
@@ -1362,9 +1418,11 @@ public void toggle(View v) {
         app:srcCompat=&quot;@drawable/favourites_72&quot; /&gt;
 &lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
 <p>The final step in this lab is optional really, but does make our list look a little bit nicer :) </p>
-</li>
+
+          </div>
         
-          <li> <h1>App Refactoring - Replacing our Custom coffee_row with a &#39;Card&#39;</h1>
+          <div class="ui tab segment lab" data-tab="10">
+            <h1>App Refactoring - Replacing our Custom coffee_row with a &#39;Card&#39;</h1>
 <p>If you complete this step your final version of CoffeeMate.4.0 will look something like this</p>
 <p><img src="img/customcardview.png" alt=""></p>
 <p>Notice the slight curves at the corners, and a bit of a shadow, all achieved by using a <code>CardView</code> Layout for displaying our coffees.</p>
@@ -1476,34 +1534,91 @@ public void toggle(View v) {
 <li>The <code>Help</code>, actually wasn&#39;t much, help that is.... and</li>
 <li>The <code>Random Coffee</code> feature would require a whole new Fragment and Layout and it was decided that this wouldn&#39;t a huge amount extra to the lab, for the time it would take to implement it.</li>
 </ul>
-</li>
+
+          </div>
         
-          <li> <h1>Solution</h1>
+          <div class="ui tab segment lab" data-tab="Solution">
+            <h1>Solution</h1>
 <p>As an exercise, try and refactor the Help Option to use a fragment instead of an activity, to adhere to the UI Navigation Design Pattern we&#39;re using.</p>
 <p>This is a solution to the lab:</p>
 <ul>
 <li><a href="archives/CoffeeMate.4.0.Solution.zip">CoffeeMate.4.0.Solution</a></li>
 </ul>
-</li>
-        
-      </ul>
-    </div>
 
-    <script>
-      $(document).ready(function() {
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    $(document).on('keydown', function(e) {
+  e = e || window.event;
+  var nextTab;
+  switch (e.which || e.keyCode) {
+    case 37: // left
+      nextTab = $('.tab-menu a[data-tab].active').prev('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').last();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+
+    case 39: // right
+      nextTab = $('.tab-menu a[data-tab].active').next('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').first();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+  }
+});
+
+    $(document).ready(function() {
+  $('img').addClass('ui image');
+
+  $('.ui.embed').embed();
+
   const $images = $('.lab img');
   jQuery.each($images, function(i) {
     if ($images[i].alt.length > 0) {
-      const divImg = $(document.createElement('div')).addClass('');
+      const divImg = $(document.createElement('div')).addClass(
+        'ui basic segment',
+      );
       $($images[i]).wrap(divImg);
-      const divLabel = $(document.createElement('div')).addClass('uk-label uk-text-lowercase');
+      const divLabel = $(document.createElement('div')).addClass(
+        'ui blue ribbon label',
+      );
       divLabel.append($images[i].alt);
-      $(divLabel).insertAfter($images[i]);
-      $('<br>').insertAfter($images[i]);
+      $(divLabel).insertBefore($images[i]);
     }
   });
+
+  $('.ui.menu .item').tab({
+    history: true,
+    historyType: 'hash',
+  });
+
+  $('.popup').popup();
+
+  $('.ui.sidebar')
+    .sidebar({ context: $('.pushable') })
+    .sidebar('setting', 'transition', 'slide out')
+    .sidebar('attach events', '#toc');
 });
 
-    </script>
+  </script>
+
+
+
+  <div class="ui bottom fixed borderless right menu">
+    <div class="ui right small menu">
+      <div class="ui tiny basic message segment">
+         Powered by <a href="https://github.com/edeleastar/tutors-ts">tutors-ts.</a> 
+      </div>
+    </div>
+  </div>
+
   </body>
+
 </html>

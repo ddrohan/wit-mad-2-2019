@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,19 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/css/uikit.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.10/js/uikit-icons.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"
+          type="text/css">
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"/>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css"
+          rel="stylesheet"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/java.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-  </head>
-  <style>
-    
+    <style>
+      
 
 body {
   font-family: "Open Sans", "Helvetica", "Helvetica Neue",  "Arial", sans-serif;
@@ -62,138 +66,166 @@ h3 {
 
 
 
-  </style>
+      
 
-  <body class="lab">
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.footer {
+  background: white;
+  text-align: right;
+}
+.content {
+  flex: 1;
+  overflow: auto;
+}
 
-    
-  <div class="uk-offcanvas-content">
-    <div id="offcanvas-usage" uk-offcanvas>
-      <div class="uk-offcanvas-bar">
-        <button class="uk-offcanvas-close" type="button" uk-close></button>
-        <ul class="uk-nav">
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-01/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-01
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-02/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-02
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-03/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-03
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-2/book-coffeemate-lab-04/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-04
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-05-a/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-05-a
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-05-b/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-05-b
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-06-a/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-06-a
-                </a>
-              </li>
-            
-          
-            
-              <li>
-                <a class="item" href="http://ddrohan.github.io/wit-mad-2-2019//unit-1/book-coffeemate-lab-06-b/index.html">
-  <i class="fas fa-flask " style="color:#00BCD4"> </i>
-Lab-06-b
-                </a>
-              </li>
-            
-          
-        </ul>
-      </div>
+
+
+    </style>
+  </head>
+
+  
+  
+
+  <div class="ui fixed top pointing inverted stackable menu labmenu">
+    <header class="header item">
+      <i id="toc" class="sitemap icon"></i>
+      
+        <a href="../../index.html"> Overview & Tools  </a>
+      
+    </header>
+    <div class="right tab-menu menu">
+      
+        <a class="item" data-tab="Lab-01">
+          Lab-01
+        </a>
+      
+        <a class="item" data-tab="01">
+          01
+        </a>
+      
+        <a class="item" data-tab="02">
+          02
+        </a>
+      
+        <a class="item" data-tab="03">
+          03
+        </a>
+      
+        <a class="item" data-tab="04">
+          04
+        </a>
+      
+        <a class="item" data-tab="05">
+          05
+        </a>
+      
+        <a class="item" data-tab="06">
+          06
+        </a>
+      
+        <a class="item" data-tab="07">
+          07
+        </a>
+      
+        <a class="item" data-tab="Exercises">
+          Exercises
+        </a>
+      
     </div>
   </div>
 
 
-    <div uk-sticky>
-      <nav class="uk-navbar">
-        <div class="uk-navbar-left">
-          <ul class="uk-subnav uk-background-secondary uk-subnav-pill">
-            <li><a href="#offcanvas-usage" uk-icon="icon: menu" , uk-toggle title="Switch Lab" pos="bottom"
-                   uk-tooltip></a></li>
-             }}
-              <li class="uk-active"><a href="../../index.html" uk-icon="icon: chevron-up" uk-toggle title="Parent Topic"
-                                       pos="bottom" uk-tooltip>Overview & Tools </a></li>
-            
-          </ul>
-        </div>
-        <div class="uk-navbar-right">
-          <ul class="uk-subnav uk-background-secondary uk-subnav-pill"
-              uk-switcher="connect: .switcher-container">
-            
-              <li><a href="#">Lab-01</a></li>
-            
-              <li><a href="#">01</a></li>
-            
-              <li><a href="#">02</a></li>
-            
-              <li><a href="#">03</a></li>
-            
-              <li><a href="#">04</a></li>
-            
-              <li><a href="#">05</a></li>
-            
-              <li><a href="#">06</a></li>
-            
-              <li><a href="#">07</a></li>
-            
-              <li><a href="#">Exercises</a></li>
-            
-          </ul>
-        </div>
-      </nav>
-    </div>
+  
 
-    <div class="uk-container uk-container-expand">
-      <ul class="uk-switcher switcher-container">
+  <div class="ui pushable">
+    <div class="ui inverted labeled icon left inline vertical sidebar menu">
+      <br><br>
+      
         
-          <li> <h1>Objectives</h1>
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic01-overview-and-tools/unit-1/book-coffeemate-lab-01/index.html">Lab-01 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic02-ui-design/unit-1/book-coffeemate-lab-02/index.html">Lab-02 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic02-ui-design/unit-1/book-coffeemate-lab-03/index.html">Lab-03 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic02-ui-design/unit-2/book-coffeemate-lab-04/index.html">Lab-04 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/unit-1/book-coffeemate-lab-05-a/index.html">Lab-05-a </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic03-persistence/unit-1/book-coffeemate-lab-05-b/index.html">Lab-05-b </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic04-networking/unit-1/book-coffeemate-lab-06-a/index.html">Lab-06-a </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic04-networking/unit-1/book-coffeemate-lab-06-b/index.html">Lab-06-b </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic05-google-services/unit-1/book-coffeemate-lab-07/index.html">Lab-07 </a>
+          
+        
+      
+        
+          
+            <a class="item"
+               href="http://ddrohan.github.io/wit-mad-2-2019//topic05-google-services/unit-1/book-coffeemate-lab-08/index.html">Lab-08 </a>
+          
+        
+      
+    </div>
+    <div class="pusher" tabindex="-1">
+      <div class="ui basic segment">
+        <br>
+        
+          <div class="ui tab segment lab" data-tab="Lab-01">
+            <h1>Objectives</h1>
 <p>This lab introduces our Case Study <b>CoffeeMate</b> with a look at some of the basic features we can implement in an Android App.</p>
 <p>In this Lab, you will be required to develop the first version of our Case Study, <b>CoffeeMate.1.0</b>. We&#39;ll build on this project over the coming weeks &amp; months. On completion of this lab you&#39;ll be able to</p>
 <ul>
@@ -206,9 +238,11 @@ Lab-06-b
 <li><p>display and add functionality to a custom menu</p>
 </li>
 </ul>
-</li>
+
+          </div>
         
-          <li> <h1>Project Setup- &quot;CoffeeMate.1.0&quot;</h1>
+          <div class="ui tab segment lab" data-tab="01">
+            <h1>Project Setup- &quot;CoffeeMate.1.0&quot;</h1>
 <p>In Android Studio, select File-&gt;New-&gt;New Project, or if it&#39;s a first run, select &quot;Start a new Android Studio Project&quot;</p>
 <p><img src="img/firstrun.png" alt="Figure 1: Start a new Android Studio project"></p>
 <p>Press &quot;Next&quot; (or click the option) and then give the project a name: &#39;CoffeeMate.1.0&#39;</p>
@@ -244,9 +278,11 @@ Lab-06-b
 <p><img src="img/avd04.png" alt="Figure 13: List of AVDs currently available"></p>
 <p><b>The Virtual Device is very heavy on resources so you may need to choose settings below what is selected in the Screenshots.</b></p>
 <p>Otherwise, use the settings as above and your first Android App should launch, (Once you&#39;ve unlocked the device!):</p>
-</li>
+
+          </div>
         
-          <li> <h1>Starter Resources</h1>
+          <div class="ui tab segment lab" data-tab="02">
+            <h1>Starter Resources</h1>
 <p>To make things a bit easier, you can download some starter resources for this lab here - <a href="archives/drawable.zip">Resources</a>. It contains all of drawable (image) resources you&#39;ll need to complete this lab. So replace your existing drawable folder with this one once you&#39;ve extracted the archive somewhere on your hard disk.</p>
 <p>Once you have the drawable folder &#39;updated&#39; there&#39;s a few other resources to update, so first of all, replace your <b>colors.xml</b> with the following:</p>
 <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
@@ -435,9 +471,11 @@ Lab-06-b
 </li>
 </ul>
 <p>The following steps will guide you through these requirements, so we&#39;ll start with the &#39;ADD&#39; feature and getting our Coffee Check-In Button working.</p>
-</li>
+
+          </div>
         
-          <li> <h1>Switching to our &#39;Coffee Check In&#39; Screen</h1>
+          <div class="ui tab segment lab" data-tab="03">
+            <h1>Switching to our &#39;Coffee Check In&#39; Screen</h1>
 <p>First of all, have a quick look at the resource layout (content_home.xml) we will be referring to, and familiarise yourself with the properties of the different buttons as you will have to refer to these in the following steps.</p>
 <p>Th first thing we need to do is create a new &#39;Add&#39; Activity, so using Android Studio, go to File-&gt;New-&gt;Activity and create a new <b>Empty Activity</b> in the <b><i>ie.cm</i></b> package with the following details</p>
 <p><img src="img/lab101.png" alt=""></p>
@@ -634,9 +672,11 @@ public class Base extends AppCompatActivity {
 }</code></pre>
 <p>Now, see if you can refactor both the Home and Add Activities to utilise this Base class?</p>
 <p>Note : A Menu Item has it&#39;s own <i>onClick</i> also, so you should be trying to leverage this with the &#39;menuHome&#39; method above.</p>
-</li>
+
+          </div>
         
-          <li> <h1>Our Custom Menu</h1>
+          <div class="ui tab segment lab" data-tab="04">
+            <h1>Our Custom Menu</h1>
 <p>On completion of this step we&#39;ll have something like this:</p>
 <p><img src="img/starterappmenu.png" alt=""></p>
 <p>which we sort of already have, but we&#39;ll add functionality. So once again, have a quick look at the resource we will use to create our menu, and familiarise yourself with the &quot;id&#39;s&quot; of the different options, you will have to refer to these later on in your code.</p>
@@ -725,9 +765,11 @@ public class Base extends AppCompatActivity {
 <p>We really only have two activities at the moment (our &#39;Home&#39; &amp; Add Activities) the menu won&#39;t do much, but we&#39;ll add to this once we have our Help Screen completed - run your app again to test your menu and see if it displays the way it&#39;s supposed to. (something like below for the &#39;info&#39; option)</p>
 <p><img src="img/starterappinfo.png" alt=""></p>
 <p>Next we&#39;ll add in our new Help screen.</p>
-</li>
+
+          </div>
         
-          <li> <h1>The Help Screen</h1>
+          <div class="ui tab segment lab" data-tab="05">
+            <h1>The Help Screen</h1>
 <p>To implement the Help feature of our App you need to :</p>
 <ul>
 <li>create a new Activity (<b>Help.java</b>) and associated layout.</li>
@@ -740,9 +782,11 @@ public class Base extends AppCompatActivity {
 <p><img src="img/starterapphelp.png" alt=""></p>
 <p>Once you&#39;re happy with your own Help Screen, go ahead and wire it up to your <b>menuHelp</b> method in your Base class, so when the user selects the &#39;Help&#39; option from the menu, they are taken to your help screen (very like what you did for the info dialog).</p>
 <p>Now we can move on to actually adding a Coffee to our App.</p>
-</li>
+
+          </div>
         
-          <li> <h1>Adding a Coffee - Saving our data in &#39;Coffee Check In&#39;</h1>
+          <div class="ui tab segment lab" data-tab="06">
+            <h1>Adding a Coffee - Saving our data in &#39;Coffee Check In&#39;</h1>
 <p>Our Add screen looks as follows:</p>
 <p><img src="img/starterappadd.png" alt=""></p>
 <p>The first thing to do is add a click event to the &#39;Add&#39; Button on the layout, so do that now, as below</p>
@@ -807,9 +851,11 @@ coffeeList.add(c);</code></pre>
 <p><img src="img/lab210.png" alt=""></p>
 <p>Run the App once again to confirm the add feature is now implemented.</p>
 <p>However, if you&#39;re not seeing your list of coffees  you might need to take another look at your <b>Home</b> Activity and try and work out what&#39;s missing - but don&#39;t worry, we&#39;ll cover that in the next step.</p>
-</li>
+
+          </div>
         
-          <li> <h1>Displaying list of Coffees</h1>
+          <div class="ui tab segment lab" data-tab="07">
+            <h1>Displaying list of Coffees</h1>
 <p>The obvious (hopefully) reason that the list of coffees is not displaying, is because we haven&#39;t refactored Home to access the list and display it in our ListView.</p>
 <p>So the first thing to do is open Home.java and add and &#39;Override&#39; method, so we can confirm our coffees are being added to the list, every time we go &#39;Home&#39;.</p>
 <p>You can do this in Android Studio like so</p>
@@ -875,9 +921,11 @@ coffeeList.add(c);</code></pre>
 <p>Run and test the app again, and you should see your coffees displayed like so</p>
 <p><img src="img/starterappfinal.png" alt=""></p>
 <p>Well Done :)</p>
-</li>
+
+          </div>
         
-          <li> <h1>Exercises</h1>
+          <div class="ui tab segment lab" data-tab="Exercises">
+            <h1>Exercises</h1>
 <h2>Solution</h2>
 <p>This is a solution to the lab:</p>
 <ul>
@@ -891,26 +939,81 @@ coffeeList.add(c);</code></pre>
 <li><p>Consider using some logos or icons not in the resources folder, but ones you have found yourself as the menu option?</p>
 </li>
 </ul>
-</li>
-        
-      </ul>
-    </div>
 
-    <script>
-      $(document).ready(function() {
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    $(document).on('keydown', function(e) {
+  e = e || window.event;
+  var nextTab;
+  switch (e.which || e.keyCode) {
+    case 37: // left
+      nextTab = $('.tab-menu a[data-tab].active').prev('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').last();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+
+    case 39: // right
+      nextTab = $('.tab-menu a[data-tab].active').next('a[data-tab]');
+      if (!nextTab.length) nextTab = $('.tab-menu a[data-tab]').first();
+      nextTab.click();
+      $('.pusher').focus();
+      break;
+  }
+});
+
+    $(document).ready(function() {
+  $('img').addClass('ui image');
+
+  $('.ui.embed').embed();
+
   const $images = $('.lab img');
   jQuery.each($images, function(i) {
     if ($images[i].alt.length > 0) {
-      const divImg = $(document.createElement('div')).addClass('');
+      const divImg = $(document.createElement('div')).addClass(
+        'ui basic segment',
+      );
       $($images[i]).wrap(divImg);
-      const divLabel = $(document.createElement('div')).addClass('uk-label uk-text-lowercase');
+      const divLabel = $(document.createElement('div')).addClass(
+        'ui blue ribbon label',
+      );
       divLabel.append($images[i].alt);
-      $(divLabel).insertAfter($images[i]);
-      $('<br>').insertAfter($images[i]);
+      $(divLabel).insertBefore($images[i]);
     }
   });
+
+  $('.ui.menu .item').tab({
+    history: true,
+    historyType: 'hash',
+  });
+
+  $('.popup').popup();
+
+  $('.ui.sidebar')
+    .sidebar({ context: $('.pushable') })
+    .sidebar('setting', 'transition', 'slide out')
+    .sidebar('attach events', '#toc');
 });
 
-    </script>
+  </script>
+
+
+
+  <div class="ui bottom fixed borderless right menu">
+    <div class="ui right small menu">
+      <div class="ui tiny basic message segment">
+         Powered by <a href="https://github.com/edeleastar/tutors-ts">tutors-ts.</a> 
+      </div>
+    </div>
+  </div>
+
   </body>
+
 </html>
